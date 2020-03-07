@@ -17,9 +17,19 @@ export default {
       name: "productions",
       title: "Productions",
       type: "array",
-      of: [
-        { type: "production" }
-      ]
+      of: [{ type: "production" }]
     }
-  ]
-}
+  ],
+  preview: {
+    select: {
+      startYear: "startYear",
+      endYear: "endYear"
+    },
+    prepare(selection) {
+      const { startYear, endYear } = selection;
+      return {
+        title: `${startYear} - ${endYear}`
+      };
+    }
+  }
+};

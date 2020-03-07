@@ -12,7 +12,12 @@ export default {
       name: "crew",
       title: "Crew",
       type: "array",
-      of: [{ type: "crewMember" }]
+      of: [{ type: "crewEntry" }]
+    },
+    {
+      name: "mainImage",
+      title: "Production cover image",
+      type: "image"
     },
     {
       name: "images",
@@ -27,5 +32,18 @@ export default {
         }
       ]
     }
-  ]
-}
+  ],
+  preview: {
+    select: {
+      media: "mainImage",
+      title: "title"
+    },
+    prepare(selection) {
+      const { media, title } = selection;
+      return {
+        title,
+        media
+      };
+    }
+  }
+};
