@@ -14,6 +14,11 @@ export default {
       type: "string"
     },
     {
+      name: "isCurrent",
+      title: "This is the current season",
+      type: "boolean"
+    },
+    {
       name: "productions",
       title: "Productions",
       type: "array",
