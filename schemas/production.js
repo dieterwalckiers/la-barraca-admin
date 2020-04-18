@@ -8,21 +8,34 @@ export default {
     {
       name: "title",
       title: "Title",
-      type: "string"
+      type: "string",
+    },
+    {
+      name: "shortDescription",
+      description: "1 à 2 zinnen",
+      title: "Short Description",
+      type: "text",
+      rows: 4,
+    },
+    {
+      name: "backgroundInformation",
+      title: "Background info",
+      type: "array",
+      of: [{ type: "block" }],
     },
     {
       name: "crew",
       title: "Crew",
       type: "array",
-      of: [{ type: "crewEntry" }]
+      of: [{ type: "crewEntry" }],
     },
     {
       name: "mainImage",
       title: "Production cover image",
       type: "image",
       options: {
-        hotspot: true
-      }
+        hotspot: true,
+      },
     },
     {
       name: "images",
@@ -32,10 +45,10 @@ export default {
         {
           type: "image",
           options: {
-            hotspot: true
-          }
-        }
-      ]
+            hotspot: true,
+          },
+        },
+      ],
     },
     {
       name: "vimeoId",
@@ -48,23 +61,22 @@ export default {
       title: "Performance Calendar",
       type: "string",
       inputComponent: PerformanceCalendar,
-    }
+    },
   ],
   preview: {
     select: {
       media: "mainImage",
-      title: "title"
+      title: "title",
     },
     prepare(selection) {
       const { media, title } = selection;
       return {
         title,
-        media
+        media,
       };
-    }
-  }
+    },
+  },
 };
-
 
 /*
 <iframe src="https://player.vimeo.com/video/396407429" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>

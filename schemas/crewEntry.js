@@ -6,7 +6,8 @@ export default {
     {
       name: "functionName",
       title: "Function",
-      type: "string"
+      type: "string",
+      description: "Regie? Cast? Techniek? ..."
     },
     {
       name: "people",
@@ -15,7 +16,8 @@ export default {
       of: [{ type: "string" }],
       options: {
         layout: "tags"
-      }
+      },
+      description: "Typ de namen en druk op enter na elke naam"
     }
   ],
   preview: {
