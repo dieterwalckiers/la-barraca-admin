@@ -15,7 +15,9 @@
     "@sanity/desk-tool",
     "@sanity/rich-date-input",
     "my-studio-logo",
-    "bookings"
+    "bookings",
+    "@sanity/dashboard",
+    "dashboard-widget-netlify"
   ],
   "env": {
     "development": {
@@ -31,6 +33,10 @@
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
+    },
+    {
+      "implements": "part:@sanity/dashboard/config",
+      "path": "src/dashboardConfig.js"
     }
   ]
 }
