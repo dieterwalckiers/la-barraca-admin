@@ -33,3 +33,9 @@
   padding: 0 10px;
   max-width: 66%;
 }
+
+.performanceSet {
+  padding: 24px;
+  width: 100%;
+  max-width: 850px;
+}

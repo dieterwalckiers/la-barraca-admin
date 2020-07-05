@@ -1,12 +1,24 @@
-import ApolloClient from "apollo-boost";
-import React from "react";
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import { StateLink, withRouterHOC, IntentLink } from "part:@sanity/base/router";
 import Spinner from "part:@sanity/components/loading/spinner";
 import Preview from "part:@sanity/base/preview";
 import client from "part:@sanity/base/client";
 import schema from "part:@sanity/base/schema";
-import { gql } from "apollo-boost";
+import { gql, ApolloProvider } from "apollo-boost";
 import PerformanceSet from "./performanceSet";
+import { normalizeProduction, normalizePerformance } from "./helpers";
+import {
+  ApolloProvider as ApolloHooksProvider,
+  useMutation,
+  useQuery,
+} from "@apollo/react-hooks";
+import ApolloClientProvider from "./ApolloClientProvider";
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
@@ -15,117 +27,113 @@ import PerformanceSet from "./performanceSet";
 // See https://github.com/css-modules/css-modules for more info.
 import styles from "./Bookings.css";
 
-function initApolloClient() {
-  return new ApolloClient({
-    uri: "https://graphql.fauna.com/graphql",
-    request: (operation) => {
-      const b64encodedSecret = Buffer.from(
-        "fnADsUC1yGACAMRG08nVKKK4_0oo4PzsyW-RIRKh" + ":" // weird but they // TODO: get from process.env.FAUNADB_SERVER_SECRET again (should already be set in the netlify ui)
-      ).toString("base64");
-      operation.setContext({
-        headers: {
-          Authorization: `Basic ${b64encodedSecret}`,
-        },
-      });
+const Bookings = (props) => {
+  const { router } = props;
+
+  const [productions, setProductions] = useState();
+  const [allPerformances, setAllPerformances] = useState();
+  const [performanceSet, setPerformanceSet] = useState();
+
+  const handleReceiveSeasons = useCallback(
+    (seasons) => {
+      console.log("receiving", seasons);
+      const prods = seasons.reduce((reduced, season) => {
+        return [...reduced, ...season.productions.map(normalizeProduction)];
+      }, []);
+      setProductions(prods);
     },
-  });
-}
+    [setProductions]
+  );
 
-class Bookings extends React.Component {
-  state = {};
-  observables = {};
-  apolloClient = undefined;
-
-  handleReceiveSeasons = (seasons) => {
-    console.log("receiving", seasons);
-
-    const productions = seasons.reduce((reduced, season) => {
-      return [
-        ...reduced,
-        ...season.productions.map((p) => ({ title: p.title, id: p._key })),
-      ];
-    }, []);
-
-    console.log("extracted", productions);
-
-    this.setState({ productions });
-  };
-
-  // handleReceiveDocument = (document) => {
-  //   this.setState({ production });
-  // };
-
-  componentWillMount() {
-    this.apolloClient = initApolloClient();
-    this.observables.list = client.observable
+  useEffect(() => {
+    //fetchAllPerformances();
+    client.observable
       .fetch(
         '*[_type == "season"]{_id,"productions": productions[]{title, _key}}'
       )
-      .subscribe(this.handleReceiveSeasons);
+      .subscribe(handleReceiveSeasons);
     // If we have a document ID as part of our route, load that document as well
-    const productionId = this.props.router.state.selectedProductionId;
-    if (productionId) {
-      this.fetchAllPerformances(productionId);
-    }
-  }
+  }, []);
 
-  // fetchDocument(documentId) {
-  //   // If we're already fetching a document, make sure to cancel that request
-  //   if (this.observables.document) {
-  //     this.observables.document.unsubscribe();
+  // useEffect(() => {
+  //   if (!allPerformances) {
+  //     fetchAllPerformances();
   //   }
+  // }, [allPerformances, fetchAllPerformances]);
 
-  //   this.observables.document = client.observable
-  //     .getDocument(documentId)
-  //     .subscribe(this.handleReceiveDocument);
-  // }
+  const selectedProductionId = useMemo(
+    () => router.state.selectedProductionId,
+    [router]
+  );
+  const previousSelectedProductionId = usePrevious(selectedProductionId);
+  const previousAllPerformances = usePrevious(allPerformances);
 
-  /*
-    @TODO Because there's no "get by productionID" implemented yet @ Fauna, we pull them all in for now. To fix!
-  */
-  async fetchAllPerformances(productionID) {
-    const rs = await this.apolloClient.query({
-      query: gql`
-        {
-          allPerformances {
-            data {
-              productionID
-              timeID
-              visitors
-            }
-          }
-        }
-      `,
-    });
-    if (rs.data) {
-      const {
-        allPerformances: { data: allPerformances },
-      } = rs.data;
-      this.setState({
-        performances: allPerformances.filter(
-          (p) => p.productionID === productionID
-        ),
-      });
+  useEffect(() => {
+    if (allPerformances) {
+      const selectedProductionIdChanged =
+        selectedProductionId !== previousSelectedProductionId;
+      const allPerformancesChanged =
+        allPerformances !== previousAllPerformances;
+      if (
+        selectedProductionIdChanged ||
+        allPerformancesChanged ||
+        (selectedProductionId && !performanceSet)
+      ) {
+        setPerformanceSet(
+          allPerformances.filter((p) => p.productionID == selectedProductionId)
+        );
+      }
     }
-  }
+  }, [
+    selectedProductionId,
+    previousSelectedProductionId,
+    performanceSet,
+    allPerformances,
+  ]);
 
-  componentWillReceiveProps(nextProps) {
-    // const current = this.props.router.state.selectedProductionId;
-    // const next = nextProps.router.state.selectedProductionId;
-    // if (current !== next) {
-    //   this.fetchDocument(next);
-    // }
-  }
+  const { data: allPerformancesData } = useQuery(gql`
+    {
+      allPerformances {
+        data {
+          _id
+          productionID
+          timeID
+          visitors
+        }
+      }
+    }
+  `);
 
-  // When unmounting, cancel any ongoing requests
-  componentWillUnmount() {
-    Object.keys(this.observables).forEach((obs) => {
-      this.observables[obs].unsubscribe();
+  useEffect(() => {
+    if (allPerformancesData) {
+      console.log("allPerformancesData", allPerformancesData);
+      const {
+        allPerformances: { data: allPerformancesRaw },
+      } = allPerformancesData;
+      const allPerfs = allPerformancesRaw.map(normalizePerformance);
+      setAllPerformances(allPerfs);
+    }
+  }, [allPerformancesData]);
+
+  const [UpdatePerformance, { data }] = useMutation(gql`
+    mutation UpdatePerformance($id: ID!, $visitors: String) {
+      updatePerformance(id: $id, data: { visitors: $visitors }) {
+        _id
+        productionID
+        timeID
+        visitors
+      }
+    }
+  `);
+
+  const onUpdateVisitors = useCallback(async (performanceId, visitors) => {
+    console.log("update", visitors);
+    await UpdatePerformance({
+      variables: { id: performanceId, visitors: JSON.stringify(visitors) },
     });
-  }
+  }, []);
 
-  renderProductions() {
-    const { productions } = this.state;
+  const renderProductions = useCallback(() => {
     if (!productions) {
       return (
         <div className={styles.list}>
@@ -133,7 +141,6 @@ class Bookings extends React.Component {
         </div>
       );
     }
-
     return (
       <ul className={styles.list}>
         {productions.map((prod) => (
@@ -145,47 +152,56 @@ class Bookings extends React.Component {
         ))}
       </ul>
     );
-  }
+  }, [productions]);
 
-  renderPerformances() {
-    const { performances } = this.state;
-    if (!performances) {
+  const renderPerformances = useCallback(() => {
+    console.log("rnr", performanceSet);
+    if (!performanceSet) {
       return (
         <div className={styles.document}>
           <Spinner message="Reservaties worden geladen..." center />}
         </div>
       );
     }
-
-    return <PerformanceSet performances={performances} />
-
-    // const { _id, _type } = document;
-    // return (
-    //   <div className={styles.document}>
-    //     <h2>
-    //       {_id} -{" "}
-    //       <IntentLink intent="edit" params={{ id: _id, type: _type }}>
-    //         Edit
-    //       </IntentLink>
-    //     </h2>
-
-    //     <pre>
-    //       <code>{JSON.stringify(document, null, 2)}</code>
-    //     </pre>
-    //   </div>
-    // );
-  }
-
-  render() {
-    const { selectedProductionId } = this.props.router.state;
-
     return (
-      <div className={styles.container}>
-        {this.renderProductions()}
-        {selectedProductionId && this.renderPerformances()}}
-      </div>
+      <PerformanceSet
+        performanceSet={performanceSet}
+        onUpdateVisitors={onUpdateVisitors}
+      />
     );
-  }
-}
+  }, [performanceSet]);
 
-export default withRouterHOC(Bookings);
+  return (
+    <div className={styles.container}>
+      {renderProductions()}
+      {selectedProductionId && renderPerformances()}
+    </div>
+  );
+};
+
+const BookingsWrapper = (props) => {
+  return (
+    <ApolloClientProvider>
+      {(apolloClient) => {
+        console.log("render children with", apolloClient);
+        return apolloClient ? (
+          <ApolloHooksProvider client={apolloClient}>
+            <Bookings {...props} />
+          </ApolloHooksProvider>
+        ) : (
+          "loading"
+        );
+      }}
+    </ApolloClientProvider>
+  );
+};
+
+export default withRouterHOC(BookingsWrapper);
+
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}

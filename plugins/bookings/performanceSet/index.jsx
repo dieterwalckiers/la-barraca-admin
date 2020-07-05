@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Performance from "./Performance";
+import styles from "../Bookings.css";
 
 const PerformanceSet = (props) => {
-  const { performances } = props;
-  return performances.map((p) => <Performance key={`perf${p.id}`} performance={p} />);
+  const { performanceSet, onUpdateVisitors } = props;
+
+  return (
+    <div className={styles.performanceSet}>
+      {performanceSet.map((p) => (
+        <Performance key={`perf${p.id}`} performance={p} onUpdateVisitors={onUpdateVisitors} />
+      ))}
+    </div>
+  );
 };
 
 export default PerformanceSet;
