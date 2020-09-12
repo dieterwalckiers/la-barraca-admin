@@ -5,7 +5,7 @@
   },
   "api": {
     "projectId": "p3ezynln",
-    "dataset": "production"
+    "dataset": "development"
   },
   "plugins": [
     "@sanity/base",
@@ -37,6 +37,10 @@
     {
       "implements": "part:@sanity/dashboard/config",
       "path": "src/dashboardConfig.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.js"
     }
   ]
 }

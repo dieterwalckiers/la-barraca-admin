@@ -3,23 +3,23 @@ import PerformanceCalendar from "../components/PerformanceCalendar";
 export default {
   type: "object",
   name: "production",
-  title: "Production",
+  title: "Productie",
   fields: [
     {
       name: "title",
-      title: "Title",
+      title: "Naam",
       type: "string",
     },
     {
       name: "shortDescription",
       description: "1 à 2 zinnen",
-      title: "Short Description",
+      title: "Teaser",
       type: "text",
       rows: 4,
     },
     {
       name: "backgroundInformation",
-      title: "Background info",
+      title: "Beschrijving",
       type: "array",
       of: [{ type: "block" }],
     },
@@ -31,7 +31,7 @@ export default {
     },
     {
       name: "mainImage",
-      title: "Production cover image",
+      title: "Productie coverbeeld",
       type: "image",
       options: {
         hotspot: true,
@@ -39,7 +39,7 @@ export default {
     },
     {
       name: "images",
-      title: "Production images",
+      title: "Productiebeelden",
       type: "array",
       of: [
         {
@@ -58,9 +58,15 @@ export default {
     },
     {
       name: "performanceCalendar",
-      title: "Performance Calendar",
+      title: "Voorstellingen",
       type: "string",
       inputComponent: PerformanceCalendar,
+    },
+    {
+      name: "seats",
+      title: "Aantal plaatsen",
+      description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
+      type: "number",
     },
   ],
   preview: {

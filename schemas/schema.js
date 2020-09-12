@@ -7,6 +7,7 @@ import schemaTypes from "all:part:@sanity/base/schema-type";
 import season from "./season";
 import production from "./production";
 import crewEntry from "./crewEntry";
+import siteSettings from "./siteSettings";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -16,6 +17,7 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     season,
+    siteSettings,
     production,
     crewEntry
   ])

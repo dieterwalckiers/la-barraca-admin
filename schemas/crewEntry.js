@@ -5,13 +5,13 @@ export default {
   fields: [
     {
       name: "functionName",
-      title: "Function",
+      title: "Functie",
       type: "string",
       description: "Regie? Cast? Techniek? ..."
     },
     {
       name: "people",
-      title: "People",
+      title: "Namen",
       type: "array",
       of: [{ type: "string" }],
       options: {

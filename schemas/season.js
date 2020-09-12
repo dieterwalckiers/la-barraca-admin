@@ -1,26 +1,26 @@
 export default {
   type: "document",
   name: "season",
-  title: "Season",
+  title: "Seizoen",
   fields: [
     {
       name: "startYear",
-      title: "Start year",
+      title: "Startjaar",
       type: "string"
     },
     {
       name: "endYear",
-      title: "End year",
+      title: "Eindjaar",
       type: "string"
     },
     {
       name: "isCurrent",
-      title: "This is the current season",
+      title: "Dit is het huidige seizoen",
       type: "boolean"
     },
     {
       name: "productions",
-      title: "Productions",
+      title: "Producties",
       type: "array",
       of: [{ type: "production" }]
     }
