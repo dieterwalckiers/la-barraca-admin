@@ -68,6 +68,12 @@ export default {
       description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
       type: "number",
     },
+    {
+      name: "ticketPrice",
+      title: "Ticket prijs",
+      description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
+      type: "number"
+    }
   ],
   preview: {
     select: {
