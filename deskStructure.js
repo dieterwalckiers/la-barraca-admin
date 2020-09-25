@@ -6,7 +6,7 @@ export default () =>
         .items([
             ...S.documentTypeListItems().filter(
                 listItem =>
-                    !["siteSettings"].includes(listItem.getId())
+                    !["siteSettings", "confirmationEmail"].includes(listItem.getId())
             ),
             S.listItem()
                 .title("Instellingen")
@@ -14,5 +14,12 @@ export default () =>
                     S.editor()
                         .schemaType("siteSettings")
                         .documentId("siteSettings")
+                ),
+            S.listItem()
+                .title("Bevestigingsmail")
+                .child(
+                    S.editor()
+                        .schemaType("confirmationEmail")
+                        .documentId("confirmationEmail")
                 ),
         ]);

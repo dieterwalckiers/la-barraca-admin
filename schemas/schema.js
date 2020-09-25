@@ -8,6 +8,7 @@ import season from "./season";
 import production from "./production";
 import crewEntry from "./crewEntry";
 import siteSettings from "./siteSettings";
+import confirmationEmail from "./confirmationEmail";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -19,6 +20,7 @@ export default createSchema({
     season,
     siteSettings,
     production,
-    crewEntry
+    crewEntry,
+    confirmationEmail
   ])
 });
