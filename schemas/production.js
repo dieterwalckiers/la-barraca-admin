@@ -73,6 +73,12 @@ export default {
       title: "Ticket prijs",
       description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
       type: "number"
+    },
+    {
+      name: "ticketPriceStudents",
+      title: "Ticket studentenprijs",
+      description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
+      type: "number"
     }
   ],
   preview: {

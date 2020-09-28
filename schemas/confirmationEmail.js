@@ -36,6 +36,11 @@ export default {
       title: "Footer",
       type: "array",
       of: [{ type: "block" }],
+    },
+    {
+      name: "attachment",
+      title: "Bijlage",
+      type: "file",
     }
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]

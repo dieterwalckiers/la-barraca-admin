@@ -22,6 +22,11 @@ export default {
       name: "ticketPrice",
       title: "Ticket prijs",
       type: "number"
+    },
+    {
+      name: "ticketPriceStudents",
+      title: "Ticket studentenprijs",
+      type: "number"
     }
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
