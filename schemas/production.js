@@ -79,6 +79,12 @@ export default {
       title: "Ticket studentenprijs",
       description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
       type: "number"
+    },
+    {
+      name: "ticketLink",
+      title: "Link naar externe ticketpagina",
+      description: "Indien ingevuld verwijst de 'Reserveer nu' knop hiernaar ipv ons eigen reservatieformulier",
+      type: "string"
     }
   ],
   preview: {

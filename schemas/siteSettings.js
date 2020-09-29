@@ -27,6 +27,18 @@ export default {
       name: "ticketPriceStudents",
       title: "Ticket studentenprijs",
       type: "number"
+    },
+    {
+      name: "partnerLogos",
+      title: "Partner logo's",
+      type: "array",
+      of: [{ type: "partnerLogo" }]
+    },
+    {
+      name: "supporterLogos",
+      title: "Steun-van logo's",
+      type: "array",
+      of: [{ type: "partnerLogo" }]
     }
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]

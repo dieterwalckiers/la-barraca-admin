@@ -10,6 +10,7 @@ import crewEntry from "./crewEntry";
 import siteSettings from "./siteSettings";
 import confirmationEmail from "./confirmationEmail";
 import webCopy from "./webCopy";
+import partnerLogo from "./partnerLogo";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -24,5 +25,6 @@ export default createSchema({
     crewEntry,
     confirmationEmail,
     webCopy,
+    partnerLogo,
   ])
 });
