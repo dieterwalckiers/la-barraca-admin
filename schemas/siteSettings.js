@@ -39,6 +39,11 @@ export default {
       title: "Steun-van logo's",
       type: "array",
       of: [{ type: "partnerLogo" }]
+    },
+    {
+      name: "contactFormRecipient",
+      title: "Contactformulier ontvanger email",
+      type: "string",
     }
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]

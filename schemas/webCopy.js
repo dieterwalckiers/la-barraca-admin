@@ -27,6 +27,5 @@ export default {
       of: [{ type: "block" }],
     }
   ],
-  // __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
-  // TODO ENABLE THESE AS SOON AS THIS MSG LIVES ON PRODUCTION
+  __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
 };
