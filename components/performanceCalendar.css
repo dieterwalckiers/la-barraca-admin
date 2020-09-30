@@ -1,0 +1,18 @@
+.perfRow {
+    margin-bottom: 2px;
+    display: flex;
+}
+
+.datepicker {
+    width: 160px;
+    margin-right: 2px;
+}
+
+.timepicker {
+    width: 60px;
+    margin-right: 2px;
+}
+
+.locationInput {
+    margin-right: 2px;
+}

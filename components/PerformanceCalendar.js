@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 
 import PatchEvent, { set, unset } from "part:@sanity/form-builder/patch-event";
+import styles from "./performanceCalendar.css";
+
+const DEFAULT_LOCATION = "La Barraca";
 
 const createPatchFrom = value =>
   PatchEvent.from(value === "" ? unset() : set(value));
@@ -14,13 +17,14 @@ function isValidDate(d) {
 function toDao(performances) {
   return JSON.stringify(
     performances.map(performance => {
-      const { date, time } = performance;
+      const { date, time, location } = performance;
       const formattedDate = `${date.getDate()}/${date.getMonth() +
         1}/${date.getFullYear()}`;
       const formattedTime = `${time.getHours()}:${time.getMinutes()}`;
       return {
         date: formattedDate,
-        time: formattedTime
+        time: formattedTime,
+        location
       };
     })
   );
@@ -50,7 +54,8 @@ function fromDao(performancesDao) {
         if (!isValidDate(parsedDate)) {
           return acc;
         }
-        return acc.concat({ ...p, date: parsedDate, time: parsedTime });
+        const location = p.location || DEFAULT_LOCATION;
+        return acc.concat({ ...p, date: parsedDate, time: parsedTime, location });
       }, []);
     } else {
       parseFailed = true;
@@ -60,7 +65,7 @@ function fromDao(performancesDao) {
     parseFailed = true;
   }
   if (parseFailed) {
-    performances = [{ date: new Date(), time: new Date(2000, 0, 1, 20, 0) }];
+    performances = [{ date: new Date(), time: new Date(2000, 0, 1, 20, 0), location: DEFAULT_LOCATION }];
   }
   console.log("performances", performances);
   return performances;
@@ -87,6 +92,9 @@ export default class PerformanceCalendar extends React.Component {
     this.renderNewBtn = this.renderNewBtn.bind(this);
     this.buildOnNew = this.buildOnNew.bind(this);
     this.buildOnDelete = this.buildOnDelete.bind(this);
+    this.state = {
+      _locations: {},
+    };
   }
 
   componentDidMount() {
@@ -111,11 +119,16 @@ export default class PerformanceCalendar extends React.Component {
     this._inputElement.focus();
   }
 
+  buildOnChangeLocation(row) {
+    const { _locations } = this.state;
+    return (e) => this.setState({ _locations: { ..._locations, [row]: e.target.value } });
+  }
+
   renderPerformanceInput(performance, i) {
     console.log("render performance", performance);
-    const { date, time } = performance;
+    const { date, time, location } = performance;
     const { onChange } = this.props;
-    const { performances } = this.state;
+    const { performances, _locations } = this.state;
 
     const buildOnDateChangeProp = () => {
       return newDate => {
@@ -134,12 +147,27 @@ export default class PerformanceCalendar extends React.Component {
       };
     };
 
+    const buildOnLocationBlurProp = (row) => {
+      const { _locations } = this.state;
+      return e => {
+        const newLocation = e.target.value;
+        console.log("newLocation", newLocation);
+        const updatedPerformances = [...performances];
+        updatedPerformances[i].location = newLocation;
+        onChange(createPatchFrom(toDao(updatedPerformances)));
+        this.setState({
+          _locations: { ..._locations, [row]: undefined }
+        });
+      };
+    }
+
     return (
-      <div key={`perfinput${date}${time}${i}`} style={{ display: "flex" }}>
+      <div className={styles.perfRow} key={`perfinput${date}${time}${i}`}>
         <DatePicker
           selected={date}
           onChange={buildOnDateChangeProp()}
           dateFormat="dd-MM-yyyy"
+          className={styles.datepicker}
         />
         <DatePicker
           selected={time}
@@ -150,8 +178,10 @@ export default class PerformanceCalendar extends React.Component {
           timeCaption="Time"
           dateFormat="HH:mm"
           timeFormat="HH:mm"
+          className={styles.timepicker}
         />
-        <button onClick={this.buildOnDelete(i)}>delete</button>
+        <input type="text" value={_locations[i] || location} onChange={this.buildOnChangeLocation(i)} onBlur={buildOnLocationBlurProp(i)} className={styles.locationInput} />
+        <button onClick={this.buildOnDelete(i)}>verwijder</button>
       </div>
     );
   }
@@ -174,17 +204,18 @@ export default class PerformanceCalendar extends React.Component {
         !!performances.length && performances[performances.length - 1].date;
       const newDate = lastDate
         ? new Date(
-            lastDate.getFullYear(),
-            lastDate.getMonth(),
-            lastDate.getDate() + 1
-          )
+          lastDate.getFullYear(),
+          lastDate.getMonth(),
+          lastDate.getDate() + 1
+        )
         : new Date();
       onChange(
         createPatchFrom(
           toDao(
             performances.concat({
               date: newDate,
-              time: new Date(2000, 0, 1, 20, 0)
+              time: new Date(2000, 0, 1, 20, 0),
+              location: DEFAULT_LOCATION
             })
           )
         )
@@ -195,7 +226,7 @@ export default class PerformanceCalendar extends React.Component {
   renderNewBtn() {
     return (
       <div>
-        <button onClick={this.buildOnNew()}>Add performance</button>
+        <button onClick={this.buildOnNew()}>Voorstelling toevoegen</button>
       </div>
     );
   }
@@ -207,11 +238,11 @@ export default class PerformanceCalendar extends React.Component {
     return !performances ? (
       "loading"
     ) : (
-      <div>
-        <h2>{type.title}</h2>
-        {performances.map(this.renderPerformanceInput)}
-        {this.renderNewBtn()}
-      </div>
-    );
+        <div>
+          <h2>{type.title}</h2>
+          {performances.map(this.renderPerformanceInput)}
+          {this.renderNewBtn()}
+        </div>
+      );
   }
 }
