@@ -41,6 +41,11 @@ export default {
       name: "attachment",
       title: "Bijlage",
       type: "file",
+    },
+    {
+      name: "attachmentFilename",
+      title: "Bijlage bestandsnaam",
+      type: "string",
     }
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
