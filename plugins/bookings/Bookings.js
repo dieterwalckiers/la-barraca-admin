@@ -110,7 +110,7 @@ const Bookings = (props) => {
       const {
         allPerformances: { data: allPerformancesRaw },
       } = allPerformancesData;
-      const allPerfs = allPerformancesRaw.map(normalizePerformance);
+      const allPerfs = allPerformancesRaw.map(normalizePerformance).sort(({ date: date1 }, { date: date2 }) => date1.isBefore(date2) ? -1 : 1);
       setAllPerformances(allPerfs);
     }
   }, [allPerformancesData]);
@@ -189,8 +189,8 @@ const BookingsWrapper = (props) => {
             <Bookings {...props} />
           </ApolloHooksProvider>
         ) : (
-          "loading"
-        );
+            "loading"
+          );
       }}
     </ApolloClientProvider>
   );

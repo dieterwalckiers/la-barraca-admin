@@ -37,7 +37,8 @@
     "react-datepicker": "^2.14.1",
     "react-dom": "^16.13.1",
     "sanity-plugin-dashboard-widget-netlify": "^1.0.1",
-    "superagent": "^5.2.2"
+    "superagent": "^5.2.2",
+    "moment": "^2.26.0"
   },
   "devDependencies": {},
   "repository": {
