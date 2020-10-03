@@ -14,6 +14,11 @@ export default {
       type: "number"
     },
     {
+      name: "minSeatsPerBooking",
+      title: "Minimum aantal plaatsen per bestelling",
+      type: "number",
+    },
+    {
       name: "lastSeatsWarningTreshold",
       title: "Toon 'laatste plaatsen' waarschuwing bij minder dan X plaatsen",
       type: "number"
