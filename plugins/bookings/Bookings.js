@@ -165,6 +165,7 @@ const Bookings = (props) => {
     }
     return (
       <PerformanceSet
+        production={productions.find(p => p.id === selectedProductionId)}
         performanceSet={performanceSet}
         onUpdateVisitors={onUpdateVisitors}
       />

@@ -16,6 +16,24 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import * as request from "superagent";
+
+import getConfig from "../config";
+const config = getConfig();
+const { sendConfirmationMailEndpoint } = config;
+
+async function handleSendConfirmationMail(info, productionTitle, timeID) {
+  const { name, email, quantity } = info;
+  await request
+    .post(sendConfirmationMailEndpoint)
+    .send({
+      productionName: productionTitle,
+      timeID,
+      name,
+      email,
+      quantity,
+    });
+}
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -41,8 +59,8 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 const Performance = (props) => {
-  const { performance, onUpdateVisitors } = props;
-  const { timeString, visitors } = performance;
+  const { performance, onUpdateVisitors, production } = props;
+  const { timeID, timeString, visitors } = performance;
 
   const handleUpdateVisitors = useCallback(
     async (visitors) => {
@@ -90,13 +108,19 @@ const Performance = (props) => {
         editable={{
           onRowAdd: async (newData) => {
             console.log("newData", newData);
-            await handleUpdateVisitors([...visitors, newData]);
+            try {
+              await handleUpdateVisitors([...visitors, newData]);
+              await handleSendConfirmationMail(newData, production.title, timeID);
+            } catch (e) {
+              console.error("error in adding", e.message || e);
+            }
           },
           onRowUpdate: async (newData, oldData) => {
             const dataUpdate = [...visitors];
             const index = oldData.tableData.id;
             dataUpdate[index] = newData;
             await handleUpdateVisitors([...dataUpdate]);
+            await handleSendConfirmationMail(newData, production.title, timeID);
           },
           onRowDelete: async (oldData) => {
             const dataDelete = [...visitors];

@@ -6,3 +6,10 @@ sanity graphql deploy
 
 
 sanity deploy
+
+
+
+restoring datasets
+sanity dataset delete development
+sanity dataset export production .
+sanity dataset import ./production.tar.gz development
