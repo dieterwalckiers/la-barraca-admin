@@ -23,7 +23,7 @@ const config = getConfig();
 const { sendConfirmationMailEndpoint } = config;
 
 async function handleSendConfirmationMail(info, productionTitle, timeID) {
-  const { name, email, quantity } = info;
+  const { name, email, quantity, studentQuantity } = info;
   await request
     .post(sendConfirmationMailEndpoint)
     .send({
@@ -32,6 +32,7 @@ async function handleSendConfirmationMail(info, productionTitle, timeID) {
       name,
       email,
       quantity,
+      studentQuantity
     });
 }
 
@@ -70,16 +71,17 @@ const Performance = (props) => {
   );
 
   return (
-    <div className={styles.performanceBox}>
+    <div>
       <MaterialTable
         columns={[
           { title: "Naam", field: "name" },
           { title: "Email", field: "email" },
           {
-            title: "Aantal",
+            title: "Aantal standaard",
             field: "quantity",
             type: "numeric",
             lookup: {
+              0: 0,
               1: 1,
               2: 2,
               3: 3,
@@ -101,6 +103,36 @@ const Performance = (props) => {
               19: 19,
               20: 20,
             },
+            width: 100,
+          },
+          {
+            title: "Aantal student",
+            field: "studentQuantity",
+            type: "numeric",
+            lookup: {
+              0: 0,
+              1: 1,
+              2: 2,
+              3: 3,
+              4: 4,
+              5: 5,
+              6: 6,
+              7: 7,
+              8: 8,
+              9: 9,
+              10: 10,
+              11: 11,
+              12: 12,
+              13: 13,
+              14: 14,
+              15: 15,
+              16: 16,
+              17: 17,
+              18: 18,
+              19: 19,
+              20: 20,
+            },
+            width: 100,
           },
           { title: "Opmerkingen", field: "remarks" },
         ]}
