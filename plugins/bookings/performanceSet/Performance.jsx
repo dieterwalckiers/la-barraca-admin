@@ -76,6 +76,7 @@ const Performance = (props) => {
         columns={[
           { title: "Naam", field: "name" },
           { title: "Email", field: "email" },
+          { title: "Telefoonnummer", field: "telephone" },
           {
             title: "Aantal standaard",
             field: "quantity",
