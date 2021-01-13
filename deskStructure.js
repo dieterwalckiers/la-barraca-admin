@@ -6,7 +6,7 @@ export default () =>
         .items([
             ...S.documentTypeListItems().filter(
                 listItem =>
-                    !["siteSettings", "confirmationEmail", "webCopy"].includes(listItem.getId())
+                    !["siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "ourFriends"].includes(listItem.getId())
             ),
             S.listItem()
                 .title("Instellingen")
@@ -23,10 +23,24 @@ export default () =>
                         .documentId("confirmationEmail")
                 ),
             S.listItem()
+                .title("Feedback mail")
+                .child(
+                    S.editor()
+                        .schemaType("feedbackEmail")
+                        .documentId("feedbackEmail")
+                ),
+            S.listItem()
                 .title("Web copy")
                 .child(
                     S.editor()
                         .schemaType("webCopy")
                         .documentId("webCopy")
+                ),
+            S.listItem()
+                .title("Onze vrienden")
+                .child(
+                    S.editor()
+                        .schemaType("ourFriends")
+                        .documentId("ourFriends")
                 ),
         ]);

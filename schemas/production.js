@@ -11,6 +11,17 @@ export default {
       type: "string",
     },
     {
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      description: "Id om een unieke productie-link mee samen te stellen. Bv. \"ode-aan-lorca\", dan wordt dat labarraca.be/ode-aan-lorca. Je kan dit laten genereren of zelf invullen",
+      options: {
+        source: (doc, {parent}) => parent && parent.title,
+        maxLength: 96
+      },
+      validation: Rule => Rule.required()
+    },
+    {
       name: "shortDescription",
       description: "1 à 2 zinnen",
       title: "Teaser",
