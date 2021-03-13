@@ -25,7 +25,32 @@ export default {
       title: "Bericht bij fout in betaling",
       type: "array",
       of: [{ type: "block" }],
-    }
+    },
+    {
+      name: "internalFeedbackLabel",
+      title: "Interne feedback vraag",
+      type: "string",
+    },
+    {
+      name: "internalFeedbackLabel2",
+      title: "Interne feedback duiding vraag",
+      type: "string",
+    },
+    {
+      name: "internalFeedbackLabel2Info",
+      title: "Interne feedback duiding vraag - info",
+      type: "string",
+    },
+    {
+      name: "performanceFeedbackLabel",
+      title: "Voorstelling feedback vraag",
+      type: "string",
+    },
+    {
+      name: "performanceFeedbackLabel2",
+      title: "Voorstelling feedback vraag - info",
+      type: "string",
+    },
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
 };

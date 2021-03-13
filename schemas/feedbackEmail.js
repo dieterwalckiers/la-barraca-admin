@@ -13,11 +13,6 @@ export default {
       title: "Hoofdbericht",
       type: "array",
       of: [{ type: "block" }],
-    },
-    {
-      name: "feedbackLabel",
-      title: "Feedback vraag",
-      type: "string",
     }
   ],
   __experimental_actions: ['create', "update", 'delete', "publish"]
