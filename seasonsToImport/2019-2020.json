@@ -1,0 +1,689 @@
+{
+    "_type": "season",
+    "startYear": "2019",
+    "endYear": "2020",
+    "isCurrent": false,
+    "productions": [
+        {
+            "_type": "production",
+            "title": "4.48 Psychosis – herneming",
+            "slug": {
+                "_type": "slug",
+                "current": "4-48-psychosis–herneming"
+            },
+            "shortDescription": "4.48 Psychosis is een zinderende gedachtestroom die probeert om de pijn en de angst voor het leven te beschrijven maar tegelijk ook het leven bezingt, en de wil om te leven omwille van de liefde. Wegens succes hernomen.",
+            "backgroundInformation": [{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"Het verhaal","_key":"0ac1364949a50"}],"_key":"0ac1364949a5"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"4.48 Psychosis","_key":"07926ef06e470"},{"_type":"span","marks":[],"text":" gooit chronologie, regieaanwijzingen en setting overboord. Het stuk is fragmentarisch opgesteld en schetst een indringend beeld van wat het kan zijn om aan een klinische depressie te lijden.\nEerder dan echt een stuk over depressies te willen zijn, is het stuk een zeer subjectieve weergave ervan in de ervaring van één personage. Hoewel er geen strikte verhaallijn in zit, komen bepaalde zaken zeer consequent terug: het al of niet innemen van medicatie en de gevolgen ervan, verlangen naar genezing of de dood, automutilatie en de mogelijke oorzaken van depressies maar ook de thema’s liefde, afhankelijkheid en isolatie komen vaak terug.\nKane leed zelf aan depressies en zonder te beweren dat 4.48 Psychosis een autobiografisch stuk is, verwijst de titel wel naar het tijdstip waarop ze zelf vaak wakker werd wanneer ze depressief was. Het was het laatste stuk dat ze schreef voor ze stierf en ze heeft er zelf nooit de uitvoering van gezien.","_key":"07926ef06e471"}],"_key":"07926ef06e47"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De auteur","_key":"d3b0f9efcf4d0"}],"_key":"d3b0f9efcf4d"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Sarah Kane","_key":"88d96a9814050"},{"_type":"span","marks":[],"text":" (1971 – 1999) was een Brits toneelschrijfster. Ze schreef in haar korte leven een drietal monologen, vijf volwaardige toneelstukken en een kort filmscript. Hoewel ze aanvankelijk nauwelijks serieus werd genomen door critici en publiek, wordt Kane inmiddels gezien als een van de invloedrijkste toneelschrijvers van de 20e eeuw. Haar pessimistische en soms zeer expliciete en gewelddadige schrijfstijl wordt wel eens vergeleken met die van de Oostenrijkse Nobelprijswinnares Elfriede Jelinek.\nSarah Kane leed aan depressies met diepe dalen en hoge pieken en liet op verschillende momenten doorschemeren dat ze zelfmoord overwoog. In februari 1999 werd ze opgenomen in het King’s College Hospital in Londen waar ze aan de aandacht van het medisch personeel wist te ontsnappen en op 28-jarige leeftijd een einde aan haar leven maakte.","_key":"88d96a9814051"}],"_key":"88d96a981405"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De regisseur","_key":"6c201830b9ae0"}],"_key":"6c201830b9ae"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Chris Claeys","_key":"49fb26febe0b0"},{"_type":"span","marks":[],"text":" is al een hele tijd actief in La Barraca en heeft zijn kunnen als regisseur en acteur al ruimschoots getoond. Je zag hem o.a. spelen in ","_key":"49fb26febe0b1"},{"_type":"span","marks":["em"],"text":"Anatol","_key":"49fb26febe0b2"},{"_type":"span","marks":[],"text":", Messen in Hennen en 5,5 Vrouwen. Zijn voorliefde voor Britse stukken bracht hem er eerder al toe om Joel maar ook Decadence (Stephen Berkoff) te regisseren. Waar Decadence nog een wat zwartgallige maar vooral geestige satire was op het Britse klassensysteem, gaat hij nu toch een iets donkerder kant op. Zoals hij zelf zei: ","_key":"49fb26febe0b3"},{"_type":"span","marks":["em"],"text":"“Het zal niet echt om te lachen zijn.”","_key":"49fb26febe0b4"}],"_key":"49fb26febe0b"}],
+            "crew": [
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Tekst",
+                    "people": [
+                        "Sarah Kane"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Vertaling",
+                    "people": [
+                        "Marcel Otten"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Regie",
+                    "people": [
+                        "Chris Claeys"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Met",
+                    "people": [
+                        "David Compernolle",
+                        "Lieve Cuyt",
+                        "David Dierickx",
+                        "Sanne Van Dam",
+                        "Himsha Van de Veire"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Psychocoach",
+                    "people": [
+                        "Maya Van Zelst"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Choreografie",
+                    "people": [
+                        "Tine Van den Broeck"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Productie",
+                    "people": [
+                        "Lien Saerens"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Techniek",
+                    "people": [
+                        "Anneleen Cnudde",
+                        "Brigitte Demuynck",
+                        "Iris Dumon"
+                    ]
+                }
+            ],
+            "mainImage": {
+                "_type": "image",
+                "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_01.jpg"
+            },
+            "images": [
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_02.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_03.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_04.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_05.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_06.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_07.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_08.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_09.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_10.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_11.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_12.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_13.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_14.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_15.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/psychosis/psychosis_16.jpg"
+                }
+            ],
+            "vimeoId": "335723315",
+            "performanceCalendar": "[]"
+        },
+        {
+            "_type": "production",
+            "title": "Achter ’t eten",
+            "slug": {
+                "_type": "slug",
+                "current": "achter-t-eten"
+            },
+            "shortDescription": "Moeder en dochter proberen in het reine te komen met wat er tussen vader en dochter gebeurde ‘achter ’t eten’. Menselijkheid in zijn uitersten, in het unieke universum van Eric De Volder.",
+            "backgroundInformation": [{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"Het verhaal","_key":"bdc6eb027f550"}],"_key":"bdc6eb027f55"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"‘We kijken toe en het gebeurt’","_key":"7725a309f7040"},{"_type":"span","marks":[],"text":", zegt moeder Magda. Kernachtiger kan dit stuk niet samengevat worden. Gerda confronteert haar moeder met wat haar vader haar aandeed ‘achter ’t eten’. Met het kind dat ze draagt, van de buurman, of van één van de andere devote acteurs uit de sacramentsprocessie die haar verkrachtten in een achterkamer van de parochiezaal. Moeder sluit haar ogen. Dochter gaat ‘bekomen’ bij de nonnekes.","_key":"7725a309f7041"}],"_key":"7725a309f704"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"Achter ’t eten","_key":"731e9aa9cd330"},{"_type":"span","marks":[],"text":" is een verwrongen en beklijvend stuk over incest, misbruik en kindermoord maar vooral ook over het ‘zwijgt stille’ in een dorpsgemeenschap. Zoals al De Volders stukken speelt het zich af in een zeer eigen universum en taal, waarin niet alleen moeder en dochter aan het woord zijn. Het hele dorp doet zijn zeg en zwijgt er over.","_key":"731e9aa9cd331"}],"_key":"731e9aa9cd33"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"In 2004 won Achter ’t eten de Grote Theaterfestivalprijs, met Marijke Pinoy en Ineke Nijsen in de originele bezetting. In het juryrapport stond o.a. het volgende te lezen:","_key":"5f0af76a23010"}],"_key":"5f0af76a2301"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"‘De winnende voorstelling laat zien wat theater vermag. Door juist het realisme te ontvluchten, is het mogelijk de werkelijkheid in zijn naaktheid te betrappen. Een onderwerp als incest, waarbij clichés al snel om de hoek kijken, blijkt dan de drijfveer te kunnen zijn van een ontroerend en fascinerend schouwspel.’","_key":"75a1d65d81f90"}],"_key":"75a1d65d81f9"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De auteur","_key":"9d4d8e064f1a0"}],"_key":"9d4d8e064f1a"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Eric De Volder","_key":"feef02b4164a0"},{"_type":"span","marks":[],"text":" (1946 – 2010) werd in de jaren 80 lid van het straattheatergezelschap Radeis. Sinds 1992 was hij de stichter en artistiek leider van het Gentse theatergezelschap TG Ceremonia. Op zijn theaterzolder KIM (Kunst Is Modder) in het Gentse Oudburg verzamelde hij enkele vrienden en collega’s voor de voorstelling ","_key":"feef02b4164a1"},{"_type":"span","marks":["em"],"text":"Kom terug","_key":"feef02b4164a2"},{"_type":"span","marks":[],"text":". Het was de eerste van een aantal producties die gecreëerd en getoond werden in de intimiteit van de repetitiezaal. Maar geleidelijk aan ontdekte ook het grote publiek ‘het best bewaarde geheim’ van Gent en waren voorstellingen zoals ","_key":"feef02b4164a3"},{"_type":"span","marks":["em"],"text":"Nachtelijk Symposium","_key":"feef02b4164a4"},{"_type":"span","marks":[],"text":", ","_key":"feef02b4164a5"},{"_type":"span","marks":["em"],"text":"Regent en Regentes","_key":"feef02b4164a6"},{"_type":"span","marks":[],"text":", ","_key":"feef02b4164a7"},{"_type":"span","marks":["em"],"text":"Diep in het bos","_key":"feef02b4164a8"},{"_type":"span","marks":[],"text":", ","_key":"feef02b4164a9"},{"_type":"span","marks":["em"],"text":"Brand","_key":"feef02b4164a10"},{"_type":"span","marks":[],"text":", ","_key":"feef02b4164a11"},{"_type":"span","marks":["em"],"text":"Au nom du père","_key":"feef02b4164a12"},{"_type":"span","marks":[],"text":" en ","_key":"feef02b4164a13"},{"_type":"span","marks":["em"],"text":"Meestersnacht","_key":"feef02b4164a14"},{"_type":"span","marks":[],"text":" te zien in Gentse en andere zalen in binnen- en buitenland.","_key":"feef02b4164a15"}],"_key":"feef02b4164a"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"De Volder ontving verschillende prijzen en onderscheidingen voor zijn werk. In 2000 mocht De Volder de Thersitesprijs van de Vlaamse theatercritici in ontvangst nemen, en in 2001 de Cultuurprijs van de Stad Gent ’omwille van zijn grote artistieke integriteit, zijn aandacht voor de volkse identiteit en de keuze voor de thematiek van de mens in zijn kleine leefwereld’. Voor de tekst van ","_key":"f5455bc73a3c0"},{"_type":"span","marks":["em"],"text":"Zwarte vogels in de bomen","_key":"f5455bc73a3c1"},{"_type":"span","marks":[],"text":" kreeg De Volder in 2003 de Prijs van de Vlaamse Gemeenschap voor toneelliteratuur. Tegelijkertijd sleepte hij ook de Vlaamse Cultuurprijs voor Podiumkunsten in de wacht.","_key":"f5455bc73a3c2"}],"_key":"f5455bc73a3c"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Op 28 november 2010, ’s nachts, na de première van ","_key":"3631a6f2ade40"},{"_type":"span","marks":["em"],"text":"Frans Woyzeck","_key":"3631a6f2ade41"},{"_type":"span","marks":[],"text":", is Eric De Volder onverwachts thuis in zijn slaap overleden.","_key":"3631a6f2ade42"}],"_key":"3631a6f2ade4"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De regisseur","_key":"4bdc4fb276120"}],"_key":"4bdc4fb27612"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Etienne De Ruyck is al 30 jaar als regisseur en acteur aan de slag bij La Barraca. Meer nog, hij is een van de oprichters van het huis en heeft zodoende al heel wat op zijn palmares staan. De voorbije jaren bracht hij zeer uiteenlopende stukken op scène, zoals Dolgedraaide Ooien, Bloedbruiloft, Kludde, Herakles en Marie-Antoinette.","_key":"93629a0304010"}],"_key":"93629a030401"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Maar ook voor een regie van Eric De Volder is Etienne niet aan zijn proefstuk toe. Enkele jaren geleden regisseerde hij al Kamer en de Man van dezelfde auteur. Nu gaat hij dus met twee actrices deze ","_key":"dcb5a3565cb40"},{"_type":"span","marks":["em"],"text":"Achter ’t eten","_key":"dcb5a3565cb41"},{"_type":"span","marks":[],"text":" aan.","_key":"dcb5a3565cb42"}],"_key":"dcb5a3565cb4"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"‘Niet vanzelfsprekend’","_key":"dbd17e14cc8a0"},{"_type":"span","marks":[],"text":", zegt hij daar zelf over, ","_key":"dbd17e14cc8a1"},{"_type":"span","marks":["em"],"text":"‘want niet iedereen kan, wil of durft in dit stuk duiken. In het kader van het ‘proefkeuken’-project komen we al geruime tijd wekelijks samen om te experimenteren en uit te proberen. Net na het besluit om voor de vervreemdende wereld van De Volder te kiezen, kwam Eline er ook bij.’","_key":"dbd17e14cc8a2"}],"_key":"dbd17e14cc8a"}],
+            "crew": [
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Tekst",
+                    "people": [
+                        "Eric De Volder"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Regie",
+                    "people": [
+                        "Etienne De Ruyck"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Met",
+                    "people": [
+                        "Eline Bootsma",
+                        "Lize Alderweireldt",
+                        "Lynn Ryssen"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Licht",
+                    "people": [
+                        "Bart De Smedt"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Productie-assistentie",
+                    "people": [
+                        "Floor Maertens"
+                    ]
+                }
+            ],
+            "mainImage": {
+                "_type": "image",
+                "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_cover.jpg"
+            },
+            "images": [
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_01.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_02.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_03.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_04.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_05.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_06.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_07.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_08.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_09.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_10.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_11.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_12.jpg"
+                }
+            ],
+            "vimeoId": "364271928",
+            "performanceCalendar": "[]"
+        },
+        {
+            "_type": "production",
+            "title": "3×30",
+            "slug": {
+                "_type": "slug",
+                "current": "3×30"
+            },
+            "shortDescription": "La Barraca bestaat 30 jaar! Al 30 jaar brengen we je stout theater-op-schoot en daar zijn we trots op. Ter gelegenheid trakteren we je op 3 voorstellingen op één avond, gebracht door aanstormend talent ‘uit eigen huis’.",
+            "backgroundInformation": [{"_type":"block","markDefs":[],"style":"h2","children":[{"_type":"span","marks":[],"text":"#ikbentuinkabouter","_key":"9791ae73bdf70"}],"_key":"9791ae73bdf7"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"Het verhaal","_key":"77b6cb4d6d790"}],"_key":"77b6cb4d6d79"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"#ikbentuinkabouter vertelt het verhaal van een onwillige revolutionair, Jos, wiens mysterieuze maar simpele daad van rebellie een Copernicaanse wending geeft aan het reilen en zeilen binnen een starre gemeenschap van baardige bosbewoners. En dat wekt felle reacties op … Hij kleurt – figuurlijk en misschien ook wel letterlijk– buiten de lijntjes en wekt op die manier heftige reacties op bij enkele marginale én vooraanstaande figuren. Zij geven elk op hun eigen manier een interpretatie en een gevolg aan zijn handeling.","_key":"b9f7a9f5aa360"}],"_key":"b9f7a9f5aa36"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De auteur","_key":"68bc58c4c3940"}],"_key":"68bc58c4c394"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Filip Martin","_key":"93c115ca79e70"},{"_type":"span","marks":[],"text":" is u wellicht niet onbekend als regisseur, acteur of auteur. Hij schreef en regisseerde o.a. Zes Deuren, een Mysterie en een Hoop Miserie, een deurenkomedie pur sang, maar bracht evengoed De oneindige Liefde van de Keizer op de planken: een aanklacht tegen dictatoriale regimes en de mechanismen die potentaten aan de macht houden. Als auteur leverde hij Marie-Antoinette af, dat geregisseerd werd door Etienne De Ruyck, schreef hij voor Alain Zeegers 5,5 vrouwen en schreef en regisseerde hij samen met een collectief acteurs LorcAct en hij maakte de film Coriolanus voor La Barraca. En vorig jaar zag u hem misschien ook als acteur aan het werk in De Zelfmoordenaar. En nu schreef hij dus deze minivoorstelling ter ere van het dertigjarig bestaan van ons gezelschap.","_key":"93c115ca79e71"}],"_key":"93c115ca79e7"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De regisseur","_key":"d6b71fde1fbd0"}],"_key":"d6b71fde1fbd"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Thomas Ockerman","_key":"fff6c5a04aa10"},{"_type":"span","marks":[],"text":" maakte zijn debuut bij La Barraca als acteur in Recht op Luiheid. Daarna maakte hij furore in Ernst, Dolgedraaide Ooien en Mycene. En die rare hoop koffers die als decor diende voor Sólarfrí? Daar zat hij ook voor iets tussen. Een man van vele talenten dus, want terwijl hij ook al lang met het idee speelt om een stuk te schrijven, waagt hij zich nu aan zijn eerste regieproject. Zelf zegt hij over die vuurdoop:","_key":"fff6c5a04aa11"}],"_key":"fff6c5a04aa1"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"‘Een geluk dat ik kan rekenen op een bende ervaren Barracianen in mijn cast, waardoor mijn taak ineens een stuk minder lastig is geworden. En daarbij enkel lof voor de tekst van Filip, die zonder moeite het wrange en het hilarische met elkaar kruist. Waarom het stuk me aanspreekt? De luis in de pels, de underdog, de schlemiel. Het verhaal van de kleine man die een grote schaduw werpt, boeit al decennia het publiek. Deze keer wordt dit verhaal literair getooid in een wel heel bijzonder jasje. Ik hoop ten zeerste dat ik daar als regisseur nog iets van waarde aan heb toegevoegd.’","_key":"d85d406455480"}],"_key":"d85d40645548"},{"_type":"block","markDefs":[],"style":"h2","children":[{"_type":"span","marks":[],"text":"Buren","_key":"a55ea90771450"}],"_key":"a55ea9077145"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"Het verhaal","_key":"e152b17b57840"}],"_key":"e152b17b5784"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Vier dertigers wonen bij elkaar in de buurt. Ze zijn jong, dynamisch, gelukkig en veerkrachtig. Ze ontmoeten elkaar vaak, hebben leuke babbels en een goede verstandhouding. The suburban dream, of zo lijkt het toch…\nWant we zijn ook allemaal op zoek naar ons eigen plekje in de wereld. En soms moeten we daar zelfs voor vechten, met een ander of met onszelf. En onderwijl balanceren op een slappe koord, in een zoektocht naar evenwicht. Dat is heel alledaags en herkenbaar, maar banaal is het allerminst. Het verhaal van alleman en alledag, bijzonder gebracht. Dat is ","_key":"12190dc061880"},{"_type":"span","marks":["em"],"text":"Buren","_key":"12190dc061881"},{"_type":"span","marks":[],"text":".","_key":"12190dc061882"}],"_key":"12190dc06188"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De auteur","_key":"45204cefa7aa0"}],"_key":"45204cefa7aa"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Lynn Ryssen","_key":"5c2ab107a74f0"},{"_type":"span","marks":[],"text":" studeerde woordkunst in Antwerpen en scenarioschrijven aan het RITCS te Brussel. Daar deed ze tijdens de opleiding zelf en bij verschillende toneelgezelschappen spelervaring op. Ze volgde de liefde naar Gent en kon eindelijk bij La Barraca aankloppen, waar ze al fan van was. Ze had immers al enkele keren in het publiek gezeten en was onder de indruk van ons ‘unieke toneelgezelschap’ (zo zegt ze zelf!). Vorig seizoen was ze op scène te zien in Nora en dit seizoen nog in Achter ’t eten. Lynn heeft ervaring met scenarioschrijven: ze schreef al enkele kortfilms en werkt nu zelfs aan een roman. 3X30 zag ze als dé kans om ook eens iets voor theater te schrijven. Het liefst van al schrijft ze over personages die buiten de lijntjes kleuren.","_key":"5c2ab107a74f1"}],"_key":"5c2ab107a74f"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De regisseur","_key":"a60c4c087f930"}],"_key":"a60c4c087f93"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Piet Van Gotha","_key":"8c59aa3d80470"},{"_type":"span","marks":[],"text":" is al 45 jaar actief in de theaterwereld. Hij begon als meneer Pastoor in ","_key":"8c59aa3d80471"},{"_type":"span","marks":["em"],"text":"Waar De Sterre Bleef Stilstaan","_key":"8c59aa3d80472"},{"_type":"span","marks":[],"text":" in de parochiale toneelkring van Merelbeke. Bij theater Krakeel en Mamathé deed hij ervaring op als acteur, decorontwerper en -bouwer, licht- en geluidstechnieker, regie-assistent, productieleiding… Dan kwam hij bij La Baracca (De Zelfmoordenaar) terecht. Alleen regisseren ontbrak nog op de lijst. Tot nu dus! Over zijn visie zegt hij zelf:","_key":"8c59aa3d80473"}],"_key":"8c59aa3d8047"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"‘Toneel moet ontroeren, aangrijpen, emoties losmaken. Het mag vooral niet vervelen! Ik wil met de acteurs eerst brainstormen over hoe zij de personages zien en dan mijn goesting doordrijven. Inbreng van hoe zij hun karakter vorm willen geven mag zeker. Het wordt letterlijk en figuurlijk balanceren op een slappe koord. Spannend hé!’","_key":"77c9931bb18c0"}],"_key":"77c9931bb18c"},{"_type":"block","markDefs":[],"style":"h2","children":[{"_type":"span","marks":[],"text":"Pruillipke","_key":"5be86d999dda0"}],"_key":"5be86d999dda"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"Het verhaal","_key":"d3c52263d82b0"}],"_key":"d3c52263d82b"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","_key":"0213809b97ba0","text":"","marks":[]}],"_key":"0213809b97ba"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Chinezen zeggen dat je gezicht tot je 30ste is wat je gekregen hebt, daarna krijg je wat je zelf verdient. In dit stuk krijgt niemand wat hij verdient, en niemand krijgt kans op verandering.\nEén fout verbindt drie personages, en iedereen speelt zijn rol dan maar, willens nillens. Pruillipke wil tonen hoe een traumatische ervaring een band tussen mensen schept, een band waarvan ze nooit meer kunnen loskomen. Een gevangenis van oude relaties en dynamieken in een nieuwe setting. We zullen zien hoe ze ermee omgaan. Ze leven in een tijdloze tussenwereld, dus hebben ze veel tijd om erover na te denken. En ze zijn altijd blij als iemand hen komt zien, ze tonen alles graag!","_key":"d40340ba80390"}],"_key":"d40340ba8039"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","_key":"5ac614e0ed430","text":"","marks":[]}],"_key":"5ac614e0ed43"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De auteur","_key":"d8db44c7cdd20"}],"_key":"d8db44c7cdd2"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","_key":"a7a37e814cd10","text":"","marks":[]}],"_key":"a7a37e814cd1"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Werner Verelst","_key":"4ac82afb3ce50"},{"_type":"span","marks":[],"text":" is geen onbekende in het Gentse amateurtheater. In 2008 werd bij theatergezelschap La Barraca zijn eerste zelfgeschreven stuk op de planken gebracht: 21122012 – Theorema van de Liefde. In de periode 2009-2014 schreef en regisseerde hij achtereenvolgens Split, Heldenlicht en Pimpf.\nIn 2015 volgde een bewerking van een klassieke Griekse tragedie: Medea Suburbia, geregisseerd door Isabel van Neste. Naast zijn bezigheden in theater werkt Werner als individueel begeleider bij De Sleutel, en is hij ook zelfstandig psychotherapeut.","_key":"4ac82afb3ce51"}],"_key":"4ac82afb3ce5"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","_key":"b07dab7772760","text":"","marks":[]}],"_key":"b07dab777276"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De regisseur","_key":"9731c28bb7670"}],"_key":"9731c28bb767"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","_key":"fdd1483688400","text":"","marks":[]}],"_key":"fdd148368840"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Alihan is al 13 jaar bezig met amateurtheater en -film, grotendeels als acteur. In La Barraca kon je hem aan het werk zien in o.a. Marie-Antoinette, Herakles – De Augiasstal, De Waterput van de Heiligen en Nora, of een Poppenhuis.\nPruillipke is het tweede stuk dat hij regisseert, maar zijn debuut als regisseur in La Barraca. Over zijn aanpak zegt hij:","_key":"9d78ad7ebe870"}],"_key":"9d78ad7ebe87"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","_key":"1c55f9a07ca10","text":"","marks":[]}],"_key":"1c55f9a07ca1"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"‘Ik probeer diepe vragen te stellen aan de acteurs, om het verhaal, de karakters en de dynamica tussen alles grondig samen te kunnen ontdekken. Ik wil vooral dat de acteurs en de toeschouwers ervan genieten.’","_key":"7f550062cf2e0"}],"_key":"7f550062cf2e"}],
+	        "crew": [
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Tekst #ikbentuinkabouter",
+                    "people": [
+                        "Filip Martin"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Regie #ikbentuinkabouter",
+                    "people": [
+                        "Thomas Ockerman"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Cast #ikbentuinkabouter",
+                    "people": [
+                        "Mieke Carrein", "Gitte De Block", "Luc De Jonghe", "Filip Marichael", "Pieter Theunissen", "Jolien Van Waeyenberg"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Verfwerken #ikbentuinkabouter",
+                    "people": [
+                        "Brigitte Demuynck & Dora Beernaert"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Decor #ikbentuinkabouter",
+                    "people": [
+                        "Thomas Ockerman"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Kostuums #ikbentuinkabouter",
+                    "people": [
+                        "Jolien Van Waeyenberg"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Geluid #ikbentuinkabouter",
+                    "people": [
+                        "David Dierickx & Lien Saerens"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Licht #ikbentuinkabouter",
+                    "people": [
+                        "Jim T. Maes"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Tekst Buren",
+                    "people": [
+                        "Lynn Ryssen"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Regie Buren",
+                    "people": [
+                        "Piet Van Gotha"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Regiecoach Buren",
+                    "people": [
+                        "Isabel Van Neste"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Cast Buren",
+                    "people": [
+                        "Jasmien De Boodt", "Maarten De Jonghe", "Joke Martin", "Dieter Walckiers"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Bewegingscoach Buren",
+                    "people": [
+                        "Pedro Waeghe"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Productie Buren",
+                    "people": [
+                        "Yvette Ruckebusch"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Decor Buren",
+                    "people": [
+                        "Regi Fisher & Jens Pas"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Geluid Buren",
+                    "people": [
+                        "David Dierickx & Lien Saerens"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Licht Buren",
+                    "people": [
+                        "Jim T. Maes"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Tekst Pruillipke",
+                    "people": [
+                        "Werner Verelst"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Regie Pruillipke",
+                    "people": [
+                        "Alihan Kaya"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Cast Pruillipke",
+                    "people": [
+                        "Erkan Arslan", "Nathalie De Neve", "Eva Krikilion"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Productie Pruillipke",
+                    "people": [
+                        "Lynn Ryssen"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Decor Pruillipke",
+                    "people": [
+                        "Regi Fisher & Jens Pas"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Geluid Pruillipke",
+                    "people": [
+                        "David Dierickx & Lien Saerens"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Licht Pruillipke",
+                    "people": [
+                        "Jim T. Maes"
+                    ]
+                }
+            ],
+            "mainImage": {
+                "_type": "image",
+                "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/3x30/3x30_cover.jpg"
+            },
+            "images": [
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_01.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_02.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_03.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_04.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_05.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_06.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_07.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_08.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_09.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/ikbentuinkabouter/ikbentuinkabouter_10.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_01.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_02.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_03.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_04.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_05.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_06.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_07.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/buren/buren_08.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_01.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_02.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_03.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_04.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_05.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_06.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_07.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_08.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_09.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/pruillipke/pruillipke_10.jpg"
+                }
+            ],
+            "vimeoId": "371876555",
+            "performanceCalendar": "[]"
+        },
+        {
+            "_type": "production",
+            "title": "Lood en Confituur",
+            "slug": {
+                "_type": "slug",
+                "current": "lood-en-confituur"
+            },
+            "shortDescription": "Een verhaal van verlangen, zien en gezien worden, opoffering en zelfopoffering, bevlogenheid, bezetenheid, gerechtigheid en verlossing. Maar nooit zonder humor.",
+            "backgroundInformation": [{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"Het verhaal","_key":"aeb46ed87f0b0"}],"_key":"aeb46ed87f0b"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Vijf stijlvolle jongedames zijn in bewaring in een ruimte. Twee mannen schijnen voor hen te zorgen. Waarom zijn ze daar? Waarom lijkt het hen niet te deren? Is liefde een kaartspel, of zijn het misschien soldiers of love? En dan is er ook nog de imp. Zijn gedrag is soms wild en onbeheersbaar, en dan weer gespannen ingehouden. Hij bestaat om te misleiden, om te straffen en te strelen. Maar nooit zonder reden.","_key":"4dd7e552763e0"}],"_key":"4dd7e552763e"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Een loodzware sfeer wordt doorbroken met zwarte humor, ongemakkelijke stiltes en groteske uitbarstingen. De meest tedere aanrakingen en blikken worden afgewisseld met harde woorden en gebaren. De toeschouwer wordt ondergedompeld in een bad van confituur. Een beeld zegt soms zoveel meer dan duizend woorden …","_key":"aa084caa41300"}],"_key":"aa084caa4130"},{"_type":"block","markDefs":[],"style":"h3","children":[{"_type":"span","marks":[],"text":"De auteur en regisseur","_key":"1ca3a1034a340"}],"_key":"1ca3a1034a34"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["strong"],"text":"Werner Verelst","_key":"30830d8c94d00"},{"_type":"span","marks":[],"text":" is geen onbekende in het Gentse amateurtheater. In 2008 werd bij theatergezelschap La Barraca zijn eerste zelfgeschreven stuk op de planken gebracht: 21122012 – Theorema van de Liefde. In de periode 2009-2014 schreef en regisseerde hij achtereenvolgens Split, Heldenlicht en Pimpf.","_key":"30830d8c94d01"}],"_key":"30830d8c94d0"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"In 2015 volgde een bewerking van een klassieke Griekse tragedie: Medea Suburbia, geregisseerd door Isabel van Neste. Naast zijn bezigheden in het theater werkt Werner als individueel begeleider bij De Sleutel, en is hij ook zelfstandig psychotherapeut.","_key":"0d5abae2b4990"}],"_key":"0d5abae2b499"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":[],"text":"Gevraagd naar zijn beweegredenen om theater te maken, zegt hij dit:","_key":"8b39db0021d90"}],"_key":"8b39db0021d9"},{"_type":"block","markDefs":[],"style":"normal","children":[{"_type":"span","marks":["em"],"text":"‘Als schrijver en regisseur begin ik vanuit een niets, en probeer ik vanuit dingen die mij raken als mens iets volledig nieuws te maken dat op zich weer anderen kan raken. Ik laat schijnbaar onmogelijk met elkaar verenigbare werelden heel even kruisen, en ik ga hierbij het lastige, het wrange niet uit de weg. In een sfeer van licht onbehagen laat ik emoties met elkaar botsen en in elkaar haken, de sfeer is unheimlich of uncanny, een goeie Nederlandse vertaling heb ik daarvoor nog niet gevonden. Woorden, beelden, blikken, lichamen, klanken, schaduwen en licht … En jouw versie van het verhaal is altijd de juiste.’","_key":"49d93510d9b50"}],"_key":"49d93510d9b5"}],
+            "crew": [
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Tekst & regie",
+                    "people": [
+                        "Werner Verelst"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Met",
+                    "people": [
+                        "Eline Bootsma", "Sarah Claeys", "Floor Maertens", "Niels Thienpont", "Hans Van De Vijver", "Heleen Van Melckebeke", "Caroline Verstraete", "Pedro Waeghe"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Productie",
+                    "people": [
+                        "Denise Van Den Wittenboer & Isabel Van Neste"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Decor",
+                    "people": [
+                        "Werner Verelst", "Jean-Pierre Fack", "Bart Wostyn"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Techniek",
+                    "people": [
+                        "Jean-Pierre Fack"
+                    ]
+                },
+                {
+                    "_type": "crewEntry",
+                    "functionName": "Assistentie techniek",
+                    "people": [
+                        "Hilde Cnudde"
+                    ]
+                }
+            ],
+            "mainImage": {
+                "_type": "image",
+                "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_cover.jpg"
+            },
+            "images": [
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_01.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_02.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_03.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_04.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_05.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_06.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_07.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_08.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_09.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_10.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_11.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_12.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_13.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_14.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_15.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_16.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_17.jpg"
+                },
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:///home/dyte/Desktop/lb-archief/productions/loodenconfituur/loodenconfituur_18.jpg"
+                }
+            ],
+            "vimeoId": "384359866",
+            "performanceCalendar": "[]"
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+            "_type": "production",
+            "title": "",
+            "slug": {
+                "_type": "slug",
+                "current": ""
+            },
+            "shortDescription": "",
+            "backgroundInformation": [],
+            "crew": [
+                {
+                    "_type": "crewEntry",
+                    "functionName": "",
+                    "people": [
+                        ""
+                    ]
+                }
+            ],
+            "mainImage": {
+                "_type": "image",
+                "_sanityAsset": "image@file:////home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_cover.jpg"
+            },
+            "images": [
+                {
+                    "_type": "image",
+                    "_sanityAsset": "image@file:////home/dyte/Desktop/lb-archief/productions/achterteten/achterteten_01.jpg"
+                },
+            ],
+            "vimeoId": "",
+            "performanceCalendar": "[]"
+        }
