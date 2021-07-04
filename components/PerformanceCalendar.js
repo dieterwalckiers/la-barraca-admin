@@ -86,12 +86,12 @@ const PerformanceCalendar = ({ value, onChange, type }) => {
     const [performances, setPerformances] = useState();
 
     const { data } = useQuery(gql`
-    {
-        allSiteSettings {
-            seats
+        {
+            allSiteSettings {
+                seats
+            }
         }
-    }
-  `);
+      `);
 
     const siteSettings = useMemo(() => data && data.allSiteSettings && data.allSiteSettings.length && [...data.allSiteSettings].pop(), [data])
     const seatsFromSettings = useMemo(() => siteSettings && siteSettings.seats, [siteSettings]);
@@ -242,22 +242,25 @@ const PerformanceCalendar = ({ value, onChange, type }) => {
     );
 }
 
-const PerformanceCalendarWrapper = (props) => {
-    return (
-        <ApolloClientProvider>
-            {(apolloClient) => {
-                console.log("render children with", apolloClient);
-                return apolloClient ? (
-                    <ApolloHooksProvider client={apolloClient}>
-                        <PerformanceCalendar {...props} />
-                    </ApolloHooksProvider>
-                ) : (
-                    "loading"
-                );
-            }}
-        </ApolloClientProvider>
-    );
-};
+export default class PerformanceCalendarWrapper extends React.Component {
+    render() {
+        return (
+            <ApolloClientProvider>
+                {(apolloClient) => {
+                    console.log("render children with", apolloClient);
+                    return apolloClient ? (
+                        <ApolloHooksProvider client={apolloClient}>
+                            <PerformanceCalendar {...this.props} />
+                        </ApolloHooksProvider>
+                    ) : (
+                        "loading"
+                    );
+                }}
+            </ApolloClientProvider>
+        );
+        // return (
+        //     <PerformanceCalendar {...this.props} />
+        // );
+    }
 
-
-export default PerformanceCalendarWrapper;
+}
