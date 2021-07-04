@@ -4,7 +4,7 @@
 }
 
 .datepicker {
-    width: 160px;
+    width: 100px;
     margin-right: 2px;
 }
 
@@ -15,4 +15,11 @@
 
 .locationInput {
     margin-right: 2px;
+    margin-left: 2px;
+}
+
+.seatsInput {
+    width: 40px;
+    margin-right: 2px;
+    margin-left: 2px;
 }

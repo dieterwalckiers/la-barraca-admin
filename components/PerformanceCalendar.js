@@ -17,14 +17,15 @@ function isValidDate(d) {
 function toDao(performances) {
   return JSON.stringify(
     performances.map(performance => {
-      const { date, time, location } = performance;
+      const { date, time, location, seats } = performance;
       const formattedDate = `${date.getDate()}/${date.getMonth() +
         1}/${date.getFullYear()}`;
       const formattedTime = `${time.getHours()}:${time.getMinutes()}`;
       return {
         date: formattedDate,
         time: formattedTime,
-        location
+        location,
+        seats,
       };
     })
   );
@@ -55,7 +56,8 @@ function fromDao(performancesDao) {
           return acc;
         }
         const location = p.location || DEFAULT_LOCATION;
-        return acc.concat({ ...p, date: parsedDate, time: parsedTime, location });
+        const seats = p.seats || "";
+        return acc.concat({ ...p, date: parsedDate, time: parsedTime, location, seats });
       }, []);
     } else {
       parseFailed = true;
@@ -71,7 +73,7 @@ function fromDao(performancesDao) {
   return performances;
 }
 
-export default class PerformanceCalendar extends React.Component {
+class PerformanceCalendar extends React.Component {
   static propTypes = {
     type: PropTypes.shape({
       title: PropTypes.string
@@ -94,13 +96,14 @@ export default class PerformanceCalendar extends React.Component {
     this.buildOnDelete = this.buildOnDelete.bind(this);
     this.state = {
       _locations: {},
+      _seats: {},
     };
   }
 
   componentDidMount() {
     const { value } = this.props;
     this.setState({
-      performances: fromDao(value)
+      performances: fromDao(value),
     });
   }
 
@@ -124,11 +127,22 @@ export default class PerformanceCalendar extends React.Component {
     return (e) => this.setState({ _locations: { ..._locations, [row]: e.target.value } });
   }
 
+  buildOnChangeSeats(row) {
+    const { _seats } = this.state;
+    return (e) => {
+      const seats = e.target.value;
+      if (isNaN(parseInt(seats))) {
+        return;
+      }
+      this.setState({ _seats: { ..._seats, [row]: e.target.value } });
+    }
+  }
+
   renderPerformanceInput(performance, i) {
     console.log("render performance", performance);
-    const { date, time, location } = performance;
+    const { date, time, location, seats } = performance;
     const { onChange } = this.props;
-    const { performances, _locations } = this.state;
+    const { performances, _locations, _seats } = this.state;
 
     const buildOnDateChangeProp = () => {
       return newDate => {
@@ -160,6 +174,18 @@ export default class PerformanceCalendar extends React.Component {
         });
       };
     }
+    const buildOnSeatsBlurProp = (row) => {
+      const { _seats } = this.state;
+      return e => {
+        const newSeats = e.target.value;
+        const updatedPerformances = [...performances];
+        updatedPerformances[i].seats = newSeats;
+        onChange(createPatchFrom(toDao(updatedPerformances)));
+        this.setState({
+          _seats: { ..._seats, [row]: undefined }
+        });
+      };
+    }
 
     return (
       <div className={styles.perfRow} key={`perfinput${date}${time}${i}`}>
@@ -181,7 +207,9 @@ export default class PerformanceCalendar extends React.Component {
           className={styles.timepicker}
         />
         <input type="text" value={_locations[i] || location} onChange={this.buildOnChangeLocation(i)} onBlur={buildOnLocationBlurProp(i)} className={styles.locationInput} />
-        <button onClick={this.buildOnDelete(i)}>verwijder</button>
+        <span title="aantal plaatsen">pl.:</span>
+        <input type="number" value={_seats[i] || seats || ""} onChange={this.buildOnChangeSeats(i)} onBlur={buildOnSeatsBlurProp(i)} className={styles.seatsInput} />
+        <button onClick={this.buildOnDelete(i)}>wis</button>
       </div>
     );
   }
@@ -238,11 +266,26 @@ export default class PerformanceCalendar extends React.Component {
     return !performances ? (
       "loading"
     ) : (
-        <div>
-          <h2>{type.title}</h2>
-          {performances.map(this.renderPerformanceInput)}
-          {this.renderNewBtn()}
-        </div>
-      );
+      <div>
+        <h2>{type.title}</h2>
+        {performances.map(this.renderPerformanceInput)}
+        {this.renderNewBtn()}
+      </div>
+    );
   }
 }
+
+// export default graphql(gql`
+// {
+//   allPerformances {
+//     data {
+//       _id
+//       productionID
+//       timeID
+//       visitors
+//     }
+//   }
+// }
+// `)(PerformanceCalendar);
+
+export default PerformanceCalendar;
