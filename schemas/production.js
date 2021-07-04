@@ -74,12 +74,6 @@ export default {
       inputComponent: PerformanceCalendar,
     },
     {
-      name: "seats",
-      title: "Aantal plaatsen",
-      description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
-      type: "number",
-    },
-    {
       name: "ticketPrice",
       title: "Ticket prijs",
       description: "Indien leeg wordt de waarde uit de algemene instellingen genomen",
