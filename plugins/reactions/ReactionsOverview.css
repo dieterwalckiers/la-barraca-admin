@@ -1,0 +1,32 @@
+.manualMailSender {
+    margin: 12px 0;
+    padding: 24px;
+}
+
+.manualMailSenderTitle {
+    font-size: 1.25rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+    margin: 0;
+}
+
+.manualMailSenderForm {
+    margin: 24px 0;
+    display: flex;
+}
+
+.manualMailSenderFormInputSet {
+    margin: 0 12px;
+}
+
+.manualMailSenderFormInputLabel {
+    margin-right: 8px;
+}
+
+.manualMailSenderFormSubmit {
+    padding: 0 12px;
+    cursor: pointer;
+    border: 1px solid black;
+}

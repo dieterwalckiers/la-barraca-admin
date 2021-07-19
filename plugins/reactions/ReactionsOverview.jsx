@@ -2,12 +2,13 @@ import React, { useMemo } from "react";
 import MaterialTable from "material-table";
 import MaterialTableIcons from "../shared/MaterialTableIcons";
 import sharedStyles from "../shared/ProductionInfoPlugin.css";
-import styles from "./ReactionTable.css";
+import ManualMailSender from "./ManualMailSender";
 
-const ReactionTable = ({ production, reactions }) => {
+const ReactionsOverview = ({ production, reactions }) => {
     const productionTitle = useMemo(() => production?.title, [production]);
     return (
         <div className={sharedStyles.document}>
+            <ManualMailSender production={production} />
             <MaterialTable
                 columns={[
                     { title: "Naam", field: "name", width: 100 },
@@ -29,4 +30,4 @@ const ReactionTable = ({ production, reactions }) => {
     )
 }
 
-export default ReactionTable;
+export default ReactionsOverview;

@@ -11,7 +11,7 @@ import Preview from "part:@sanity/base/preview";
 import client from "part:@sanity/base/client";
 import schema from "part:@sanity/base/schema";
 import { gql, ApolloProvider } from "apollo-boost";
-import ReactionTable from "./ReactionTable";
+import ReactionsOverview from "./ReactionsOverview";
 import { normalizeProduction } from "../shared/helpers";
 import { normalizeReaction } from "./helpers";
 import {
@@ -141,7 +141,7 @@ const Reactions = (props) => {
             );
         }
         return (
-            <ReactionTable
+            <ReactionsOverview
                 production={productions.find(p => p.id === selectedProductionId)}
                 reactions={reactions}
             />

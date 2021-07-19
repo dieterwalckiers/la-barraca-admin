@@ -6,7 +6,7 @@
 
 .container {
   display: flex;
-  max-height: 100vh;
+  max-height: (100vh - 20px);
   width: 100%;
   position: absolute;
   overflow-y: auto;
@@ -20,7 +20,7 @@
   max-width: 33%;
   border-right: var(--border-style);
   overflow-y: auto;
-  max-height: 100vh;
+  max-height: (100vh - 20px);
 }
 
 .listItem {
@@ -36,6 +36,6 @@
   margin: 0;
   padding: 24px;
   width: 100%;
-  max-height: 100vh;
+  max-height: (100vh - 20px);
   overflow-y: auto;
 }
