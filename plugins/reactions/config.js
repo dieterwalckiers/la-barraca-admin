@@ -8,6 +8,6 @@ export default () => {
     return isDev() ? {
         sendFeedbackMailEndpoint: "http://localhost:8888/.netlify/functions/performances/sendFeedbackMail",
     } : {
-        sendFeedbackMailEndpoint: "http://la-barraca.netlify.app/.netlify/functions/performances/sendFeedbackMail",
+        sendFeedbackMailEndpoint: "https://la-barraca.netlify.app/.netlify/functions/performances/sendFeedbackMail",
     };
 };

@@ -10,6 +10,6 @@ export default () => {
         sendFeedbackMailEndpoint: "http://localhost:8888/.netlify/functions/performances/sendFeedbackMail",
     } : {
             sendConfirmationMailEndpoint: "https://la-barraca.netlify.app/.netlify/functions/performances/sendConfirmationMail",
-            sendFeedbackMailEndpoint: "http://la-barraca.netlify.app/.netlify/functions/performances/sendFeedbackMail",
+            sendFeedbackMailEndpoint: "https://la-barraca.netlify.app/.netlify/functions/performances/sendFeedbackMail",
         };
 };
