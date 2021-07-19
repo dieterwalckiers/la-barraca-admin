@@ -2,6 +2,7 @@ import ApolloClient from "apollo-boost";
 import React, { useMemo } from "react";
 
 function initApolloClient() {
+  console.log("initting apollo client with SANITY_STUDIO_FAUNADB_SERVER_SECRET", process.env.SANITY_STUDIO_FAUNADB_SERVER_SECRET);
   return new ApolloClient({
     uri: "https://graphql.fauna.com/graphql",
     request: (operation) => {

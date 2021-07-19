@@ -12,20 +12,21 @@ import client from "part:@sanity/base/client";
 import schema from "part:@sanity/base/schema";
 import { gql, ApolloProvider } from "apollo-boost";
 import PerformanceSet from "./performanceSet";
-import { normalizeProduction, normalizePerformance } from "./helpers";
+import { normalizePerformance } from "./helpers";
+import { normalizeProduction } from "../shared/helpers";
 import {
   ApolloProvider as ApolloHooksProvider,
   useMutation,
   useQuery,
 } from "@apollo/react-hooks";
-import ApolloClientProvider from "./ApolloClientProvider";
+import ApolloClientProvider from "../shared/ApolloClientProvider";
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
 // the values are a unique, generated class name. This allows you to write CSS
 // with only your components in mind without any conflicting class names.
 // See https://github.com/css-modules/css-modules for more info.
-import styles from "./Bookings.css";
+import styles from "../shared/ProductionInfoPlugin.css"
 
 const Bookings = (props) => {
   const { router } = props;
@@ -137,7 +138,7 @@ const Bookings = (props) => {
     if (!productions) {
       return (
         <div className={styles.list}>
-          <Spinner message="Loading..." center />}
+          <Spinner message="Loading..." center />
         </div>
       );
     }
@@ -159,7 +160,7 @@ const Bookings = (props) => {
     if (!performanceSet) {
       return (
         <div className={styles.document}>
-          <Spinner message="Reservaties worden geladen..." center />}
+          <Spinner message="Reservaties worden geladen..." center />
         </div>
       );
     }

@@ -8,6 +8,6 @@ export default () => {
     return isDev() ? {
         sanityGraphqlEndpoint: "https://p3ezynln.api.sanity.io/v1/graphql/development/default",
     } : {
-        sanityGraphqlEndpoint: "https://p3ezynln.api.sanity.io/v1/graphql/development/default",
+        sanityGraphqlEndpoint: "https://p3ezynln.api.sanity.io/v1/graphql/production/default",
     };
 };

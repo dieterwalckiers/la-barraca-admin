@@ -25,10 +25,3 @@ export function normalizePerformance(performanceRaw) {
     visitors: JSON.parse(performanceRaw.visitors),
   };
 }
-
-export function normalizeProduction(productionRaw) {
-  return {
-    ...omit(["_key"], productionRaw),
-    id: productionRaw._key,
-  };
-}
