@@ -94,7 +94,7 @@ const Bookings = (props) => {
 
   const { data: allPerformancesData } = useQuery(gql`
     {
-      allPerformances {
+      allPerformances(_size: 9999) {
         data {
           _id
           productionID
