@@ -14,7 +14,7 @@ export default {
       name: "slug",
       title: "Slug",
       type: "slug",
-      description: "Id om een unieke productie-link mee samen te stellen. Bv. \"ode-aan-lorca\", dan wordt dat bv. labarraca.be/2000-2001/ode-aan-lorca. Je kan dit laten genereren of zelf invullen",
+      description: "Id om een unieke productie-link mee samen te stellen. (labarraca.be/xxx). Je kan dit laten genereren of zelf invullen",
       options: {
         source: (doc, { parent }) => parent && parent.title,
         maxLength: 96

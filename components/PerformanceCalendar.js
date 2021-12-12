@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import {
     ApolloProvider as ApolloHooksProvider,
@@ -7,9 +6,9 @@ import {
 } from "@apollo/react-hooks";
 import ApolloClientProvider from "./ApolloClientProvider";
 import { gql } from "apollo-boost";
-
 import PatchEvent, { set, unset } from "part:@sanity/form-builder/patch-event";
 import styles from "./performanceCalendar.css";
+import "react-datepicker/dist/react-datepicker.css?raw"; // ?raw is to bybass sanity's css module functionality (https://github.com/sanity-io/sanity/issues/456)
 
 const DEFAULT_LOCATION = "La Barraca";
 

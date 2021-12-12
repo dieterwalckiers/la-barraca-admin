@@ -9,8 +9,11 @@ import getConfig from "../config";
 const config = getConfig();
 const { sendConfirmationMailEndpoint } = config;
 
-async function handleSendConfirmationMail(info, productionTitle, timeID) {
+async function handleSendConfirmationMail(info, productionTitle, timeID, sendConfirmation) {
   const { name, email, quantity, studentQuantity } = info;
+  if (sendConfirmation === undefined && !confirm(`Verstuur bevestigingsmail naar ${email} met deze nieuwe info?`)) {
+    return;
+  }
   await request
     .post(sendConfirmationMailEndpoint)
     .send({
@@ -106,7 +109,7 @@ const Performance = (props) => {
             console.log("newData", newData);
             try {
               await handleUpdateVisitors([...visitors, newData]);
-              await handleSendConfirmationMail(newData, production.title, timeID);
+              await handleSendConfirmationMail(newData, production.title, timeID, true);
             } catch (e) {
               console.error("error in adding", e.message || e);
             }

@@ -6,7 +6,7 @@ export default () =>
         .items([
             ...S.documentTypeListItems().filter(
                 listItem =>
-                    !["siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "ourFriends"].includes(listItem.getId())
+                    !["siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "ourFriends", "extraReservationInfo"].includes(listItem.getId())
             ),
             S.listItem()
                 .title("Instellingen")
@@ -42,5 +42,12 @@ export default () =>
                     S.editor()
                         .schemaType("ourFriends")
                         .documentId("ourFriends")
+                ),
+            S.listItem()
+                .title("Extra info bij reservatie")
+                .child(
+                    S.editor()
+                        .schemaType("extraReservationInfo")
+                        .documentId("extraReservationInfo")
                 ),
         ]);

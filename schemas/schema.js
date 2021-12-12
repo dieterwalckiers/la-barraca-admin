@@ -11,6 +11,7 @@ import siteSettings from "./siteSettings";
 import confirmationEmail from "./confirmationEmail";
 import webCopy from "./webCopy";
 import ourFriends from "./ourFriends";
+import extraReservationInfo from "./extraReservationInfo";
 import partnerLogo from "./partnerLogo";
 import feedbackEmail from "./feedbackEmail";
 
@@ -29,6 +30,7 @@ export default createSchema({
     feedbackEmail,
     webCopy,
     ourFriends,
+    extraReservationInfo,
     partnerLogo,
   ])
 });

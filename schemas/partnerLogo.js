@@ -12,6 +12,11 @@ export default {
             name: "partnerName",
             title: "Naam",
             type: "string"
+        },
+        {
+            name: "partnerUrl",
+            title: "Website url",
+            type: "string"
         }
     ],
     preview: {
