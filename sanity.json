@@ -17,6 +17,7 @@
     "my-studio-logo",
     "bookings",
     "reactions",
+    "transactionalMail",
     "@sanity/dashboard",
     "dashboard-widget-netlify"
   ],

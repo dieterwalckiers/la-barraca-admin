@@ -13,13 +13,15 @@ import schema from "part:@sanity/base/schema";
 import { gql, ApolloProvider } from "apollo-boost";
 import PerformanceSet from "./performanceSet";
 import { normalizePerformance } from "./helpers";
-import { normalizeProduction } from "../shared/helpers";
+import { normalizeSeason } from "../shared/helpers";
 import {
   ApolloProvider as ApolloHooksProvider,
   useMutation,
   useQuery,
 } from "@apollo/react-hooks";
 import ApolloClientProvider from "../shared/ApolloClientProvider";
+import ProductionTree from "../shared/ProductionTree";
+import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
@@ -28,39 +30,32 @@ import ApolloClientProvider from "../shared/ApolloClientProvider";
 // See https://github.com/css-modules/css-modules for more info.
 import styles from "../shared/ProductionInfoPlugin.css"
 
+const theme = createMuiTheme();
+
 const Bookings = (props) => {
   const { router } = props;
 
-  const [productions, setProductions] = useState();
+  const [seasons, setSeasons] = useState();
   const [allPerformances, setAllPerformances] = useState();
   const [performanceSet, setPerformanceSet] = useState();
+
+  const allProductions = useMemo(() => seasons && seasons.reduce((acc, season) => [...acc, ...season.productions], []));
 
   const handleReceiveSeasons = useCallback(
     (seasons) => {
       console.log("receiving", seasons);
-      const prods = seasons.reduce((reduced, season) => {
-        return [...reduced, ...season.productions.map(normalizeProduction)];
-      }, []);
-      setProductions(prods);
+      setSeasons(seasons.map(s => normalizeSeason(s)));
     },
-    [setProductions]
+    [setSeasons]
   );
 
   useEffect(() => {
-    //fetchAllPerformances();
     client.observable
       .fetch(
-        '*[_type == "season"]{_id,"productions": productions[]{title, _key}}'
+        '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key}}'
       )
       .subscribe(handleReceiveSeasons);
-    // If we have a document ID as part of our route, load that document as well
   }, []);
-
-  // useEffect(() => {
-  //   if (!allPerformances) {
-  //     fetchAllPerformances();
-  //   }
-  // }, [allPerformances, fetchAllPerformances]);
 
   const selectedProductionId = useMemo(
     () => router.state.selectedProductionId,
@@ -134,8 +129,8 @@ const Bookings = (props) => {
     });
   }, []);
 
-  const renderProductions = useCallback(() => {
-    if (!productions) {
+  const renderProductionTree = useCallback(() => {
+    if (!seasons) {
       return (
         <div className={styles.list}>
           <Spinner message="Loading..." center />
@@ -143,17 +138,9 @@ const Bookings = (props) => {
       );
     }
     return (
-      <ul className={styles.list}>
-        {productions.map((prod) => (
-          <li key={prod.id} className={styles.listItem}>
-            <StateLink state={{ selectedProductionId: prod.id }}>
-              {prod.title}
-            </StateLink>
-          </li>
-        ))}
-      </ul>
+      <ProductionTree seasons={seasons} />
     );
-  }, [productions]);
+  }, [seasons]);
 
   const renderPerformances = useCallback(() => {
     console.log("rnr", performanceSet);
@@ -166,7 +153,7 @@ const Bookings = (props) => {
     }
     return (
       <PerformanceSet
-        production={productions.find(p => p.id === selectedProductionId)}
+        production={allProductions.find(p => p.id === selectedProductionId)}
         performanceSet={performanceSet}
         onUpdateVisitors={onUpdateVisitors}
       />
@@ -175,7 +162,7 @@ const Bookings = (props) => {
 
   return (
     <div className={styles.container}>
-      {renderProductions()}
+      {renderProductionTree()}
       {selectedProductionId && renderPerformances()}
     </div>
   );
@@ -183,18 +170,20 @@ const Bookings = (props) => {
 
 const BookingsWrapper = (props) => {
   return (
-    <ApolloClientProvider>
-      {(apolloClient) => {
-        console.log("render children with", apolloClient);
-        return apolloClient ? (
-          <ApolloHooksProvider client={apolloClient}>
-            <Bookings {...props} />
-          </ApolloHooksProvider>
-        ) : (
+    <ThemeProvider theme={theme}>
+      <ApolloClientProvider>
+        {(apolloClient) => {
+          console.log("render children with", apolloClient);
+          return apolloClient ? (
+            <ApolloHooksProvider client={apolloClient}>
+              <Bookings {...props} />
+            </ApolloHooksProvider>
+          ) : (
             "loading"
           );
-      }}
-    </ApolloClientProvider>
+        }}
+      </ApolloClientProvider>
+    </ThemeProvider>
   );
 };
 
