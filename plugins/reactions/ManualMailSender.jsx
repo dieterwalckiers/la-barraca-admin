@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styles from "./ReactionsOverview.css";
-import Paper from '@material-ui/core/Paper';
+import { Paper } from '@mui/material';
 import * as request from "superagent";
 
 import getConfig from "./config";

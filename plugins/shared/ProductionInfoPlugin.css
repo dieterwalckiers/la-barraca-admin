@@ -22,8 +22,22 @@
 }
 
 .listItem {
-  padding: 5px;
-  border-bottom: var(--border-style);
+  padding: 8px 5px;
+}
+
+.listItem a {
+  text-decoration: none;
+  color: #444
+}
+
+.listItemActive {
+  padding: 8px 5px;
+  background-color: #4a1928;
+}
+
+.listItemActive a {
+  text-decoration: none;
+  color: white;
 }
 
 .listItem:last-child {
@@ -40,4 +54,13 @@
 
 .productionTreeWrapper {
   width: 330px;
+  min-width: 330px;
+  margin: 24px 0 0 24px;
+}
+
+.performanceSetTitle {
+  font-size: 22px;
+  color: #8f2143;
+  margin-bottom: 8px;
+  display: block;
 }

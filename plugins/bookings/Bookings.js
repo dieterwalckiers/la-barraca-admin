@@ -21,7 +21,7 @@ import {
 } from "@apollo/react-hooks";
 import ApolloClientProvider from "../shared/ApolloClientProvider";
 import ProductionTree from "../shared/ProductionTree";
-import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
@@ -30,7 +30,26 @@ import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/sty
 // See https://github.com/css-modules/css-modules for more info.
 import styles from "../shared/ProductionInfoPlugin.css"
 
-const theme = createMuiTheme();
+const theme = createTheme({
+  components: {
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          display: "flex !important",
+          padding: "0 20px !important"
+        }
+      }
+    }
+  }
+});
+
+/*
+  Concerning overrides in MuiAccordionSummary above:
+  Without these, the accordion summary's look ugly
+  This is due to a combination we use of @mui and @material-ui type packages (the former being the new ones)
+  The latter are deprecated. However material-table (which isn't official @mui) still depends on these (23/01/22)
+  TODO as soon as material-table has ditched the deprecated @material-ui packages: upgrade and remove above style overrides for MuiAccordionSummary
+*/
 
 const Bookings = (props) => {
   const { router } = props;
@@ -39,11 +58,10 @@ const Bookings = (props) => {
   const [allPerformances, setAllPerformances] = useState();
   const [performanceSet, setPerformanceSet] = useState();
 
-  const allProductions = useMemo(() => seasons && seasons.reduce((acc, season) => [...acc, ...season.productions], []));
+  const allProductions = useMemo(() => (seasons || []).reduce((acc, season) => [...acc, ...season.productions], []));
 
   const handleReceiveSeasons = useCallback(
     (seasons) => {
-      console.log("receiving", seasons);
       setSeasons(seasons.map(s => normalizeSeason(s)));
     },
     [setSeasons]
@@ -61,6 +79,7 @@ const Bookings = (props) => {
     () => router.state.selectedProductionId,
     [router]
   );
+
   const previousSelectedProductionId = usePrevious(selectedProductionId);
   const previousAllPerformances = usePrevious(allPerformances);
 
@@ -102,7 +121,6 @@ const Bookings = (props) => {
 
   useEffect(() => {
     if (allPerformancesData) {
-      console.log("allPerformancesData", allPerformancesData);
       const {
         allPerformances: { data: allPerformancesRaw },
       } = allPerformancesData;
@@ -138,12 +156,14 @@ const Bookings = (props) => {
       );
     }
     return (
-      <ProductionTree seasons={seasons} />
+      <ProductionTree
+        selectedProductionId={selectedProductionId}
+        seasons={seasons}
+      />
     );
-  }, [seasons]);
+  }, [seasons, selectedProductionId]);
 
   const renderPerformances = useCallback(() => {
-    console.log("rnr", performanceSet);
     if (!performanceSet) {
       return (
         <div className={styles.document}>

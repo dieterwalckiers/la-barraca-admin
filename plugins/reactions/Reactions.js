@@ -36,7 +36,6 @@ const Reactions = (props) => {
 
     const handleReceiveSeasons = useCallback(
         (seasons) => {
-            console.log("receiving", seasons);
             const prods = seasons.reduce((reduced, season) => {
                 return [...reduced, ...season.productions.map(normalizeProduction)];
             }, []);

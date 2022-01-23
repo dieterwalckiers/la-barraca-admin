@@ -6,7 +6,8 @@ import { byKey } from "../helpers";
 import styles from "../ProductionInfoPlugin.css"
 import { StateLink, withRouterHOC, IntentLink } from "part:@sanity/base/router";
 
-const ProductionTree = ({ seasons }) => {
+const ProductionTree = ({ selectedProductionId, seasons }) => {
+
 
     const [expandedKey, setExpandedKey] = useState();
 
@@ -21,18 +22,24 @@ const ProductionTree = ({ seasons }) => {
     }, [seasons]);
 
     const renderProductions = useCallback((productions) => {
+        console.log("render PROD, selectedProductionId is", selectedProductionId)
         return (
             <ul className={styles.list}>
-                {productions.map((prod) => (
-                    <li key={`prod${prod.id}`} className={styles.listItem}>
-                        <StateLink state={{ selectedProductionId: prod.id }}>
-                            {prod.title}
-                        </StateLink>
-                    </li>
-                ))}
+                {productions.map((prod) => {
+                    return (
+                        <li
+                            key={`prod${prod.id}`}
+                            className={selectedProductionId === prod.id ? styles.listItemActive : styles.listItem}
+                        >
+                            <StateLink state={{ selectedProductionId: prod.id }}>
+                                {prod.title}
+                            </StateLink>
+                        </li>
+                    )
+                })}
             </ul>
         )
-    }, []);
+    }, [selectedProductionId]);
 
     const renderSeason = useCallback((season, i) => {
         const { key, productions } = season;
@@ -53,7 +60,7 @@ const ProductionTree = ({ seasons }) => {
                 </AccordionDetails>
             </Accordion>
         )
-    }, [expandedKey, setExpandedKey]);
+    }, [expandedKey, setExpandedKey, renderProductions]);
 
     return (
         <div className={styles.productionTreeWrapper}>
