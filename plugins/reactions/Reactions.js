@@ -10,77 +10,62 @@ import Spinner from "part:@sanity/components/loading/spinner";
 import Preview from "part:@sanity/base/preview";
 import client from "part:@sanity/base/client";
 import schema from "part:@sanity/base/schema";
-import { gql, ApolloProvider } from "apollo-boost";
+import gql from "graphql-tag";
 import ReactionsOverview from "./ReactionsOverview";
-import { normalizeProduction } from "../shared/helpers";
+import { normalizeSeason } from "../shared/helpers";
 import { normalizeReaction } from "./helpers";
-import {
-    ApolloProvider as ApolloHooksProvider,
-    useMutation,
-    useQuery,
-} from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import ApolloClientProvider from "../shared/ApolloClientProvider";
+import ProductionTree from "../shared/ProductionTree";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
 // the values are a unique, generated class name. This allows you to write CSS
 // with only your components in mind without any conflicting class names.
 // See https://github.com/css-modules/css-modules for more info.
-import styles from "../shared/ProductionInfoPlugin.css"
+import styles from "../shared/ProductionInfoPlugin.css";
+
+const theme = createTheme({
+    components: {
+        MuiAccordionSummary: {
+            styleOverrides: {
+                root: {
+                    display: "flex !important",
+                    padding: "0 20px !important"
+                }
+            }
+        }
+    }
+});
 
 const Reactions = (props) => {
     const { router } = props;
 
-    const [productions, setProductions] = useState();
+    const [seasons, setSeasons] = useState();
     const [reactions, setReactions] = useState();
+
+    const allProductions = useMemo(() => (seasons || []).reduce((acc, season) => [...acc, ...season.productions], []));
 
     const handleReceiveSeasons = useCallback(
         (seasons) => {
-            const prods = seasons.reduce((reduced, season) => {
-                return [...reduced, ...season.productions.map(normalizeProduction)];
-            }, []);
-            setProductions(prods);
+            setSeasons(seasons.map(s => normalizeSeason(s)));
         },
-        [setProductions]
+        [setSeasons]
     );
 
     useEffect(() => {
         client.observable
             .fetch(
-                '*[_type == "season"]{_id,"productions": productions[]{title, _key}}'
+                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key}}'
             )
             .subscribe(handleReceiveSeasons);
     }, []);
 
     const selectedProductionId = useMemo(
-        () => router.state.selectedProductionId,
+        () => router.state && router.state.selectedProductionId,
         [router]
     );
-    const previousSelectedProductionId = usePrevious(selectedProductionId);
-    const previousAllReactions = usePrevious(reactions);
-
-    // useEffect(() => {
-    //     if (reactions) {
-    //         const selectedProductionIdChanged =
-    //             selectedProductionId !== previousSelectedProductionId;
-    //         const allPerformancesChanged =
-    //             reactions !== previousAllReactions;
-    //         if (
-    //             selectedProductionIdChanged ||
-    //             allPerformancesChanged ||
-    //             (selectedProductionId && !reactionsSet)
-    //         ) {
-    //             setReactionsSet(
-    //                 reactions.filter((p) => p.productionID == selectedProductionId)
-    //             );
-    //         }
-    //     }
-    // }, [
-    //     selectedProductionId,
-    //     previousSelectedProductionId,
-    //     reactionsSet,
-    //     reactions,
-    // ]);
 
     const { data: reactionsData } = useQuery(gql`
         query ReactionsByProductionID($productionID: String!) {
@@ -110,8 +95,8 @@ const Reactions = (props) => {
         }
     }, [reactionsData, setReactions]);
 
-    const renderProductions = useCallback(() => {
-        if (!productions) {
+    const renderProductionTree = useCallback(() => {
+        if (!seasons) {
             return (
                 <div className={styles.list}>
                     <Spinner message="Loading..." center />
@@ -119,17 +104,12 @@ const Reactions = (props) => {
             );
         }
         return (
-            <ul className={styles.list}>
-                {productions.map((prod) => (
-                    <li key={prod.id} className={styles.listItem}>
-                        <StateLink state={{ selectedProductionId: prod.id }}>
-                            {prod.title}
-                        </StateLink>
-                    </li>
-                ))}
-            </ul>
+            <ProductionTree
+                selectedProductionId={selectedProductionId}
+                seasons={seasons}
+            />
         );
-    }, [productions]);
+    }, [seasons, selectedProductionId]);
 
     const renderReactions = useCallback(() => {
         if (!reactions) {
@@ -141,7 +121,7 @@ const Reactions = (props) => {
         }
         return (
             <ReactionsOverview
-                production={productions.find(p => p.id === selectedProductionId)}
+                production={allProductions.find(p => p.id === selectedProductionId)}
                 reactions={reactions}
             />
         );
@@ -149,7 +129,7 @@ const Reactions = (props) => {
 
     return (
         <div className={styles.container}>
-            {renderProductions()}
+            {renderProductionTree()}
             {selectedProductionId && renderReactions()}
         </div>
     );
@@ -157,27 +137,12 @@ const Reactions = (props) => {
 
 const ReactionsWrapper = (props) => {
     return (
-        <ApolloClientProvider>
-            {(apolloClient) => {
-                console.log("render children with", apolloClient);
-                return apolloClient ? (
-                    <ApolloHooksProvider client={apolloClient}>
-                        <Reactions {...props} />
-                    </ApolloHooksProvider>
-                ) : (
-                    "loading"
-                );
-            }}
-        </ApolloClientProvider>
+        <ThemeProvider theme={theme}>
+            <ApolloClientProvider>
+                <Reactions {...props} />
+            </ApolloClientProvider>
+        </ThemeProvider>
     );
 };
 
 export default withRouterHOC(ReactionsWrapper);
-
-function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    }, [value]);
-    return ref.current;
-}

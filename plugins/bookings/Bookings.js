@@ -10,15 +10,11 @@ import Spinner from "part:@sanity/components/loading/spinner";
 import Preview from "part:@sanity/base/preview";
 import client from "part:@sanity/base/client";
 import schema from "part:@sanity/base/schema";
-import { gql, ApolloProvider } from "apollo-boost";
+import gql from "graphql-tag";
 import PerformanceSet from "./performanceSet";
 import { normalizePerformance } from "./helpers";
 import { normalizeSeason } from "../shared/helpers";
-import {
-  ApolloProvider as ApolloHooksProvider,
-  useMutation,
-  useQuery,
-} from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import ApolloClientProvider from "../shared/ApolloClientProvider";
 import ProductionTree from "../shared/ProductionTree";
 import { ThemeProvider, createTheme } from "@mui/material";
@@ -76,7 +72,7 @@ const Bookings = (props) => {
   }, []);
 
   const selectedProductionId = useMemo(
-    () => router.state.selectedProductionId,
+    () => router.state && router.state.selectedProductionId,
     [router]
   );
 
@@ -192,16 +188,7 @@ const BookingsWrapper = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <ApolloClientProvider>
-        {(apolloClient) => {
-          console.log("render children with", apolloClient);
-          return apolloClient ? (
-            <ApolloHooksProvider client={apolloClient}>
-              <Bookings {...props} />
-            </ApolloHooksProvider>
-          ) : (
-            "loading"
-          );
-        }}
+        <Bookings {...props} />
       </ApolloClientProvider>
     </ThemeProvider>
   );
