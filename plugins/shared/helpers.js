@@ -12,6 +12,7 @@ function normalizeProduction(productionRaw) {
     return {
         ...omit(["_key"], productionRaw),
         id: productionRaw._key,
+        slug: productionRaw.slug.current,
     };
 }
 
