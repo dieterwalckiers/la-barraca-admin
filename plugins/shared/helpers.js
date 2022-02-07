@@ -9,10 +9,11 @@ export function normalizeSeason(seasonRaw) {
 }
 
 function normalizeProduction(productionRaw) {
+    const slug = productionRaw.slug?.current;
     return {
         ...omit(["_key"], productionRaw),
         id: productionRaw._key,
-        slug: productionRaw.slug.current,
+        ...(slug ? { slug } : {}),
     };
 }
 
