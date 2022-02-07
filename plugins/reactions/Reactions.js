@@ -57,7 +57,7 @@ const Reactions = (props) => {
     useEffect(() => {
         client.observable
             .fetch(
-                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key}}'
+                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key, slug}}'
             )
             .subscribe(handleReceiveSeasons);
     }, []);

@@ -22,7 +22,6 @@ const ProductionTree = ({ selectedProductionId, seasons }) => {
     }, [seasons]);
 
     const renderProductions = useCallback((productions) => {
-        console.log("render PROD, selectedProductionId is", selectedProductionId)
         return (
             <ul className={styles.list}>
                 {productions.map((prod) => {

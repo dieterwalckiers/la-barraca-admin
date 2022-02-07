@@ -36,6 +36,7 @@ const ManualMailSender = ({ production }) => {
                 email,
                 productionID: production.id,
                 productionName: production.title,
+                productionSlug: production.slug,
             });
         setState("success");
         setName("");
