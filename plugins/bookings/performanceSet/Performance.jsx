@@ -167,9 +167,9 @@ const Performance = (props) => {
                 <tr>
                   <td>${v.email}</td>
                   <td>${v.name}</td>
-                  <td>${v.quantity}</td>
-                  <td>${v.telephone}</td>
-                  <td>${v.remarks}</td>
+                  <td>${v.quantity ? `${v.quantity} standaard` : ""}${v.studentQuantity ? `<br/>${v.studentQuantity} student` : ""}</td>
+                  <td>${v.telephone || ""}</td>
+                  <td>${v.remarks || ""}</td>
                 </tr>
               `).join("")}
             </tbody>
