@@ -1,5 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import MaterialTable from "material-table";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import * as request from "superagent";
 import styles from "./Performance.css";
 
@@ -26,8 +28,7 @@ async function handleSendConfirmationMail(info, productionTitle, timeID, sendCon
     });
 }
 const Performance = (props) => {
-
-  const { performance, onUpdateVisitors, production } = props;
+  const { performance, onUpdateVisitors, production, expandedTimeIDs, toggleExpandedTimeID } = props;
 
   const { timeID, timeString, visitors } = performance;
 
@@ -40,6 +41,9 @@ const Performance = (props) => {
 
   const renderEditTable = useCallback(() => (
     <MaterialTable
+      components={{
+        Container: props => <div {...props} />
+      }}
       columns={[
         { title: "Naam", field: "name" },
         { title: "Email", field: "email" },
@@ -129,7 +133,7 @@ const Performance = (props) => {
           await handleUpdateVisitors([...dataDelete]);
         },
       }}
-      title={`Voorstelling op ${timeString}`}
+      title=""
       icons={MaterialTableIcons}
       options={{ paging: false }}
     />
@@ -181,11 +185,28 @@ const Performance = (props) => {
     w.window.close();
   }, [performance]);
 
+
   return (
-    <div>
-      <label className={styles.printBtn} onClick={handleClickPrint}>Adrukken...</label>
-      {renderEditTable()}
-    </div>
+    <Accordion key={`perfacc${timeID}`}
+      expanded={expandedTimeIDs.includes(timeID)}
+      onChange={() => toggleExpandedTimeID(timeID)}
+    >
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+      >
+        <div className={styles.performanceHeader}>
+          <label className={styles.performanceHeaderTitle}>
+            {`Voorstelling op ${timeString}`}
+          </label>
+          <label className={styles.printBtn} onClick={handleClickPrint}>
+            Afdrukken...
+          </label>
+        </div>
+      </AccordionSummary>
+      <AccordionDetails>
+        {renderEditTable()}
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

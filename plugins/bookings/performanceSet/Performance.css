@@ -1,11 +1,20 @@
+.performanceHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.performanceHeaderTitle {
+    font-size: 1.2em;
+}
+
 .printBtn {
-    position: relative;
-    top: 44px;
-    left: 422px;
     z-index: 5;
     color: #0909b5;
     font-size: .9em;
     cursor: pointer;
+    margin-right: 75px;
 }
 .printBtn:hover {
     text-decoration: underline;
