@@ -17,20 +17,15 @@ const PerformanceSet = (props) => {
     setExpandedTimeIDs(updExpandedTimeIDs);
   }, [expandedTimeIDs]);
 
-  const upcomingTimeID = useMemo(() => {
-    for (const performance of performanceSet) {
-      if (performance.date.isAfter(moment())) {
-        return performance.timeID;
-      }
-    }
-    return undefined;
+  const upcomingTimeIDs = useMemo(() => {
+    return performanceSet.filter(performance => performance.date.isAfter(moment())).map(p => p.timeID);
   }, [performanceSet]);
 
   useEffect(() => {
-    if (upcomingTimeID) {
-      setExpandedTimeIDs(upcomingTimeID);
+    if (upcomingTimeIDs) {
+      setExpandedTimeIDs(upcomingTimeIDs);
     }
-  }, [upcomingTimeID]);
+  }, [upcomingTimeIDs]);
 
   return (
     <div className={styles.document}>
