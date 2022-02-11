@@ -18,7 +18,7 @@ const PerformanceSet = (props) => {
   }, [expandedTimeIDs]);
 
   const upcomingTimeIDs = useMemo(() => {
-    return performanceSet.filter(performance => performance.date.isAfter(moment())).map(p => p.timeID);
+    return performanceSet.filter(performance => performance.date.isSameOrAfter(moment().startOf("day"))).map(p => p.timeID);
   }, [performanceSet]);
 
   useEffect(() => {
