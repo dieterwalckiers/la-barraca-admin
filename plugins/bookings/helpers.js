@@ -25,3 +25,15 @@ export function normalizePerformance(performanceRaw) {
     visitors: JSON.parse(performanceRaw.visitors),
   };
 }
+
+export function countVisitors(performanceSet) {
+  return performanceSet.reduce((acc, performance) => {
+    const { visitors } = performance;
+    return acc + visitors.reduce(
+      (acc2, visitor) => acc2 +
+        (visitor.quantity ? parseInt(`${visitor.quantity}`) : 0) +
+        (visitor.studentQuantity ? parseInt(`${visitor.studentQuantity}`) : 0),
+      0
+    );
+  }, 0);
+}

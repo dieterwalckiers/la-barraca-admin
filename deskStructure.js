@@ -4,10 +4,20 @@ export default () =>
     S.list()
         .title("Content")
         .items([
-            ...S.documentTypeListItems().filter(
-                listItem =>
-                    !["siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "ourFriends", "extraReservationInfo"].includes(listItem.getId())
-            ),
+            // ...S.documentTypeListItems().filter(
+            //     listItem =>
+            //         ![ "siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "theCompany", "ourFriends", "extraReservationInfo"].includes(listItem.getId())
+            // ),
+            S.listItem()
+                .title("Seizoenen")
+                .child(
+                    S.documentTypeList("season")
+                ),
+            S.listItem()
+                .title("Pagina's")
+                .child(
+                    S.documentTypeList("page")
+                ),
             S.listItem()
                 .title("Instellingen")
                 .child(
@@ -35,6 +45,13 @@ export default () =>
                     S.editor()
                         .schemaType("webCopy")
                         .documentId("webCopy")
+                ),
+            S.listItem()
+                .title("Het gezelschap")
+                .child(
+                    S.editor()
+                        .schemaType("theCompany")
+                        .documentId("theCompany")
                 ),
             S.listItem()
                 .title("Onze vrienden")

@@ -97,6 +97,12 @@ export default {
       description: "bv. voor hernemingen. Dit zorgt ervoor dat reacties samengevoegd worden.",
       type: "array",
       of: [{ type: "string" }],
+    },
+    {
+      name: "discountedPriceLabel",
+      title: "Kortingstarief label",
+      description: "Benaming voor de kortingsprijs (default 'Studenten')",
+      type: "string",
     }
   ],
   preview: {

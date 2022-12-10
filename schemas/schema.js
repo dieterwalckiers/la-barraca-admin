@@ -11,9 +11,15 @@ import siteSettings from "./siteSettings";
 import confirmationEmail from "./confirmationEmail";
 import webCopy from "./webCopy";
 import ourFriends from "./ourFriends";
+import theCompany from "./theCompany";
 import extraReservationInfo from "./extraReservationInfo";
 import partnerLogo from "./partnerLogo";
 import feedbackEmail from "./feedbackEmail";
+import page from "./page";
+import titleElement from "./titleElement";
+import richTextElement from "./richTextElement";
+import accentedPaneElement from "./accentedPaneElement";
+import imageElement from "./imageElement";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -30,7 +36,13 @@ export default createSchema({
     feedbackEmail,
     webCopy,
     ourFriends,
+    theCompany,
     extraReservationInfo,
     partnerLogo,
+    page,
+    titleElement,
+    richTextElement,
+    accentedPaneElement,
+    imageElement,
   ])
 });

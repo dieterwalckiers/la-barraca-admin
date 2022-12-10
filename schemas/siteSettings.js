@@ -49,6 +49,12 @@ export default {
       name: "contactFormRecipient",
       title: "Contactformulier ontvanger email",
       type: "string",
+    },
+    {
+      name: "discountedPriceLabel",
+      title: "Kortingstarief label",
+      description: "Benaming voor de kortingsprijs (default 'Studenten')",
+      type: "string",
     }
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Performance from "./Performance";
 import styles from "../../shared/ProductionInfoPlugin.css";
+import { countVisitors } from "../helpers";
 import moment from "moment";
 
 const PerformanceSet = (props) => {
@@ -27,11 +28,16 @@ const PerformanceSet = (props) => {
     }
   }, [upcomingTimeIDs]);
 
+  const totalVisitorsStr = useMemo(() => {
+    const total = countVisitors(performanceSet);
+    return total ? ` (totaal: ${total})` : "";
+  }, [performanceSet]);
+
   return (
     <div className={styles.document}>
       {production && (
         <label className={styles.performanceSetTitle}>
-          {`Reservaties ${production.title}`}
+          {`Reservaties ${production.title}${totalVisitorsStr}`}
         </label>
       )}
       {performanceSet.map((p) => (

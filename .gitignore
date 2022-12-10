@@ -5,3 +5,4 @@ out
 .env.development
 .env.production
 .DS_Store
+seasonsToImport
