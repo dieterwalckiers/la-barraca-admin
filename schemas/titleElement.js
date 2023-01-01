@@ -18,7 +18,7 @@ export default {
     prepare(selection) {
       return {
         title: selection.value,
-        media: <span>H2</span>
+        media: <span>H3</span>
       };
     }
   }

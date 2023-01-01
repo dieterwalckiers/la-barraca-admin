@@ -23,7 +23,7 @@ export default {
                   <span style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>H</span>
                 ),
                 render: (props) => (
-                  <span style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>{props.children}</span>
+                  <span className="highlight" style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>{props.children}</span>
                 )
               }
             },

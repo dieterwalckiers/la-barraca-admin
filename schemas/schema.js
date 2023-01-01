@@ -10,8 +10,6 @@ import crewEntry from "./crewEntry";
 import siteSettings from "./siteSettings";
 import confirmationEmail from "./confirmationEmail";
 import webCopy from "./webCopy";
-import ourFriends from "./ourFriends";
-import theCompany from "./theCompany";
 import extraReservationInfo from "./extraReservationInfo";
 import partnerLogo from "./partnerLogo";
 import feedbackEmail from "./feedbackEmail";
@@ -35,8 +33,6 @@ export default createSchema({
     confirmationEmail,
     feedbackEmail,
     webCopy,
-    ourFriends,
-    theCompany,
     extraReservationInfo,
     partnerLogo,
     page,

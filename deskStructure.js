@@ -6,7 +6,7 @@ export default () =>
         .items([
             // ...S.documentTypeListItems().filter(
             //     listItem =>
-            //         ![ "siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "theCompany", "ourFriends", "extraReservationInfo"].includes(listItem.getId())
+            //         ![ "siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "extraReservationInfo"].includes(listItem.getId())
             // ),
             S.listItem()
                 .title("Seizoenen")
@@ -45,20 +45,6 @@ export default () =>
                     S.editor()
                         .schemaType("webCopy")
                         .documentId("webCopy")
-                ),
-            S.listItem()
-                .title("Het gezelschap")
-                .child(
-                    S.editor()
-                        .schemaType("theCompany")
-                        .documentId("theCompany")
-                ),
-            S.listItem()
-                .title("Onze vrienden")
-                .child(
-                    S.editor()
-                        .schemaType("ourFriends")
-                        .documentId("ourFriends")
                 ),
             S.listItem()
                 .title("Extra info bij reservatie")
