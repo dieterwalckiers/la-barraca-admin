@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import MaterialTable from "material-table";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -185,6 +185,9 @@ const Performance = (props) => {
     w.window.close();
   }, [performance]);
 
+  const totalReservationCount = useMemo(() => {
+    return visitors.reduce((acc, v) => acc + parseInt((v.quantity || "0")) + parseInt((v.studentQuantity || "0")), 0);
+  }, [visitors]);
 
   return (
     <Accordion key={`perfacc${timeID}`}
@@ -196,7 +199,7 @@ const Performance = (props) => {
       >
         <div className={styles.performanceHeader}>
           <label className={styles.performanceHeaderTitle}>
-            {`Voorstelling op ${timeString}`}
+            {`Voorstelling op ${timeString} (${totalReservationCount} reservaties)`}
           </label>
           <label className={styles.printBtn} onClick={handleClickPrint}>
             Afdrukken...
