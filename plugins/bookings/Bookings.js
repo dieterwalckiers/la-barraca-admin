@@ -5,19 +5,30 @@ import React, {
   useCallback,
   useRef,
 } from "react";
-import { StateLink, withRouterHOC, IntentLink } from "part:@sanity/base/router";
+import { withRouterHOC } from "part:@sanity/base/router";
 import Spinner from "part:@sanity/components/loading/spinner";
-import Preview from "part:@sanity/base/preview";
 import client from "part:@sanity/base/client";
-import schema from "part:@sanity/base/schema";
 import gql from "graphql-tag";
 import PerformanceSet from "./performanceSet";
-import { normalizePerformance } from "./helpers";
+import { buildPerformanceSet, normalizePerformance } from "./helpers";
 import { normalizeSeason } from "../shared/helpers";
 import { useQuery, useMutation } from "@apollo/client";
 import ApolloClientProvider from "../shared/ApolloClientProvider";
 import ProductionTree from "../shared/ProductionTree";
 import { ThemeProvider, createTheme } from "@mui/material";
+
+const AllPerformancesQuery = gql`
+{
+  allPerformances(_size: 9999) {
+    data {
+      _id
+      productionID
+      timeID
+      visitors
+    }
+  }
+}
+`
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
@@ -54,19 +65,22 @@ const Bookings = (props) => {
   const [allPerformances, setAllPerformances] = useState();
   const [performanceSet, setPerformanceSet] = useState();
 
-  const allProductions = useMemo(() => (seasons || []).reduce((acc, season) => [...acc, ...season.productions], []));
+  const allProductions = useMemo(
+    () => (seasons || []).reduce((acc, season) => [...acc, ...(season.productions || [])], []),
+    [seasons]
+  );
 
   const handleReceiveSeasons = useCallback(
     (seasons) => {
       setSeasons(seasons.map(s => normalizeSeason(s)));
     },
-    [setSeasons]
+    []
   );
 
   useEffect(() => {
     client.observable
       .fetch(
-        '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key}}'
+        '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, slug { current }, performanceCalendar, _key}}'
       )
       .subscribe(handleReceiveSeasons);
   }, []);
@@ -75,6 +89,12 @@ const Bookings = (props) => {
     () => router.state && router.state.selectedProductionId,
     [router]
   );
+
+  const activeProduction = useMemo(() => {
+    if (selectedProductionId) {
+      return allProductions.find(p => p.id === selectedProductionId);
+    }
+  }, [selectedProductionId, allProductions]);
 
   const previousSelectedProductionId = usePrevious(selectedProductionId);
   const previousAllPerformances = usePrevious(allPerformances);
@@ -90,9 +110,12 @@ const Bookings = (props) => {
         allPerformancesChanged ||
         (selectedProductionId && !performanceSet)
       ) {
-        setPerformanceSet(
-          allPerformances.filter((p) => p.productionID == selectedProductionId)
+        const performanceSet = activeProduction && buildPerformanceSet(
+          activeProduction.id,
+          activeProduction.performanceCalendar,
+          allPerformances.filter((p) => p.productionID == selectedProductionId),
         );
+        setPerformanceSet(performanceSet);
       }
     }
   }, [
@@ -102,18 +125,7 @@ const Bookings = (props) => {
     allPerformances,
   ]);
 
-  const { data: allPerformancesData } = useQuery(gql`
-    {
-      allPerformances(_size: 9999) {
-        data {
-          _id
-          productionID
-          timeID
-          visitors
-        }
-      }
-    }
-  `);
+  const { data: allPerformancesData } = useQuery(AllPerformancesQuery);
 
   useEffect(() => {
     if (allPerformancesData) {
@@ -124,6 +136,33 @@ const Bookings = (props) => {
       setAllPerformances(allPerfs);
     }
   }, [allPerformancesData]);
+
+  const [CreatePerformance, { data: createPerformanceData }] = useMutation(gql`
+    mutation CreatePerformance(
+      $productionID: String!,
+      $productionName: String!,
+      $productionSlug: String!,
+      $timeID: String!,
+      $visitors: String
+    ) {
+      createPerformance(
+        data: {
+          productionID: $productionID
+          productionName: $productionName
+          productionSlug: $productionSlug
+          timeID: $timeID
+          visitors: $visitors
+        }
+      ) {
+          _id
+          productionID
+          productionName
+          productionSlug
+          timeID
+          visitors
+        }
+      }
+  `, { refetchQueries: [{ query: AllPerformancesQuery }] });
 
   const [UpdatePerformance, { data }] = useMutation(gql`
     mutation UpdatePerformance($id: ID!, $visitors: String) {
@@ -136,8 +175,19 @@ const Bookings = (props) => {
     }
   `);
 
-  const onUpdateVisitors = useCallback(async (performanceId, visitors) => {
-    console.log("update", visitors);
+  const onUpdateVisitors = useCallback(async (performanceId, timeID, production, visitors) => {
+    if (!performanceId) {
+      await CreatePerformance({
+        variables: {
+          productionID: production.id,
+          productionName: production.title,
+          productionSlug: production.slug,
+          timeID,
+          visitors: JSON.stringify(visitors)
+        },
+      })
+      return;
+    }
     await UpdatePerformance({
       variables: { id: performanceId, visitors: JSON.stringify(visitors) },
     });
@@ -169,7 +219,7 @@ const Bookings = (props) => {
     }
     return (
       <PerformanceSet
-        production={allProductions.find(p => p.id === selectedProductionId)}
+        production={activeProduction}
         performanceSet={performanceSet}
         onUpdateVisitors={onUpdateVisitors}
       />
