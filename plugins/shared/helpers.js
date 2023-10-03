@@ -33,7 +33,6 @@ export function normalizePerformanceCalendar(performanceCalendarStr) {
                 return date1.isBefore(date2) ? -1 : 1;
             })
         : [];
-    console.log("normalized", performanceCalendarStr, "to", rs);
     return rs;
 }
 

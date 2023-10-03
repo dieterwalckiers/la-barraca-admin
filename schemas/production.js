@@ -103,6 +103,12 @@ export default {
       title: "Kortingstarief label",
       description: "Benaming voor de kortingsprijs (default 'Studenten')",
       type: "string",
+    },
+    {
+      name: "unbookable",
+      title: "Onboekbaar",
+      description: "Maak deze productie onboekbaar",
+      type: "boolean",
     }
   ],
   preview: {

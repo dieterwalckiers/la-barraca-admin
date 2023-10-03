@@ -19,7 +19,6 @@ function initApolloClient() {
 const ApolloClientProvider = (props) => {
   const apolloClient = useMemo(() => initApolloClient(), []);
   const { children } = props;
-  console.log("GO FOR", apolloClient);
   return (
     <ApolloProvider client={apolloClient}>
       {children}

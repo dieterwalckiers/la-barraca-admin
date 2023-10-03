@@ -40,10 +40,10 @@ const PerformanceSet = (props) => {
           {`Reservaties ${production.title}${totalVisitorsStr}`}
         </label>
       )}
-      {performanceSet.map((p) => (
+      {performanceSet.map((p,i) => (
         <Performance
           production={production}
-          key={`perf${p.id}`}
+          key={`perf${p.id}${i}`}
           performance={p}
           onUpdateVisitors={onUpdateVisitors}
           expandedTimeIDs={expandedTimeIDs}

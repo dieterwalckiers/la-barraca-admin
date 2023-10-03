@@ -123,6 +123,7 @@ const Bookings = (props) => {
     previousSelectedProductionId,
     performanceSet,
     allPerformances,
+    activeProduction,
   ]);
 
   const { data: allPerformancesData } = useQuery(AllPerformancesQuery);
