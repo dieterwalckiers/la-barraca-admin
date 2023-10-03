@@ -51,6 +51,12 @@ export default {
       title: "Voorstelling feedback vraag - info",
       type: "string",
     },
+    {
+      name: "termsAndConditions",
+      title: "Algemene voorwaarden",
+      type: "array",
+      of: [{ type: "block" }],
+    },
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
 };
