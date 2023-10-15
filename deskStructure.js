@@ -40,6 +40,13 @@ export default () =>
                         .documentId("feedbackEmail")
                 ),
             S.listItem()
+                .title("Reminder mail")
+                .child(
+                    S.editor()
+                        .schemaType("reminderEmail")
+                        .documentId("reminderEmail")
+                ),
+            S.listItem()
                 .title("Web copy")
                 .child(
                     S.editor()
