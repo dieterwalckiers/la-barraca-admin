@@ -11,6 +11,7 @@ export default {
     {
       name: "mainMessage",
       title: "Hoofdbericht",
+      description: "beschikbare variabelen: <%name%> (bv 'Jos'), <%productionname%>, <%linktoreactionform%> (link naar het reactie-formulier op de website)",
       type: "array",
       of: [{ type: "block" }],
     }
