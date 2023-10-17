@@ -13,6 +13,7 @@ import webCopy from "./webCopy";
 import extraReservationInfo from "./extraReservationInfo";
 import partnerLogo from "./partnerLogo";
 import feedbackEmail from "./feedbackEmail";
+import reminderEmail from "./reminderEmail";
 import page from "./page";
 import titleElement from "./titleElement";
 import richTextElement from "./richTextElement";
@@ -32,6 +33,7 @@ export default createSchema({
     crewEntry,
     confirmationEmail,
     feedbackEmail,
+    reminderEmail,
     webCopy,
     extraReservationInfo,
     partnerLogo,
