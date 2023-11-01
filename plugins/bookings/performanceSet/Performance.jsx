@@ -34,7 +34,7 @@ const Performance = (props) => {
 
   const handleUpdateVisitors = useCallback(
     async (visitors) => {
-      await onUpdateVisitors(performance.id, timeID, production, visitors);
+      await onUpdateVisitors({ performanceID: performance.id, timeID, production, visitors });
     },
     [onUpdateVisitors, performance]
   );

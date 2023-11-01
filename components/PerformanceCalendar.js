@@ -246,9 +246,6 @@ export default class PerformanceCalendarWrapper extends React.Component {
                 <PerformanceCalendar {...this.props} />
             </ApolloClientProvider>
         );
-        // return (
-        //     <PerformanceCalendar {...this.props} />
-        // );
     }
 
 }

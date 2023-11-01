@@ -6,7 +6,6 @@
 
 .container {
   display: flex;
-  max-height: (100vh - 20px);
   width: 100%;
   position: absolute;
   overflow-y: auto;

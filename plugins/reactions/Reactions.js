@@ -15,7 +15,6 @@ import ReactionsOverview from "./ReactionsOverview";
 import { normalizeSeason } from "../shared/helpers";
 import { normalizeReaction } from "./helpers";
 import { useQuery, useMutation } from "@apollo/client";
-import ApolloClientProvider from "../shared/ApolloClientProvider";
 import ProductionTree from "../shared/ProductionTree";
 import { ThemeProvider, createTheme } from "@mui/material";
 
@@ -138,9 +137,7 @@ const Reactions = (props) => {
 const ReactionsWrapper = (props) => {
     return (
         <ThemeProvider theme={theme}>
-            <ApolloClientProvider>
-                <Reactions {...props} />
-            </ApolloClientProvider>
+            <Reactions {...props} />
         </ThemeProvider>
     );
 };

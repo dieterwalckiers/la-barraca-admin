@@ -12,23 +12,14 @@ import gql from "graphql-tag";
 import PerformanceSet from "./performanceSet";
 import { buildPerformanceSet, normalizePerformance } from "./helpers";
 import { normalizeSeason } from "../shared/helpers";
-import { useQuery, useMutation } from "@apollo/client";
-import ApolloClientProvider from "../shared/ApolloClientProvider";
 import ProductionTree from "../shared/ProductionTree";
 import { ThemeProvider, createTheme } from "@mui/material";
+import {
+  getPerformancesForProduction,
+  createPerformance,
+  updatePerformance,
+} from "./api";
 
-const AllPerformancesQuery = gql`
-{
-  allPerformances(_size: 9999) {
-    data {
-      _id
-      productionID
-      timeID
-      visitors
-    }
-  }
-}
-`
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
@@ -36,6 +27,16 @@ const AllPerformancesQuery = gql`
 // with only your components in mind without any conflicting class names.
 // See https://github.com/css-modules/css-modules for more info.
 import styles from "../shared/ProductionInfoPlugin.css"
+import { QueryClientProvider, useQuery, QueryClient, useMutation } from "react-query";
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchIntervalInBackground: false
+    }
+  }
+});
 
 const theme = createTheme({
   components: {
@@ -85,138 +86,108 @@ const Bookings = (props) => {
       .subscribe(handleReceiveSeasons);
   }, []);
 
-  const selectedProductionId = useMemo(
-    () => router.state && router.state.selectedProductionId,
-    [router]
+  const selectedProductionSlug = useMemo(
+    () => router.state.selectedProductionSlug,
+    [router.state.selectedProductionSlug]
   );
 
-  const activeProduction = useMemo(() => {
-    if (selectedProductionId) {
-      return allProductions.find(p => p.id === selectedProductionId);
-    }
-  }, [selectedProductionId, allProductions]);
+  useEffect(() => console.log("selectedProductionSlug", selectedProductionSlug), [selectedProductionSlug])
 
-  const previousSelectedProductionId = usePrevious(selectedProductionId);
+  const activeProduction = useMemo(() => {
+    if (selectedProductionSlug) {
+      return allProductions.find(p => p.slug === selectedProductionSlug);
+    }
+  }, [selectedProductionSlug, allProductions]);
+
+  const previousSelectedProductionSlug = usePrevious(selectedProductionSlug);
   const previousAllPerformances = usePrevious(allPerformances);
 
   useEffect(() => {
     if (allPerformances) {
-      const selectedProductionIdChanged =
-        selectedProductionId !== previousSelectedProductionId;
+      const selectedProductionSlugChanged =
+        selectedProductionSlug !== previousSelectedProductionSlug;
       const allPerformancesChanged =
         allPerformances !== previousAllPerformances;
       if (
-        selectedProductionIdChanged ||
+        selectedProductionSlugChanged ||
         allPerformancesChanged ||
-        (selectedProductionId && !performanceSet)
+        (selectedProductionSlug && !performanceSet)
       ) {
         const performanceSet = activeProduction && buildPerformanceSet(
           activeProduction.id,
           activeProduction.performanceCalendar,
-          allPerformances.filter((p) => p.productionID == selectedProductionId),
+          allPerformances.filter((p) => p.productionSlug == selectedProductionSlug),
         );
         setPerformanceSet(performanceSet);
       }
     }
   }, [
-    selectedProductionId,
-    previousSelectedProductionId,
+    selectedProductionSlug,
+    previousSelectedProductionSlug,
     performanceSet,
     allPerformances,
     activeProduction,
   ]);
 
-  const { data: allPerformancesData } = useQuery(AllPerformancesQuery);
+  // const { data: allPerformancesData } = useQuery(AllPerformancesQuery);
+  // diagn: setAllPerformances via performances function
+  const { data: allPerformancesData, isLoading: queryIsLoading, isFetching: queryIsFetching } = useQuery( // isFetching is true when refetching (invalidateQueries)
+    ["performancesForProduction", selectedProductionSlug],
+    () => getPerformancesForProduction(selectedProductionSlug),
+    {
+      enabled: !!selectedProductionSlug,
+    }
+  );
+
+  useEffect(() => console.log("isLoading", isLoading), [isLoading]) // pick back up: show loader
 
   useEffect(() => {
     if (allPerformancesData) {
-      const {
-        allPerformances: { data: allPerformancesRaw },
-      } = allPerformancesData;
-      const allPerfs = allPerformancesRaw.map(normalizePerformance).sort(({ date: date1 }, { date: date2 }) => date1.isBefore(date2) ? -1 : 1);
+      const allPerfs = JSON.parse(allPerformancesData).map(normalizePerformance).sort(({ date: date1 }, { date: date2 }) => date1.isBefore(date2) ? -1 : 1);
       setAllPerformances(allPerfs);
+    } else {
+      setAllPerformances(undefined);
     }
   }, [allPerformancesData]);
 
-  const [CreatePerformance, { data: createPerformanceData }] = useMutation(gql`
-    mutation CreatePerformance(
-      $productionID: String!,
-      $productionName: String!,
-      $productionSlug: String!,
-      $timeID: String!,
-      $visitors: String
-    ) {
-      createPerformance(
-        data: {
-          productionID: $productionID
-          productionName: $productionName
-          productionSlug: $productionSlug
-          timeID: $timeID
-          visitors: $visitors
-        }
-      ) {
-          _id
-          productionID
-          productionName
-          productionSlug
-          timeID
-          visitors
-        }
-      }
-  `, { refetchQueries: [{ query: AllPerformancesQuery }] });
-
-  const [UpdatePerformance, { data }] = useMutation(gql`
-    mutation UpdatePerformance($id: ID!, $visitors: String) {
-      updatePerformance(id: $id, data: { visitors: $visitors }) {
-        _id
-        productionID
-        timeID
-        visitors
-      }
-    }
-  `);
-
-  const onUpdateVisitors = useCallback(async (performanceId, timeID, production, visitors) => {
-    if (!performanceId) {
-      await CreatePerformance({
-        variables: {
-          productionID: production.id,
-          productionName: production.title,
-          productionSlug: production.slug,
-          timeID,
-          visitors: JSON.stringify(visitors)
-        },
-      })
+  const updateVisitorsApiCall = useCallback(async ({ performanceID, timeID, production, visitors }) => {
+    if (!performanceID) {
+      await createPerformance(
+        production.id,
+        production.title,
+        production.slug,
+        timeID,
+        visitors,
+      )
       return;
     }
-    await UpdatePerformance({
-      variables: { id: performanceId, visitors: JSON.stringify(visitors) },
-    });
-  }, []);
+    await updatePerformance(selectedProductionSlug, timeID, visitors);
+  }, [selectedProductionSlug]);
+
+  const { mutate: onUpdateVisitors, isLoading: mutationIsLoading } = useMutation(
+    updateVisitorsApiCall,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["performancesForProduction", selectedProductionSlug]); // todo: invalidate "part of" query somehow, make the query more "granular" so we can control what to invalidate (to research)
+      }
+    }
+  )
 
   const renderProductionTree = useCallback(() => {
     if (!seasons) {
-      return (
-        <div className={styles.list}>
-          <Spinner message="Loading..." center />
-        </div>
-      );
+      return null;
     }
     return (
       <ProductionTree
-        selectedProductionId={selectedProductionId}
+        selectedProductionSlug={selectedProductionSlug}
         seasons={seasons}
       />
     );
-  }, [seasons, selectedProductionId]);
+  }, [seasons, selectedProductionSlug]);
 
   const renderPerformances = useCallback(() => {
     if (!performanceSet) {
-      return (
-        <div className={styles.document}>
-          <Spinner message="Reservaties worden geladen..." center />
-        </div>
-      );
+      return null;
     }
     return (
       <PerformanceSet
@@ -227,10 +198,17 @@ const Bookings = (props) => {
     );
   }, [performanceSet]);
 
+  const isLoading = queryIsLoading || queryIsFetching || mutationIsLoading;
+
   return (
     <div className={styles.container}>
-      {renderProductionTree()}
-      {selectedProductionId && renderPerformances()}
+      {!isLoading && renderProductionTree()}
+      {!isLoading && selectedProductionSlug && renderPerformances()}
+      {isLoading && (
+        <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Spinner message={mutationIsLoading ? "Wijziging wordt opgeslaan" : "Reservaties worden geladen"} center />
+        </div>
+      )}
     </div>
   );
 };
@@ -238,9 +216,9 @@ const Bookings = (props) => {
 const BookingsWrapper = (props) => {
   return (
     <ThemeProvider theme={theme}>
-      <ApolloClientProvider>
+      <QueryClientProvider client={queryClient}>
         <Bookings {...props} />
-      </ApolloClientProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };
@@ -254,3 +232,5 @@ function usePrevious(value) {
   }, [value]);
   return ref.current;
 }
+
+// diagn styles.list and styles.document: not used?

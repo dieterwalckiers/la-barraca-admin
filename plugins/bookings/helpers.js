@@ -19,11 +19,9 @@ export function normalizePerformance(performanceRaw) {
   const date = moment(dateStr, "YYYYMMDD");
 
   return {
-    ...omit(["_id"], performanceRaw),
+    ...performanceRaw,
     timeString: toTimeString(performanceRaw.timeID),
     date,
-    id: performanceRaw._id,
-    visitors: JSON.parse(performanceRaw.visitors),
   };
 }
 
