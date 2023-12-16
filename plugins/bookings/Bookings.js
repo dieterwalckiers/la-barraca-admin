@@ -129,8 +129,6 @@ const Bookings = (props) => {
     activeProduction,
   ]);
 
-  // const { data: allPerformancesData } = useQuery(AllPerformancesQuery);
-  // diagn: setAllPerformances via performances function
   const { data: allPerformancesData, isLoading: queryIsLoading, isFetching: queryIsFetching } = useQuery( // isFetching is true when refetching (invalidateQueries)
     ["performancesForProduction", selectedProductionSlug],
     () => getPerformancesForProduction(selectedProductionSlug),
@@ -232,5 +230,3 @@ function usePrevious(value) {
   }, [value]);
   return ref.current;
 }
-
-// diagn styles.list and styles.document: not used?
