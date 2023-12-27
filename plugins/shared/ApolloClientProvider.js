@@ -10,7 +10,7 @@ import { setContext } from "apollo-link-context";
 function initApolloClient() {
   console.log("initting apollo client with SANITY_STUDIO_FAUNADB_SERVER_SECRET", process.env.SANITY_STUDIO_FAUNADB_SERVER_SECRET);
   const b64encodedSecret = Buffer.from(process.env.SANITY_STUDIO_FAUNADB_SERVER_SECRET + ':').toString('base64');
-  const httpLink = createHttpLink({ uri: "https://graphql.fauna.com/graphql" });
+  const httpLink = createHttpLink({ uri: "https://graphql.eu.fauna.com/graphql" });
   const authLink = setContext(async (_, { headers }) => ({
     headers: {
       ...headers,
