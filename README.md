@@ -13,3 +13,8 @@ restoring datasets
 sanity dataset delete development
 sanity dataset export production .
 sanity dataset import ./production.tar.gz development
+
+
+secret management
+DON'T commit .env file
+
