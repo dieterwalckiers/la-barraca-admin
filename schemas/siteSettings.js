@@ -55,6 +55,12 @@ export default {
       title: "Kortingstarief label",
       description: "Benaming voor de kortingsprijs (default 'Studenten')",
       type: "string",
+    },
+    {
+      name: "reservationSystemInMaintenanceMessage",
+      title: "Bericht bij reserveringssysteem in onderhoud",
+      description: "Indien ingevuld, wordt dit bericht getoond in plaats van de reserveer-knop",
+      type: "string",
     }
   ],
   __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
