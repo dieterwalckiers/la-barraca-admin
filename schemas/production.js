@@ -92,8 +92,8 @@ export default {
       type: "string"
     },
     {
-      name: "linkedProductionIds",
-      title: "IDs van gelinkte producties",
+      name: "linkedProductionSlugs",
+      title: "Slugs van gelinkte producties",
       description: "bv. voor hernemingen. Dit zorgt ervoor dat reacties samengevoegd worden.",
       type: "array",
       of: [{ type: "string" }],

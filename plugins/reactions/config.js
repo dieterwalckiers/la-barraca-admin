@@ -6,7 +6,9 @@ function isDev() {
 export default () => {
     return isDev() ? {
         sendFeedbackMailEndpoint: "http://localhost:8888/.netlify/functions/performances/sendFeedbackMail",
+        reactionsEndpoint: "http://localhost:8888/.netlify/functions/reactions",
     } : {
         sendFeedbackMailEndpoint: "https://la-barraca.netlify.app/.netlify/functions/performances/sendFeedbackMail",
+        reactionsEndpoint: "https://la-barraca.netlify.app/.netlify/functions/reactions",
     };
 };
