@@ -6,7 +6,7 @@ import ReactionsIcon from "./ReactionsIcon";
 export default {
     title: "Reacties",
     name: "reactions",
-    router: route("/:selectedProductionSlug"),
+    router: route("/:selectedProductionSheetId"),
     icon: ReactionsIcon,
     component: Reactions,
 };

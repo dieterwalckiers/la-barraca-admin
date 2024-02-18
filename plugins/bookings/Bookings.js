@@ -81,59 +81,59 @@ const Bookings = (props) => {
   useEffect(() => {
     client.observable
       .fetch(
-        '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, slug { current }, performanceCalendar, _key}}'
+        '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, slug { current }, performanceCalendar, _key, googleSheetId}}'
       )
       .subscribe(handleReceiveSeasons);
   }, []);
 
-  const selectedProductionSlug = useMemo(
-    () => router.state.selectedProductionSlug,
-    [router.state.selectedProductionSlug]
+  const selectedProductionSheetId = useMemo(
+    () => router.state.selectedProductionSheetId,
+    [router.state.selectedProductionSheetId]
   );
 
-  useEffect(() => console.log("selectedProductionSlug", selectedProductionSlug), [selectedProductionSlug])
+  useEffect(() => console.log("selectedProductionSheetId", selectedProductionSheetId), [selectedProductionSheetId])
 
   const activeProduction = useMemo(() => {
-    if (selectedProductionSlug) {
-      return allProductions.find(p => p.slug === selectedProductionSlug);
+    if (selectedProductionSheetId) {
+      return allProductions.find(p => p.googleSheetId === selectedProductionSheetId);
     }
-  }, [selectedProductionSlug, allProductions]);
+  }, [selectedProductionSheetId, allProductions]);
 
-  const previousSelectedProductionSlug = usePrevious(selectedProductionSlug);
+  const previousSelectedProductionSheetId = usePrevious(selectedProductionSheetId);
   const previousAllPerformances = usePrevious(allPerformances);
 
   useEffect(() => {
     if (allPerformances) {
-      const selectedProductionSlugChanged =
-        selectedProductionSlug !== previousSelectedProductionSlug;
+      const selectedProductionSheetIdChanged =
+        selectedProductionSheetId !== previousSelectedProductionSheetId;
       const allPerformancesChanged =
         allPerformances !== previousAllPerformances;
       if (
-        selectedProductionSlugChanged ||
+        selectedProductionSheetIdChanged ||
         allPerformancesChanged ||
-        (selectedProductionSlug && !performanceSet)
+        (selectedProductionSheetId && !performanceSet)
       ) {
         const performanceSet = activeProduction && buildPerformanceSet(
           activeProduction.id,
           activeProduction.performanceCalendar,
-          allPerformances.filter((p) => p.productionSlug == selectedProductionSlug),
+          allPerformances.filter((p) => p.googleSheetId == selectedProductionSheetId),
         );
         setPerformanceSet(performanceSet);
       }
     }
   }, [
-    selectedProductionSlug,
-    previousSelectedProductionSlug,
+    selectedProductionSheetId,
+    previousSelectedProductionSheetId,
     performanceSet,
     allPerformances,
     activeProduction,
   ]);
 
   const { data: allPerformancesData, isLoading: queryIsLoading, isFetching: queryIsFetching } = useQuery( // isFetching is true when refetching (invalidateQueries)
-    ["performancesForProduction", selectedProductionSlug],
-    () => getPerformancesForProduction(selectedProductionSlug),
+    ["performancesForProduction", selectedProductionSheetId],
+    () => getPerformancesForProduction(selectedProductionSheetId),
     {
-      enabled: !!selectedProductionSlug,
+      enabled: !!selectedProductionSheetId,
     }
   );
 
@@ -159,14 +159,14 @@ const Bookings = (props) => {
       )
       return;
     }
-    await updatePerformance(selectedProductionSlug, timeID, visitors);
-  }, [selectedProductionSlug]);
+    await updatePerformance(selectedProductionSheetId, timeID, visitors);
+  }, [selectedProductionSheetId]);
 
   const { mutate: onUpdateVisitors, isLoading: mutationIsLoading } = useMutation(
     updateVisitorsApiCall,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["performancesForProduction", selectedProductionSlug]); // todo: invalidate "part of" query somehow, make the query more "granular" so we can control what to invalidate (to research)
+        queryClient.invalidateQueries(["performancesForProduction", selectedProductionSheetId]); // todo: invalidate "part of" query somehow, make the query more "granular" so we can control what to invalidate (to research)
       }
     }
   )
@@ -177,11 +177,11 @@ const Bookings = (props) => {
     }
     return (
       <ProductionTree
-        selectedProductionSlug={selectedProductionSlug}
+        selectedProductionSheetId={selectedProductionSheetId}
         seasons={seasons}
       />
     );
-  }, [seasons, selectedProductionSlug]);
+  }, [seasons, selectedProductionSheetId]);
 
   const renderPerformances = useCallback(() => {
     if (!performanceSet) {
@@ -201,7 +201,7 @@ const Bookings = (props) => {
   return (
     <div className={styles.container}>
       {!isLoading && renderProductionTree()}
-      {!isLoading && selectedProductionSlug && renderPerformances()}
+      {!isLoading && selectedProductionSheetId && renderPerformances()}
       {isLoading && (
         <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Spinner message={mutationIsLoading ? "Wijziging wordt opgeslaan" : "Reservaties worden geladen"} center />

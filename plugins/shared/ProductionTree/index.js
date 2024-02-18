@@ -6,7 +6,7 @@ import { byKey } from "../helpers";
 import styles from "../ProductionInfoPlugin.css"
 import { StateLink, withRouterHOC, IntentLink } from "part:@sanity/base/router";
 
-const ProductionTree = ({ selectedProductionSlug, seasons }) => {
+const ProductionTree = ({ selectedProductionSheetId, seasons }) => {
 
 
     const [expandedKey, setExpandedKey] = useState();
@@ -28,9 +28,9 @@ const ProductionTree = ({ selectedProductionSlug, seasons }) => {
                     return (
                         <li
                             key={`prod${prod.id}`}
-                            className={selectedProductionSlug === prod.slug ? styles.listItemActive : styles.listItem}
+                            className={selectedProductionSheetId === prod.googleSheetId ? styles.listItemActive : styles.listItem}
                         >
-                            <StateLink state={{ selectedProductionSlug: prod.slug }}>
+                            <StateLink state={{ selectedProductionSheetId: prod.googleSheetId }}>
                                 {prod.title}
                             </StateLink>
                         </li>
@@ -38,7 +38,7 @@ const ProductionTree = ({ selectedProductionSlug, seasons }) => {
                 })}
             </ul>
         )
-    }, [selectedProductionSlug]);
+    }, [selectedProductionSheetId]);
 
     const renderSeason = useCallback((season, i) => {
         const { key, productions } = season;

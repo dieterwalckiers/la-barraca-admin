@@ -6,7 +6,7 @@ import BookingsIcon from "./BookingsIcon";
 export default {
   title: "Reservaties",
   name: "bookings",
-  router: route("/:selectedProductionSlug"),
+  router: route("/:selectedProductionSheetId"),
   icon: BookingsIcon,
   component: Bookings,
 };

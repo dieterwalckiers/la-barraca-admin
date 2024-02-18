@@ -42,7 +42,12 @@ export function buildPerformanceSet(
   performanceCalendarStr = undefined, // These are the defined performances in the production
   productionPerformances = [], // These are the performances that have been booked
 ) {
+
+
   const performanceCalendar = normalizePerformanceCalendar(performanceCalendarStr);
+
+  console.log("performanceCalendar", performanceCalendar);
+  console.log("productionPerformances", productionPerformances);
 
   for (const performanceDefinedInProd of performanceCalendar) {
     const { timeID } = performanceDefinedInProd;

@@ -52,25 +52,25 @@ const Reactions = (props) => {
     useEffect(() => {
         client.observable
             .fetch(
-                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key, slug}}'
+                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key, slug, googleSheetId}}'
             )
             .subscribe(handleReceiveSeasons);
     }, []);
 
-    const selectedProductionSlug = useMemo(
-        () => router.state && router.state.selectedProductionSlug,
+    const selectedProductionSheetId = useMemo(
+        () => router.state && router.state.selectedProductionSheetId,
         [router]
     );
 
     useEffect(() => {
-        if (!selectedProductionSlug) {
+        if (!selectedProductionSheetId) {
             return;
         }
-        getReactionsForProduction(selectedProductionSlug).then(reactions => {
+        getReactionsForProduction(selectedProductionSheetId).then(reactions => {
             console.log("got reactions", reactions);
             setReactions(reactions);
         });
-    }, [selectedProductionSlug]);
+    }, [selectedProductionSheetId]);
 
     const renderProductionTree = useCallback(() => {
         if (!seasons) {
@@ -82,11 +82,11 @@ const Reactions = (props) => {
         }
         return (
             <ProductionTree
-                selectedProductionId={selectedProductionSlug}
+                selectedProductionId={selectedProductionSheetId}
                 seasons={seasons}
             />
         );
-    }, [seasons, selectedProductionSlug]);
+    }, [seasons, selectedProductionSheetId]);
 
     const renderReactions = useCallback(() => {
         if (!reactions) {
@@ -98,7 +98,7 @@ const Reactions = (props) => {
         }
         return (
             <ReactionsOverview
-                production={allProductions.find(p => p.slug === selectedProductionSlug)}
+                production={allProductions.find(p => p.googleSheetId === selectedProductionSheetId)}
                 reactions={reactions}
             />
         );
@@ -107,7 +107,7 @@ const Reactions = (props) => {
     return (
         <div className={styles.container}>
             {renderProductionTree()}
-            {selectedProductionSlug && renderReactions()}
+            {selectedProductionSheetId && renderReactions()}
         </div>
     );
 };
