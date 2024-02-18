@@ -109,6 +109,12 @@ export default {
       title: "Onboekbaar",
       description: "Maak deze productie onboekbaar",
       type: "boolean",
+    },
+    {
+      name: "googleSheetId",
+      title: "Google Sheet ID",
+      description: "Google sheet ID voor reservaties en reacties (wordt automatisch ingevuld)",
+      type: "string",
     }
   ],
   preview: {
