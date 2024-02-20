@@ -57,9 +57,18 @@
   margin: 24px 0 0 24px;
 }
 
+.performanceSetHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
 .performanceSetTitle {
   font-size: 22px;
   color: #8f2143;
-  margin-bottom: 8px;
+}
+
+.performanceSetSheetLink {
   display: block;
+  margin-left: 4px;
 }

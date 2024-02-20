@@ -137,7 +137,7 @@ const Bookings = (props) => {
     }
   );
 
-  useEffect(() => console.log("isLoading", isLoading), [isLoading]) // pick back up: show loader
+  useEffect(() => console.log("isLoading", isLoading), [isLoading]) // todo: show loader
 
   useEffect(() => {
     if (allPerformancesData) {
@@ -151,9 +151,7 @@ const Bookings = (props) => {
   const updateVisitorsApiCall = useCallback(async ({ performanceID, timeID, production, visitors }) => {
     if (!performanceID) {
       await createPerformance(
-        production.id,
-        production.title,
-        production.slug,
+        production.googleSheetId,
         timeID,
         visitors,
       )

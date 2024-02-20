@@ -109,30 +109,30 @@ const Performance = (props) => {
         { title: "Opmerkingen", field: "remarks" },
       ]}
       data={visitors}
-      editable={{
-        onRowAdd: async (newData) => {
-          console.log("newData", newData);
-          try {
-            await handleUpdateVisitors([...visitors, newData]);
-            await handleSendConfirmationMail(newData, production.title, timeID, true);
-          } catch (e) {
-            console.error("error in adding", e.message || e);
-          }
-        },
-        onRowUpdate: async (newData, oldData) => {
-          const dataUpdate = [...visitors];
-          const index = oldData.tableData.id;
-          dataUpdate[index] = newData;
-          await handleUpdateVisitors([...dataUpdate]);
-          await handleSendConfirmationMail(newData, production.title, timeID);
-        },
-        onRowDelete: async (oldData) => {
-          const dataDelete = [...visitors];
-          const index = oldData.tableData.id;
-          dataDelete.splice(index, 1);
-          await handleUpdateVisitors([...dataDelete]);
-        },
-      }}
+      // editable={{ // todo google-sheets-as-db: reenable and link to google sheets
+      //   onRowAdd: async (newData) => {
+      //     console.log("newData", newData);
+      //     try {
+      //       await handleUpdateVisitors([...visitors, newData]);
+      //       await handleSendConfirmationMail(newData, production.title, timeID, true);
+      //     } catch (e) {
+      //       console.error("error in adding", e.message || e);
+      //     }
+      //   },
+      //   onRowUpdate: async (newData, oldData) => {
+      //     const dataUpdate = [...visitors];
+      //     const index = oldData.tableData.id;
+      //     dataUpdate[index] = newData;
+      //     await handleUpdateVisitors([...dataUpdate]);
+      //     await handleSendConfirmationMail(newData, production.title, timeID);
+      //   },
+      //   onRowDelete: async (oldData) => {
+      //     const dataDelete = [...visitors];
+      //     const index = oldData.tableData.id;
+      //     dataDelete.splice(index, 1);
+      //     await handleUpdateVisitors([...dataDelete]);
+      //   },
+      // }}
       title=""
       icons={MaterialTableIcons}
       options={{ paging: false }}

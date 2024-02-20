@@ -12,18 +12,14 @@ export async function getPerformancesForProduction(googleSheetId) {
 }
 
 export async function createPerformance(
-    productionID,
-    productionName,
-    productionSlug,
+    googleSheetId,
     timeID,
     visitors,
 ) {
     try {
         const response = await request.post(`${performancesEndpoint}`)
             .send({
-                productionID,
-                productionName,
-                productionSlug,
+                googleSheetId,
                 timeID,
                 visitors,
             });
@@ -33,9 +29,9 @@ export async function createPerformance(
     }
 }
 
-export async function updatePerformance(productionSlug, timeID, visitors) {
+export async function updatePerformance(googleSheetId, timeID, visitors) {
     try {
-        const response = await request.put(`${performancesEndpoint}/${productionSlug}/${timeID}`)
+        const response = await request.put(`${performancesEndpoint}/${googleSheetId}/${timeID}`)
             .send({
                 visitors,
             });
