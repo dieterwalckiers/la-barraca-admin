@@ -92,8 +92,8 @@ export default {
       type: "string"
     },
     {
-      name: "linkedProductionIds",
-      title: "IDs van gelinkte producties",
+      name: "linkedProductionSlugs",
+      title: "Slugs van gelinkte producties",
       description: "bv. voor hernemingen. Dit zorgt ervoor dat reacties samengevoegd worden.",
       type: "array",
       of: [{ type: "string" }],
@@ -109,6 +109,12 @@ export default {
       title: "Onboekbaar",
       description: "Maak deze productie onboekbaar",
       type: "boolean",
+    },
+    {
+      name: "googleSheetId",
+      title: "Google Sheet ID",
+      description: "Google sheet ID voor reservaties en reacties (wordt automatisch ingevuld)",
+      type: "string",
     }
   ],
   preview: {

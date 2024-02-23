@@ -36,9 +36,18 @@ const PerformanceSet = (props) => {
   return (
     <div className={styles.document}>
       {production && (
-        <label className={styles.performanceSetTitle}>
-          {`Reservaties ${production.title}${totalVisitorsStr}`}
-        </label>
+        <div className={styles.performanceSetHeader}>
+          <label className={styles.performanceSetTitle}>
+            {`Reservaties ${production.title}${totalVisitorsStr}`}
+          </label>
+          <a
+            className={styles.performanceSetSheetLink}
+            href={`https://docs.google.com/spreadsheets/d/${production.googleSheetId}/edit`}
+            target="_blank"
+          >
+            sheet link
+          </a>
+        </div>
       )}
       {performanceSet.map((p,i) => (
         <Performance

@@ -44,7 +44,8 @@
     "react-dom": "^16.13.1",
     "sanity-plugin-dashboard-widget-netlify": "^1.0.1",
     "styled-components": "^5.2.0",
-    "superagent": "^5.2.2"
+    "superagent": "^5.2.2",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@sanity/block-tools": "^2.21.0",

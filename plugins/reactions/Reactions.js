@@ -7,17 +7,12 @@ import React, {
 } from "react";
 import { StateLink, withRouterHOC, IntentLink } from "part:@sanity/base/router";
 import Spinner from "part:@sanity/components/loading/spinner";
-import Preview from "part:@sanity/base/preview";
 import client from "part:@sanity/base/client";
-import schema from "part:@sanity/base/schema";
-import gql from "graphql-tag";
 import ReactionsOverview from "./ReactionsOverview";
 import { normalizeSeason } from "../shared/helpers";
-import { normalizeReaction } from "./helpers";
-import { useQuery, useMutation } from "@apollo/client";
-import ApolloClientProvider from "../shared/ApolloClientProvider";
 import ProductionTree from "../shared/ProductionTree";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { getReactionsForProduction } from "./api";
 
 // Sanity uses CSS modules for styling. We import a stylesheet and get an
 // object where the keys matches the class names defined in the CSS file and
@@ -57,43 +52,25 @@ const Reactions = (props) => {
     useEffect(() => {
         client.observable
             .fetch(
-                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key, slug}}'
+                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key, slug, googleSheetId}}'
             )
             .subscribe(handleReceiveSeasons);
     }, []);
 
-    const selectedProductionId = useMemo(
-        () => router.state && router.state.selectedProductionId,
+    const selectedProductionSheetId = useMemo(
+        () => router.state && router.state.selectedProductionSheetId,
         [router]
     );
 
-    const { data: reactionsData } = useQuery(gql`
-        query ReactionsByProductionID($productionID: String!) {
-            reactionsByProductionID(productionID: $productionID) {
-                data {
-                    _id
-                    productionID
-                    email
-                    name
-                    text
-                    internalReactionText
-                    score
-                    created
-                }
-            }
-        }
-    `, { variables: { productionID: selectedProductionId }, skip: !selectedProductionId });
-
     useEffect(() => {
-        if (reactionsData) {
-            console.log("reactionsData", reactionsData);
-            const {
-                reactionsByProductionID: { data: reactionsDataRaw },
-            } = reactionsData;
-            const reactions = reactionsDataRaw; // .map(normalizeReaction).sort(({ date: date1 }, { date: date2 }) => date1.isBefore(date2) ? -1 : 1);
-            setReactions(reactions.map(normalizeReaction));
+        if (!selectedProductionSheetId) {
+            return;
         }
-    }, [reactionsData, setReactions]);
+        getReactionsForProduction(selectedProductionSheetId).then(reactions => {
+            console.log("got reactions", reactions);
+            setReactions(reactions);
+        });
+    }, [selectedProductionSheetId]);
 
     const renderProductionTree = useCallback(() => {
         if (!seasons) {
@@ -105,11 +82,11 @@ const Reactions = (props) => {
         }
         return (
             <ProductionTree
-                selectedProductionId={selectedProductionId}
+                selectedProductionId={selectedProductionSheetId}
                 seasons={seasons}
             />
         );
-    }, [seasons, selectedProductionId]);
+    }, [seasons, selectedProductionSheetId]);
 
     const renderReactions = useCallback(() => {
         if (!reactions) {
@@ -121,7 +98,7 @@ const Reactions = (props) => {
         }
         return (
             <ReactionsOverview
-                production={allProductions.find(p => p.id === selectedProductionId)}
+                production={allProductions.find(p => p.googleSheetId === selectedProductionSheetId)}
                 reactions={reactions}
             />
         );
@@ -130,7 +107,7 @@ const Reactions = (props) => {
     return (
         <div className={styles.container}>
             {renderProductionTree()}
-            {selectedProductionId && renderReactions()}
+            {selectedProductionSheetId && renderReactions()}
         </div>
     );
 };
@@ -138,11 +115,10 @@ const Reactions = (props) => {
 const ReactionsWrapper = (props) => {
     return (
         <ThemeProvider theme={theme}>
-            <ApolloClientProvider>
-                <Reactions {...props} />
-            </ApolloClientProvider>
+            <Reactions {...props} />
         </ThemeProvider>
     );
 };
 
 export default withRouterHOC(ReactionsWrapper);
+

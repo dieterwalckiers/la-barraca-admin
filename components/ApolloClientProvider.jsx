@@ -24,7 +24,6 @@ const ApolloClientProvider = (props) => {
       {children}
     </ApolloProvider>
   )
-  return children(apolloClient);
 };
 
 export default ApolloClientProvider;

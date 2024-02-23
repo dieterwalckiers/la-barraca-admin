@@ -19,11 +19,9 @@ export function normalizePerformance(performanceRaw) {
   const date = moment(dateStr, "YYYYMMDD");
 
   return {
-    ...omit(["_id"], performanceRaw),
+    ...performanceRaw,
     timeString: toTimeString(performanceRaw.timeID),
     date,
-    id: performanceRaw._id,
-    visitors: JSON.parse(performanceRaw.visitors),
   };
 }
 
@@ -44,7 +42,12 @@ export function buildPerformanceSet(
   performanceCalendarStr = undefined, // These are the defined performances in the production
   productionPerformances = [], // These are the performances that have been booked
 ) {
+
+
   const performanceCalendar = normalizePerformanceCalendar(performanceCalendarStr);
+
+  console.log("performanceCalendar", performanceCalendar);
+  console.log("productionPerformances", productionPerformances);
 
   for (const performanceDefinedInProd of performanceCalendar) {
     const { timeID } = performanceDefinedInProd;
