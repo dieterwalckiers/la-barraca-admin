@@ -5,20 +5,23 @@ export default {
   fields: [
     {
       name: "linkText",
-      title: "Tekst van de link bij registratieformulier",
+      title: "Link tekst link-naar-sectie",
+      description: "(context: link die vanuit registratieformulier naar meer-info sectie verwijst op website)",
       type: "string",
     },
     {
       name: "title",
-      title: "Titel",
+      title: "Titel sectie link-naar-sectie",
+      description: "(context: link die vanuit registratieformulier naar meer-info sectie verwijst op website)",
       type: "string",
     },
     {
       name: "infoBlock",
-      title: "Infoblok 1",
+      title: "Tekst sectie link-naar-sectie",
+      description: "(context: link die vanuit registratieformulier naar meer-info sectie verwijst op website)",
       type: "array",
       of: [{ type: "block" }],
-    },
+    }
   ],
   __experimental_actions: ["create", "update", "delete", "publish"]
 };

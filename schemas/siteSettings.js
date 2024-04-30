@@ -40,6 +40,12 @@ export default {
       of: [{ type: "partnerLogo" }]
     },
     {
+      name: "partnersExtraInfo",
+      title: "Extra duiding onder partner logo's",
+      type: "array",
+      of: [{ type: "block" }],
+    },
+    {
       name: "supporterLogos",
       title: "Steun-van logo's",
       type: "array",
