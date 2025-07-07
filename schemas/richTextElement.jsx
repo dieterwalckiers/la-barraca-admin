@@ -18,14 +18,12 @@ export default {
             {
               title: "Highlight",
               value: "highlight",
-              blockEditor: {
-                icon: () => (
-                  <span style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>H</span>
-                ),
-                render: (props) => (
-                  <span className="highlight" style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>{props.children}</span>
-                )
-              }
+              icon: () => (
+                <span style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>H</span>
+              ),
+              component: (props) => (
+                <span className="highlight" style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>{props.children}</span>
+              )
             },
             { title: "Underline", value: "underline" },
             { title: "Strike", value: "strike-through" }

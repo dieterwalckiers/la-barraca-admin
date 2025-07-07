@@ -3,10 +3,10 @@ import React, { useCallback, useState, useEffect } from "react";
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { byKey } from "../helpers";
-import styles from "../ProductionInfoPlugin.css"
-import { StateLink, withRouterHOC, IntentLink } from "part:@sanity/base/router";
+import styles from "../ProductionInfoPlugin.css?inline"
+// import { StateLink, withRouterHOC, IntentLink } from "part:@sanity/base/router";
 
-const ProductionTree = ({ selectedProductionSheetId, seasons }) => {
+const ProductionTree = ({ selectedProductionSheetId, seasons, onProductionClick }) => {
 
 
     const [expandedKey, setExpandedKey] = useState();
@@ -25,20 +25,31 @@ const ProductionTree = ({ selectedProductionSheetId, seasons }) => {
         return (
             <ul className={styles.list}>
                 {productions.map((prod) => {
+                    const hasBookingData = !!prod.sheetId
                     return (
                         <li
                             key={`prod${prod.id}`}
-                            className={selectedProductionSheetId === prod.googleSheetId ? styles.listItemActive : styles.listItem}
+                            className={selectedProductionSheetId === prod.sheetId ? styles.listItemActive : styles.listItem}
                         >
-                            <StateLink state={{ selectedProductionSheetId: prod.googleSheetId }}>
-                                {prod.title}
-                            </StateLink>
+                            <button 
+                                style={{ 
+                                    background: 'none', 
+                                    border: 'none', 
+                                    color: hasBookingData ? 'inherit' : '#999', 
+                                    cursor: hasBookingData ? 'pointer' : 'default', 
+                                    textAlign: 'left' 
+                                }}
+                                onClick={() => hasBookingData && onProductionClick && onProductionClick(prod)}
+                                disabled={!hasBookingData}
+                            >
+                                {prod.title} {!hasBookingData && '(geen reservatiedata)'}
+                            </button>
                         </li>
                     )
                 })}
             </ul>
         )
-    }, [selectedProductionSheetId]);
+    }, [selectedProductionSheetId, onProductionClick]);
 
     const renderSeason = useCallback((season, i) => {
         const { key, productions } = season;

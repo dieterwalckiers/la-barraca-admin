@@ -49,5 +49,5 @@ export default {
       type: "string",
     }
   ],
-  __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
+  actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
 };

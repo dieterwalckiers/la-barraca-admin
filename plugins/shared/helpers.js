@@ -5,7 +5,7 @@ export function normalizeSeason(seasonRaw) {
     return {
         ...seasonRaw,
         key: parseInt(seasonRaw.startYear || 0) + parseInt(seasonRaw.endYear || 0),
-        productions: seasonRaw.productions.map(p => normalizeProduction(p)),
+        productions: (seasonRaw.productions || []).filter(p => p !== null).map(p => normalizeProduction(p)),
     }
 }
 
@@ -37,10 +37,14 @@ export function normalizePerformanceCalendar(performanceCalendarStr) {
 }
 
 function normalizeProduction(productionRaw) {
+    if (!productionRaw) {
+        return null;
+    }
     const slug = productionRaw.slug?.current;
     return {
         ...omit(["_key"], productionRaw),
         id: productionRaw._key,
+        sheetId: productionRaw.googleSheetId,
         ...(slug ? { slug } : {}),
     };
 }

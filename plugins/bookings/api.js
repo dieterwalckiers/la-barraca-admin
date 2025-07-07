@@ -5,9 +5,22 @@ const { performancesEndpoint } = getConfig();
 export async function getPerformancesForProduction(googleSheetId) {
     try {
         const response = await request.get(`${performancesEndpoint}/${googleSheetId}`);
-        return response.text;
+        
+        // Try to get data from response.body first (auto-parsed JSON)
+        let data = response.body;
+        
+        // If body is not available or not an array, try parsing text
+        if (!Array.isArray(data)) {
+            try {
+                data = JSON.parse(response.text);
+            } catch (parseError) {
+                data = [];
+            }
+        }
+        
+        return Array.isArray(data) ? data : [];
     } catch (error) {
-        console.error(error);
+        return [];
     }
 }
 

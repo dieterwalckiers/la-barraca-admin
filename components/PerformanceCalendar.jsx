@@ -2,15 +2,15 @@ import React, { useEffect, useState, useMemo } from "react";
 import DatePicker from "react-datepicker";
 import ApolloClientProvider from "./ApolloClientProvider";
 import gql from "graphql-tag";
-import PatchEvent, { set, unset } from "part:@sanity/form-builder/patch-event";
-import styles from "./performanceCalendar.css";
-import "react-datepicker/dist/react-datepicker.css?raw"; // ?raw is to bybass sanity's css module functionality (https://github.com/sanity-io/sanity/issues/456)
+import { set, unset } from "sanity";
+import styles from "./performanceCalendar.css?inline";
+import "react-datepicker/dist/react-datepicker.css";
 import { useQuery } from "@apollo/client";
 
 const DEFAULT_LOCATION = "La Barraca";
 
 const createPatchFrom = value =>
-    PatchEvent.from(value === "" ? unset() : set(value));
+    value === "" ? unset() : set(value);
 
 function isValidDate(d) {
     return d instanceof Date && !isNaN(d);

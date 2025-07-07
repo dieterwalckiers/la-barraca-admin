@@ -1,13 +1,7 @@
-import S from "@sanity/desk-tool/structure-builder";
-
-export default () =>
+export const structure = (S) =>
     S.list()
         .title("Content")
         .items([
-            // ...S.documentTypeListItems().filter(
-            //     listItem =>
-            //         ![ "siteSettings", "confirmationEmail", "feedbackEmail", "webCopy", "extraReservationInfo"].includes(listItem.getId())
-            // ),
             S.listItem()
                 .title("Seizoenen")
                 .child(

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Performance from "./Performance";
-import styles from "../../shared/ProductionInfoPlugin.css";
+import styles from "../../shared/ProductionInfoPlugin.css?inline";
 import { countVisitors } from "../helpers";
 import moment from "moment";
 

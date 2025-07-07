@@ -32,5 +32,5 @@ export default {
             };
         },
     },
-    __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
+    actions: [/*'create',*/ "update", /*'delete',*/ "publish"]
 };

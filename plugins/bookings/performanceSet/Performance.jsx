@@ -1,11 +1,31 @@
-import React, { useCallback, useMemo } from "react";
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import MaterialTable from "material-table";
+import React, { useCallback, useMemo, useState } from "react";
+import { 
+  Accordion, 
+  AccordionDetails, 
+  AccordionSummary, 
+  Button, 
+  Box,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select
+} from '@mui/material';
+import { DataGrid, GridActionsCellItem, GridRowModes, GridToolbarContainer } from "@mui/x-data-grid";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import PrintIcon from '@mui/icons-material/Print';
 import * as request from "superagent";
-import styles from "./Performance.css";
-
-import MaterialTableIcons from "../../shared/MaterialTableIcons";
+import styles from "./Performance.css?inline";
 
 import getConfig from "../config";
 const config = getConfig();
@@ -27,118 +47,174 @@ async function handleSendConfirmationMail(info, productionTitle, timeID, sendCon
       studentQuantity
     });
 }
+
+function EditToolbar({ setRows, setRowModesModel }) {
+  const handleClick = () => {
+    const id = Math.random().toString(36).substr(2, 9);
+    setRows((oldRows) => [...oldRows, { id, name: '', email: '', telephone: '', quantity: 0, studentQuantity: 0, remarks: '', isNew: true }]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+    }));
+  };
+
+  return (
+    <GridToolbarContainer>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        Nieuwe reservatie
+      </Button>
+    </GridToolbarContainer>
+  );
+}
+
 const Performance = (props) => {
   const { performance, onUpdateVisitors, production, expandedTimeIDs, toggleExpandedTimeID } = props;
-
   const { timeID, timeString, visitors } = performance;
 
+  const [rows, setRows] = useState(() => 
+    visitors?.map((visitor, index) => ({ 
+      id: visitor.id || index, 
+      ...visitor 
+    })) || []
+  );
+  const [rowModesModel, setRowModesModel] = useState({});
+
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === 'rowFocusOut') {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    const updatedRows = rows.filter((row) => row.id !== id);
+    setRows(updatedRows);
+    handleUpdateVisitors(updatedRows);
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow?.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = async (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    const updatedRows = rows.map((row) => (row.id === newRow.id ? updatedRow : row));
+    setRows(updatedRows);
+    
+    try {
+      await handleUpdateVisitors(updatedRows);
+      if (newRow.isNew) {
+        await handleSendConfirmationMail(newRow, production.title, timeID, true);
+      } else {
+        await handleSendConfirmationMail(newRow, production.title, timeID);
+      }
+    } catch (error) {
+      console.error('Error updating visitors:', error);
+    }
+    
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
   const handleUpdateVisitors = useCallback(
-    async (visitors) => {
-      await onUpdateVisitors({ performanceID: performance.id, timeID, production, visitors });
+    async (updatedVisitors) => {
+      await onUpdateVisitors({ 
+        performanceID: performance.id, 
+        timeID, 
+        production, 
+        visitors: updatedVisitors 
+      });
     },
-    [onUpdateVisitors, performance]
+    [onUpdateVisitors, performance, timeID, production]
   );
 
-  const renderEditTable = useCallback(() => (
-    <MaterialTable
-      components={{
-        Container: props => <div {...props} />
-      }}
-      columns={[
-        { title: "Naam", field: "name" },
-        { title: "Email", field: "email" },
-        { title: "Telefoonnummer", field: "telephone" },
-        {
-          title: "Aantal standaard",
-          field: "quantity",
-          type: "numeric",
-          lookup: {
-            0: 0,
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 4,
-            5: 5,
-            6: 6,
-            7: 7,
-            8: 8,
-            9: 9,
-            10: 10,
-            11: 11,
-            12: 12,
-            13: 13,
-            14: 14,
-            15: 15,
-            16: 16,
-            17: 17,
-            18: 18,
-            19: 19,
-            20: 20,
-          },
-          width: 100,
-        },
-        {
-          title: "Aantal student",
-          field: "studentQuantity",
-          type: "numeric",
-          lookup: {
-            0: 0,
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 4,
-            5: 5,
-            6: 6,
-            7: 7,
-            8: 8,
-            9: 9,
-            10: 10,
-            11: 11,
-            12: 12,
-            13: 13,
-            14: 14,
-            15: 15,
-            16: 16,
-            17: 17,
-            18: 18,
-            19: 19,
-            20: 20,
-          },
-          width: 100,
-        },
-        { title: "Opmerkingen", field: "remarks" },
-      ]}
-      data={visitors}
-      editable={{
-        onRowAdd: async (newData) => {
-          console.log("newData", newData);
-          try {
-            await handleUpdateVisitors([...visitors, newData]);
-            await handleSendConfirmationMail(newData, production.title, timeID, true);
-          } catch (e) {
-            console.error("error in adding", e.message || e);
-          }
-        },
-        onRowUpdate: async (newData, oldData) => {
-          console.log("newData", newData);
-          const dataUpdate = [...visitors];
-          const index = oldData.tableData.id;
-          dataUpdate[index] = newData;
-          await handleUpdateVisitors([...dataUpdate]);
-          await handleSendConfirmationMail(newData, production.title, timeID);
-        },
-        onRowDelete: async (oldData) => {
-          const dataDelete = [...visitors];
-          const index = oldData.tableData.id;
-          dataDelete.splice(index, 1);
-          await handleUpdateVisitors([...dataDelete]);
-        },
-      }}
-      title=""
-      icons={MaterialTableIcons}
-      options={{ paging: false }}
-    />
-  ), [visitors, production, timeID, MaterialTableIcons, timeString, handleUpdateVisitors, handleSendConfirmationMail]);
+  // Create quantity options (0-20)
+  const quantityOptions = Array.from({length: 21}, (_, i) => ({ value: i, label: i.toString() }));
+
+  const columns = [
+    { field: 'name', headerName: 'Naam', width: 150, editable: true },
+    { field: 'email', headerName: 'Email', width: 200, editable: true },
+    { field: 'telephone', headerName: 'Telefoonnummer', width: 150, editable: true },
+    {
+      field: 'quantity',
+      headerName: 'Aantal standaard',
+      type: 'singleSelect',
+      valueOptions: quantityOptions,
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'studentQuantity',
+      headerName: 'Aantal student',
+      type: 'singleSelect', 
+      valueOptions: quantityOptions,
+      width: 150,
+      editable: true,
+    },
+    { field: 'remarks', headerName: 'Opmerkingen', width: 200, editable: true },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Acties',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{ color: 'primary.main' }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
+  ];
 
   const handleClickPrint = useCallback(() => {
     const w = window.open();
@@ -157,60 +233,80 @@ const Performance = (props) => {
         </head>
         <body>
           <h2>Reservaties ${production.title} op ${timeString}</h2>
-          <table cellspacing="0" border="1">
-            <thead>
+          <table>
+            <tr>
+              <td><strong>Naam</strong></td>
+              <td><strong>Email</strong></td>
+              <td><strong>Telefoon</strong></td>
+              <td><strong>Standaard</strong></td>
+              <td><strong>Student</strong></td>
+              <td><strong>Opmerkingen</strong></td>
+            </tr>
+            ${rows.map(visitor => `
               <tr>
-                <th>e-mail</th>
-                <th>naam</th>
-                <th>aantal</th>
-                <th>telefoonnummer</th>
-                <th>opmerkingen</th>
+                <td>${visitor.name || ''}</td>
+                <td>${visitor.email || ''}</td>
+                <td>${visitor.telephone || ''}</td>
+                <td>${visitor.quantity || 0}</td>
+                <td>${visitor.studentQuantity || 0}</td>
+                <td>${visitor.remarks || ''}</td>
               </tr>
-            </thead>
-            <tbody>
-              ${visitors.map((v, i) => `
-                <tr>
-                  <td>${v.email}</td>
-                  <td>${v.name}</td>
-                  <td>${v.quantity ? `${v.quantity} standaard` : ""}${v.studentQuantity ? `<br/>${v.studentQuantity} student` : ""}</td>
-                  <td>${v.telephone || ""}</td>
-                  <td>${v.remarks || ""}</td>
-                </tr>
-              `).join("")}
-            </tbody>
+            `).join('')}
           </table>
         </body>
       </html>
     `);
-    w.window.print();
-    w.window.close();
-  }, [performance]);
+    w.print();
+  }, [rows, production, timeString]);
 
-  const totalReservationCount = useMemo(() => {
-    return visitors.reduce((acc, v) => acc + parseInt((v.quantity || "0")) + parseInt((v.studentQuantity || "0")), 0);
-  }, [visitors]);
+  const totalVisitors = useMemo(() => {
+    return rows.reduce((sum, visitor) => sum + (visitor.quantity || 0) + (visitor.studentQuantity || 0), 0);
+  }, [rows]);
 
   return (
-    <Accordion key={`perfacc${timeID}`}
-      expanded={expandedTimeIDs.includes(timeID)}
-      onChange={() => toggleExpandedTimeID(timeID)}
-    >
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
+    <div className={styles.performance}>
+      <Accordion 
+        expanded={expandedTimeIDs.includes(timeID)} 
+        onChange={() => toggleExpandedTimeID(timeID)}
       >
-        <div className={styles.performanceHeader}>
-          <label className={styles.performanceHeaderTitle}>
-            {`Voorstelling op ${timeString} (${totalReservationCount} reservaties)`}
-          </label>
-          <label className={styles.printBtn} onClick={handleClickPrint}>
-            Afdrukken...
-          </label>
-        </div>
-      </AccordionSummary>
-      <AccordionDetails>
-        {renderEditTable()}
-      </AccordionDetails>
-    </Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">
+            {timeString} - {totalVisitors} bezoekers
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box sx={{ height: 600, width: '100%' }}>
+            <Box sx={{ mb: 2 }}>
+              <Button 
+                variant="outlined" 
+                startIcon={<PrintIcon />} 
+                onClick={handleClickPrint}
+                sx={{ mr: 2 }}
+              >
+                Print reservaties
+              </Button>
+            </Box>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              editMode="row"
+              rowModesModel={rowModesModel}
+              onRowModesModelChange={handleRowModesModelChange}
+              onRowEditStop={handleRowEditStop}
+              processRowUpdate={processRowUpdate}
+              slots={{
+                toolbar: EditToolbar,
+              }}
+              slotProps={{
+                toolbar: { setRows, setRowModesModel },
+              }}
+              autoHeight
+              disableRowSelectionOnClick
+            />
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+    </div>
   );
 };
 

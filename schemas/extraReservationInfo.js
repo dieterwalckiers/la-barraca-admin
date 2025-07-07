@@ -23,5 +23,5 @@ export default {
       of: [{ type: "block" }],
     }
   ],
-  __experimental_actions: ["create", "update", "delete", "publish"]
+  actions: ["create", "update", "delete", "publish"]
 };

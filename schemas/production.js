@@ -1,4 +1,4 @@
-import PerformanceCalendar from "../components/PerformanceCalendar";
+import PerformanceCalendar from "../components/PerformanceCalendar.jsx";
 
 export default {
   type: "object",
@@ -71,7 +71,9 @@ export default {
       name: "performanceCalendar",
       title: "Voorstellingen",
       type: "string",
-      inputComponent: PerformanceCalendar,
+      components: {
+        input: PerformanceCalendar,
+      },
     },
     {
       name: "ticketPrice",

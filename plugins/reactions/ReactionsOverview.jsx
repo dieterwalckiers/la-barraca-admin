@@ -1,31 +1,44 @@
 import React, { useMemo } from "react";
-import MaterialTable from "material-table";
-import MaterialTableIcons from "../shared/MaterialTableIcons";
-import sharedStyles from "../shared/ProductionInfoPlugin.css";
+import { DataGrid } from "@mui/x-data-grid";
+import { Box, Typography } from "@mui/material";
+import sharedStyles from "../shared/ProductionInfoPlugin.css?inline";
 import ManualMailSender from "./ManualMailSender";
 
 const ReactionsOverview = ({ production, reactions }) => {
     const productionTitle = useMemo(() => production?.title, [production]);
+    
+    const columns = [
+        { field: "name", headerName: "Naam", width: 150 },
+        { field: "email", headerName: "Email", width: 200 },
+        { field: "date", headerName: "Datum", width: 150 },
+        { field: "score", headerName: "Score", width: 100, type: 'number' },
+        { field: "internalReactionText", headerName: "Interne reactie", width: 250 },
+        { field: "text", headerName: "Reactie op het stuk", width: 300 },
+    ];
+
+    const rows = useMemo(() => {
+        return reactions?.map((reaction, index) => ({
+            id: reaction.id || index,
+            ...reaction
+        })) || [];
+    }, [reactions]);
+
     return (
         <div className={sharedStyles.document}>
             <ManualMailSender production={production} />
-            <MaterialTable
-                columns={[
-                    { title: "Naam", field: "name", width: 100 },
-                    { title: "Email", field: "email", width: 100 },
-                    { title: "Datum", field: "date", width: 100 },
-                    {
-                        title: "Score", field: "score",
-                        width: 10,
-                    },
-                    { title: "Interne reactie", field: "internalReactionText", width: 200 },
-                    { title: "Reactie op het stuk", field: "text", width: 200 },
-                ]}
-                data={reactions}
-                title={`Reacties op ${productionTitle}`}
-                icons={MaterialTableIcons}
-                options={{ paging: false }}
-            />
+            <Box sx={{ height: 600, width: '100%', mt: 2 }}>
+                <Typography variant="h6" gutterBottom>
+                    Reacties op {productionTitle}
+                </Typography>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    pageSize={25}
+                    rowsPerPageOptions={[25, 50, 100]}
+                    disableSelectionOnClick
+                    autoHeight
+                />
+            </Box>
         </div>
     )
 }
