@@ -113,7 +113,7 @@ export default {
     {
       name: "googleSheetId",
       title: "Google Sheet ID",
-      description: "Google sheet ID voor reservaties en reacties (wordt automatisch ingevuld)",
+      description: "Google sheet ID voor reservaties en reacties",
       type: "string",
     }
   ],

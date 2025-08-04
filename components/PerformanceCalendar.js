@@ -218,23 +218,13 @@ const PerformanceCalendar = ({ value, onChange, type }) => {
         };
     }
 
-    const renderNewBtn = () => {
-        return (
-            <div>
-                <p>(tijdelijk) Als het uur verschilt van 17u en 20u, gelieve dieter een seintje te geven</p>
-                <button onClick={buildOnNew()}>Voorstelling toevoegen</button>
-            </div>
-        );
-    }
-
-
     return !performances ? (
         "loading"
     ) : (
         <div>
             <h2>{type.title}</h2>
             {performances.map(renderPerformanceInput)}
-            {renderNewBtn()}
+            <button onClick={buildOnNew()}>Voorstelling toevoegen</button>
         </div>
     );
 }
