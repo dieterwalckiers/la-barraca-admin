@@ -15,7 +15,7 @@ export default defineConfig({
   name: 'la-barraca-admin',
   title: 'La Barraca Admin',
   projectId,
-  dataset: import.meta.env.DEV ? 'development' : 'production',
+  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [
     structureTool({

@@ -3,7 +3,12 @@ interface Config {
 }
 
 function isDev(): boolean {
-  return import.meta.env.DEV;
+  // Check for Sanity studio dataset env var, fallback to NODE_ENV
+  const dataset = process.env.SANITY_STUDIO_DATASET;
+  if (dataset) {
+    return dataset === 'development';
+  }
+  return process.env.NODE_ENV === 'development';
 }
 
 export default function getConfig(): Config {

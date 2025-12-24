@@ -1,10 +1,7 @@
 # Deployment
 sanity build
-sanity graphql deploy
-
-(to deploy graphql to a specific dataset (production / development), update the api.dataset in sanity.json)
-
-sanity deploy (make sure that at this point, the dataset is set to production in sanity.json)
+npm run graphql:deploy (or `npm run graphql:deploy:dev` to target development)
+sanity deploy
 
 # restoring datasets
 sanity dataset delete development
