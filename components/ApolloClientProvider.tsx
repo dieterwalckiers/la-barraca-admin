@@ -3,10 +3,10 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
-import React, { useMemo } from "react";
+import React, { useMemo, ReactNode } from "react";
 import getConfig from "./config";
-const config = getConfig();
 
+const config = getConfig();
 const { sanityGraphqlEndpoint } = config;
 
 function initApolloClient() {
@@ -16,14 +16,18 @@ function initApolloClient() {
   });
 }
 
-const ApolloClientProvider = (props) => {
+interface ApolloClientProviderProps {
+  children: ReactNode;
+}
+
+const ApolloClientProvider = (props: ApolloClientProviderProps) => {
   const apolloClient = useMemo(() => initApolloClient(), []);
   const { children } = props;
   return (
     <ApolloProvider client={apolloClient}>
       {children}
     </ApolloProvider>
-  )
+  );
 };
 
 export default ApolloClientProvider;

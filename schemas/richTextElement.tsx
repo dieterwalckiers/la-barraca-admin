@@ -1,5 +1,13 @@
 import React from "react"
 
+const HighlightIcon = () => (
+  <span style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>H</span>
+);
+
+const HighlightDecorator = (props) => (
+  <span className="highlight" style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>{props.children}</span>
+);
+
 export default {
   type: "object",
   name: "richTextElement",
@@ -18,14 +26,8 @@ export default {
             {
               title: "Highlight",
               value: "highlight",
-              blockEditor: {
-                icon: () => (
-                  <span style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>H</span>
-                ),
-                render: (props) => (
-                  <span className="highlight" style={{ backgroundColor: "#4a1928", color: "white", padding: 2 }}>{props.children}</span>
-                )
-              }
+              icon: HighlightIcon,
+              component: HighlightDecorator,
             },
             { title: "Underline", value: "underline" },
             { title: "Strike", value: "strike-through" }

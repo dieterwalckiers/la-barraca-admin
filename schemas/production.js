@@ -71,7 +71,9 @@ export default {
       name: "performanceCalendar",
       title: "Voorstellingen",
       type: "string",
-      inputComponent: PerformanceCalendar,
+      components: {
+        input: PerformanceCalendar,
+      },
     },
     {
       name: "ticketPrice",
@@ -132,8 +134,3 @@ export default {
     },
   },
 };
-
-/*
-<iframe src="https://player.vimeo.com/video/396407429" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/396407429">La Barraca speelt &quot;Ontijdeling&quot;</a> from <a href="https://vimeo.com/user20388824">La Barraca theater-op-schoot</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-*/

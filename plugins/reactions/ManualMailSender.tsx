@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import styles from "./ReactionsOverview.css";
+import styles from "./ReactionsOverview.module.css";
 import { Paper } from '@mui/material';
 import * as request from "superagent";
 

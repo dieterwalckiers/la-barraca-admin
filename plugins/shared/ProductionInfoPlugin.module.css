@@ -32,6 +32,7 @@
 .listItemActive {
   padding: 8px 5px;
   background-color: #4a1928;
+  color: #fff;
 }
 
 .listItemActive a {

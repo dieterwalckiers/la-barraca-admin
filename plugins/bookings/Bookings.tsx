@@ -5,10 +5,8 @@ import React, {
   useCallback,
   useRef,
 } from "react";
-import { withRouterHOC } from "part:@sanity/base/router";
-import Spinner from "part:@sanity/components/loading/spinner";
-import client from "part:@sanity/base/client";
-import gql from "graphql-tag";
+import { useClient } from "sanity";
+import { Spinner, Flex, Text } from "@sanity/ui";
 import PerformanceSet from "./performanceSet";
 import { buildPerformanceSet, normalizePerformance } from "./helpers";
 import { normalizeSeason } from "../shared/helpers";
@@ -20,13 +18,7 @@ import {
   updatePerformance,
 } from "./api";
 
-
-// Sanity uses CSS modules for styling. We import a stylesheet and get an
-// object where the keys matches the class names defined in the CSS file and
-// the values are a unique, generated class name. This allows you to write CSS
-// with only your components in mind without any conflicting class names.
-// See https://github.com/css-modules/css-modules for more info.
-import styles from "../shared/ProductionInfoPlugin.css"
+import styles from "../shared/ProductionInfoPlugin.module.css";
 import { QueryClientProvider, useQuery, QueryClient, useMutation } from "react-query";
 
 export const queryClient = new QueryClient({
@@ -51,52 +43,50 @@ const theme = createTheme({
   }
 });
 
-/*
-  Concerning overrides in MuiAccordionSummary above:
-  Without these, the accordion summary's look ugly
-  This is due to a combination we use of @mui and @material-ui type packages (the former being the new ones)
-  The latter are deprecated. However material-table (which isn't official @mui) still depends on these (23/01/22)
-  TODO as soon as material-table has ditched the deprecated @material-ui packages: upgrade and remove above style overrides for MuiAccordionSummary
-*/
+interface BookingsProps {
+  tool: {
+    options?: Record<string, unknown>;
+  };
+}
 
-const Bookings = (props) => {
-  const { router } = props;
+const Bookings = (_props: BookingsProps) => {
+  const client = useClient({ apiVersion: '2024-01-01' });
 
-  const [seasons, setSeasons] = useState();
-  const [allPerformances, setAllPerformances] = useState();
-  const [performanceSet, setPerformanceSet] = useState();
+  const [seasons, setSeasons] = useState<ReturnType<typeof normalizeSeason>[]>();
+  const [allPerformances, setAllPerformances] = useState<ReturnType<typeof normalizePerformance>[]>();
+  const [performanceSet, setPerformanceSet] = useState<ReturnType<typeof buildPerformanceSet>>();
+  const [selectedProductionSheetId, setSelectedProductionSheetId] = useState<string>();
 
   const allProductions = useMemo(
-    () => (seasons || []).reduce((acc, season) => [...acc, ...(season.productions || [])], []),
+    () => (seasons || []).reduce((acc, season) => [...acc, ...(season.productions || [])], [] as Array<{ id: string; title: string; performanceCalendar: string }>),
     [seasons]
   );
 
   const handleReceiveSeasons = useCallback(
-    (seasons) => {
-      setSeasons(seasons.map(s => normalizeSeason(s)));
+    (seasonsData: Array<Record<string, unknown>>) => {
+      setSeasons(seasonsData.map(s => normalizeSeason(s)));
     },
     []
   );
 
   useEffect(() => {
-    client.observable
+    client
+      .observable
       .fetch(
         '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, slug { current }, performanceCalendar, _key}}'
       )
       .subscribe(handleReceiveSeasons);
+  }, [client, handleReceiveSeasons]);
+
+  const handleSelectProduction = useCallback((productionId: string) => {
+    setSelectedProductionSheetId(productionId);
   }, []);
-
-  const selectedProductionSheetId = useMemo(
-    () => router.state.selectedProductionSheetId,
-    [router.state.selectedProductionSheetId]
-  );
-
-  useEffect(() => console.log("selectedProductionSheetId", selectedProductionSheetId), [selectedProductionSheetId])
 
   const activeProduction = useMemo(() => {
     if (selectedProductionSheetId) {
       return allProductions.find(p => p.id === selectedProductionSheetId);
     }
+    return undefined;
   }, [selectedProductionSheetId, allProductions]);
 
   const previousSelectedProductionSheetId = usePrevious(selectedProductionSheetId);
@@ -113,12 +103,12 @@ const Bookings = (props) => {
         allPerformancesChanged ||
         (selectedProductionSheetId && !performanceSet)
       ) {
-        const performanceSet = activeProduction && buildPerformanceSet(
+        const newPerformanceSet = activeProduction && buildPerformanceSet(
           activeProduction.id,
           activeProduction.performanceCalendar,
           allPerformances.filter((p) => p.productionKey === selectedProductionSheetId),
         );
-        setPerformanceSet(performanceSet);
+        setPerformanceSet(newPerformanceSet || undefined);
       }
     }
   }, [
@@ -127,28 +117,27 @@ const Bookings = (props) => {
     performanceSet,
     allPerformances,
     activeProduction,
+    previousAllPerformances,
   ]);
 
-  const { data: allPerformancesData, isLoading: queryIsLoading, isFetching: queryIsFetching } = useQuery( // isFetching is true when refetching (invalidateQueries)
+  const { data: allPerformancesData, isLoading: queryIsLoading, isFetching: queryIsFetching } = useQuery(
     ["performancesForProduction", selectedProductionSheetId],
-    () => getPerformancesForProduction(selectedProductionSheetId),
+    () => getPerformancesForProduction(selectedProductionSheetId!),
     {
       enabled: !!selectedProductionSheetId,
     }
   );
 
-  useEffect(() => console.log("isLoading", isLoading), [isLoading]) // todo: show loader
-
   useEffect(() => {
     if (allPerformancesData) {
-      const allPerfs = JSON.parse(allPerformancesData).map(normalizePerformance).sort(({ date: date1 }, { date: date2 }) => date1.isBefore(date2) ? -1 : 1);
+      const allPerfs = JSON.parse(allPerformancesData).map(normalizePerformance).sort(({ date: date1 }: { date: { isBefore: (d: unknown) => boolean } }, { date: date2 }: { date: unknown }) => date1.isBefore(date2) ? -1 : 1);
       setAllPerformances(allPerfs);
     } else {
       setAllPerformances(undefined);
     }
   }, [allPerformancesData]);
 
-  const updateVisitorsApiCall = useCallback(async ({ performanceID, timeID, production, visitors }) => {
+  const updateVisitorsApiCall = useCallback(async ({ performanceID, timeID, production, visitors }: { performanceID?: string; timeID: string; production: { id: string }; visitors: number }) => {
     if (!performanceID) {
       await createPerformance(
         production.id,
@@ -157,14 +146,14 @@ const Bookings = (props) => {
       )
       return;
     }
-    await updatePerformance(selectedProductionSheetId, timeID, visitors);
+    await updatePerformance(selectedProductionSheetId!, timeID, visitors);
   }, [selectedProductionSheetId]);
 
   const { mutate: onUpdateVisitors, isLoading: mutationIsLoading } = useMutation(
     updateVisitorsApiCall,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["performancesForProduction", selectedProductionSheetId]); // todo: invalidate "part of" query somehow, make the query more "granular" so we can control what to invalidate (to research)
+        queryClient.invalidateQueries(["performancesForProduction", selectedProductionSheetId]);
       }
     }
   )
@@ -177,9 +166,10 @@ const Bookings = (props) => {
       <ProductionTree
         selectedProductionSheetId={selectedProductionSheetId}
         seasons={seasons}
+        onSelectProduction={handleSelectProduction}
       />
     );
-  }, [seasons, selectedProductionSheetId]);
+  }, [seasons, selectedProductionSheetId, handleSelectProduction]);
 
   const renderPerformances = useCallback(() => {
     if (!performanceSet) {
@@ -192,7 +182,7 @@ const Bookings = (props) => {
         onUpdateVisitors={onUpdateVisitors}
       />
     );
-  }, [performanceSet]);
+  }, [performanceSet, activeProduction, onUpdateVisitors]);
 
   const isLoading = queryIsLoading || queryIsFetching || mutationIsLoading;
 
@@ -201,15 +191,18 @@ const Bookings = (props) => {
       {!isLoading && renderProductionTree()}
       {!isLoading && selectedProductionSheetId && renderPerformances()}
       {isLoading && (
-        <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Spinner message={mutationIsLoading ? "Wijziging wordt opgeslaan" : "Reservaties worden geladen"} center />
-        </div>
+        <Flex align="center" justify="center" style={{ width: "100vw", height: "100vh" }}>
+          <Flex direction="column" align="center" gap={3}>
+            <Spinner muted />
+            <Text muted>{mutationIsLoading ? "Wijziging wordt opgeslaan" : "Reservaties worden geladen"}</Text>
+          </Flex>
+        </Flex>
       )}
     </div>
   );
 };
 
-const BookingsWrapper = (props) => {
+const BookingsWrapper = (props: BookingsProps) => {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
@@ -219,10 +212,10 @@ const BookingsWrapper = (props) => {
   );
 };
 
-export default withRouterHOC(BookingsWrapper);
+export default BookingsWrapper;
 
-function usePrevious(value) {
-  const ref = useRef();
+function usePrevious<T>(value: T): T | undefined {
+  const ref = useRef<T>();
   useEffect(() => {
     ref.current = value;
   }, [value]);
