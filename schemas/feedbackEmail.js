@@ -2,6 +2,11 @@ export default {
   type: "document",
   name: "feedbackEmail",
   title: "Feedback mail",
+  preview: {
+    prepare() {
+      return { title: "Feedback mail" };
+    },
+  },
   fields: [
     {
       name: "headerImage",

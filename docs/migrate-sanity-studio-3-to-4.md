@@ -186,12 +186,12 @@ npm update <package-name>
 
 After migration, verify:
 
-- [ ] `npm run build` completes without errors
-- [ ] `npm run dev` starts the development server
-- [ ] All custom plugins appear in the sidebar (Reservaties, Reacties)
-- [ ] Content editing works correctly
-- [ ] PerformanceCalendar component renders and saves
-- [ ] GraphQL deploy works: `npm run graphql:deploy:dev`
+- [x] `npm run build` completes without errors
+- [x] `npm run dev` starts the development server
+- [x] All custom plugins appear in the top bar (Reservaties, Reacties)
+- [x] Content editing works correctly
+- [x] PerformanceCalendar component renders and saves
+- [x] GraphQL deploy works: `npm run graphql:deploy:dev`
 
 ## References
 

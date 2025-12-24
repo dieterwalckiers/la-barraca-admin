@@ -2,6 +2,11 @@ export default {
   type: "document",
   name: "confirmationEmail",
   title: "Bevestigingsmail",
+  preview: {
+    prepare() {
+      return { title: "Bevestigingsmail" };
+    },
+  },
   fields: [
     {
       name: "headerImage",

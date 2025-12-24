@@ -2,6 +2,11 @@ export default {
   type: "document",
   name: "reminderEmail",
   title: "Reminder mail",
+  preview: {
+    prepare() {
+      return { title: "Reminder mail" };
+    },
+  },
   fields: [
     {
       name: "headerImage",

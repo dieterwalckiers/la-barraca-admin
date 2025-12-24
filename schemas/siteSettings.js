@@ -2,6 +2,11 @@ export default {
   name: "siteSettings",
   title: "Instellingen",
   type: "document",
+  preview: {
+    prepare() {
+      return { title: "Instellingen" };
+    },
+  },
   fields: [
     {
       name: "seats",

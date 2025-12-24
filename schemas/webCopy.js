@@ -2,6 +2,11 @@ export default {
   type: "document",
   name: "webCopy",
   title: "Web copy",
+  preview: {
+    prepare() {
+      return { title: "Web copy" };
+    },
+  },
   fields: [
     {
       name: "showMainPagePopup",

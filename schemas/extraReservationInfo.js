@@ -2,6 +2,11 @@ export default {
   type: "document",
   name: "extraReservationInfo",
   title: "Extra info bij reservatie",
+  preview: {
+    prepare() {
+      return { title: "Extra info bij reservatie" };
+    },
+  },
   fields: [
     {
       name: "linkText",
