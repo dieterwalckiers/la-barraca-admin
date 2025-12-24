@@ -81,7 +81,7 @@ const Bookings = (props) => {
   useEffect(() => {
     client.observable
       .fetch(
-        '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, slug { current }, performanceCalendar, _key, googleSheetId}}'
+        '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, slug { current }, performanceCalendar, _key}}'
       )
       .subscribe(handleReceiveSeasons);
   }, []);
@@ -95,7 +95,7 @@ const Bookings = (props) => {
 
   const activeProduction = useMemo(() => {
     if (selectedProductionSheetId) {
-      return allProductions.find(p => p.googleSheetId === selectedProductionSheetId);
+      return allProductions.find(p => p.id === selectedProductionSheetId);
     }
   }, [selectedProductionSheetId, allProductions]);
 
@@ -116,7 +116,7 @@ const Bookings = (props) => {
         const performanceSet = activeProduction && buildPerformanceSet(
           activeProduction.id,
           activeProduction.performanceCalendar,
-          allPerformances.filter((p) => p.googleSheetId == selectedProductionSheetId),
+          allPerformances.filter((p) => p.productionKey === selectedProductionSheetId),
         );
         setPerformanceSet(performanceSet);
       }
@@ -151,7 +151,7 @@ const Bookings = (props) => {
   const updateVisitorsApiCall = useCallback(async ({ performanceID, timeID, production, visitors }) => {
     if (!performanceID) {
       await createPerformance(
-        production.googleSheetId,
+        production.id,
         timeID,
         visitors,
       )

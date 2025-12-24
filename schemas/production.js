@@ -112,9 +112,10 @@ export default {
     },
     {
       name: "googleSheetId",
-      title: "Google Sheet ID",
-      description: "Google sheet ID voor reservaties en reacties",
+      title: "Google Sheet ID (niet meer gebruikt)",
+      description: "Dit veld wordt niet meer gebruikt. Reservaties en reacties worden nu opgeslagen in de database.",
       type: "string",
+      hidden: true,
     }
   ],
   preview: {

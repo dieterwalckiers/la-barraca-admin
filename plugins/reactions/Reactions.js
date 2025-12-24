@@ -52,7 +52,7 @@ const Reactions = (props) => {
     useEffect(() => {
         client.observable
             .fetch(
-                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key, slug, googleSheetId}}'
+                '*[_type == "season"]{_id,isCurrent,startYear,endYear,"productions": productions[]{title, _key, slug}}'
             )
             .subscribe(handleReceiveSeasons);
     }, []);
@@ -98,7 +98,7 @@ const Reactions = (props) => {
         }
         return (
             <ReactionsOverview
-                production={allProductions.find(p => p.googleSheetId === selectedProductionSheetId)}
+                production={allProductions.find(p => p.id === selectedProductionSheetId)}
                 reactions={reactions}
             />
         );

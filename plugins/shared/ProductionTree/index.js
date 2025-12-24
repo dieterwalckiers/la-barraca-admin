@@ -28,9 +28,9 @@ const ProductionTree = ({ selectedProductionSheetId, seasons }) => {
                     return (
                         <li
                             key={`prod${prod.id}`}
-                            className={selectedProductionSheetId === prod.googleSheetId ? styles.listItemActive : styles.listItem}
+                            className={selectedProductionSheetId === prod.id ? styles.listItemActive : styles.listItem}
                         >
-                            <StateLink state={{ selectedProductionSheetId: prod.googleSheetId }}>
+                            <StateLink state={{ selectedProductionSheetId: prod.id }}>
                                 {prod.title}
                             </StateLink>
                         </li>

@@ -2,9 +2,9 @@ import * as request from 'superagent';
 import getConfig from "./config";
 const { performancesEndpoint } = getConfig();
 
-export async function getPerformancesForProduction(googleSheetId) {
+export async function getPerformancesForProduction(productionKey) {
     try {
-        const response = await request.get(`${performancesEndpoint}/${googleSheetId}`);
+        const response = await request.get(`${performancesEndpoint}/${productionKey}`);
         return response.text;
     } catch (error) {
         console.error(error);
@@ -12,14 +12,14 @@ export async function getPerformancesForProduction(googleSheetId) {
 }
 
 export async function createPerformance(
-    googleSheetId,
+    productionKey,
     timeID,
     visitors,
 ) {
     try {
         const response = await request.post(`${performancesEndpoint}`)
             .send({
-                googleSheetId,
+                productionKey,
                 timeID,
                 visitors,
             });
@@ -29,9 +29,9 @@ export async function createPerformance(
     }
 }
 
-export async function updatePerformance(googleSheetId, timeID, visitors) {
+export async function updatePerformance(productionKey, timeID, visitors) {
     try {
-        const response = await request.put(`${performancesEndpoint}/${googleSheetId}/${timeID}`)
+        const response = await request.put(`${performancesEndpoint}/${productionKey}/${timeID}`)
             .send({
                 visitors,
             });

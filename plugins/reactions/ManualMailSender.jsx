@@ -37,7 +37,7 @@ const ManualMailSender = ({ production }) => {
                 productionID: production.id,
                 productionName: production.title,
                 productionSlug: production.slug,
-                googleSheetId: production.googleSheetId, // diagn finizjsh
+                productionKey: production.id,
             });
         setState("success");
         setName("");
