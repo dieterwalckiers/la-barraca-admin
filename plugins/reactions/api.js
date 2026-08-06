@@ -7,6 +7,7 @@ export function getReactionsForProduction(productionKey) {
     return new Promise(async (resolve, reject) => {
         const response = await request
             .get(`${getConfig().performancesEndpoint}/reactions/${productionKey}`)
+            .set("X-Api-Key", getConfig().apiKey)
             .on("error", (err) => reject(err));
         if (response.status === 200) {
             const reactionsRaw = JSON.parse(response.text || "[]");

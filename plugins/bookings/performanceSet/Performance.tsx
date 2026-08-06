@@ -30,7 +30,7 @@ import styles from "./Performance.module.css";
 
 import getConfig from "../config";
 const config = getConfig();
-const { sendConfirmationMailEndpoint } = config;
+const { sendConfirmationMailEndpoint, apiKey } = config;
 
 interface Visitor {
   name: string;
@@ -70,6 +70,7 @@ async function handleSendConfirmationMail(
   }
   await request
     .post(sendConfirmationMailEndpoint)
+    .set("X-Api-Key", apiKey)
     .send({
       productionName: productionTitle,
       timeID,

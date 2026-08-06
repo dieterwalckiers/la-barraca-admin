@@ -6,7 +6,7 @@ import * as request from "superagent";
 import getConfig from "./config";
 import { useEffect } from "react";
 const config = getConfig();
-const { sendFeedbackMailEndpoint } = config;
+const { sendFeedbackMailEndpoint, apiKey } = config;
 
 const FormInput = ({ onChange, text, value }) => {
     const handleChange = useCallback((e) => { onChange(e.target.value) }, [onChange]);
@@ -31,6 +31,7 @@ const ManualMailSender = ({ production }) => {
         setState("sending");
         await request
             .post(sendFeedbackMailEndpoint)
+            .set("X-Api-Key", apiKey)
             .send({
                 name,
                 email,
