@@ -107,6 +107,17 @@ export default {
       type: "string",
     },
     {
+      name: "uitdatabankEventId",
+      title: "UiTdatabank event ID",
+      description: "UUID van het event in UiTdatabank. Indien ingevuld kunnen bezoekers met een UiTPAS aan kansentarief reserveren. Leeg = geen UiTPAS-optie.",
+      type: "string",
+      validation: Rule => Rule.custom(
+        value => !value || /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value)
+          ? true
+          : "Dit lijkt geen geldige UUID"
+      ).warning(),
+    },
+    {
       name: "unbookable",
       title: "Onboekbaar",
       description: "Maak deze productie onboekbaar",

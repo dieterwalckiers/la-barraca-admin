@@ -31,7 +31,8 @@ export function countVisitors(performanceSet) {
     return acc + visitors.reduce(
       (acc2, visitor) => acc2 +
         (visitor.quantity ? parseInt(`${visitor.quantity}`) : 0) +
-        (visitor.studentQuantity ? parseInt(`${visitor.studentQuantity}`) : 0),
+        (visitor.studentQuantity ? parseInt(`${visitor.studentQuantity}`) : 0) +
+        (visitor.uitpasQuantity ? parseInt(`${visitor.uitpasQuantity}`) : 0),
       0
     );
   }, 0);
