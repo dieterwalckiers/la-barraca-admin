@@ -5,7 +5,7 @@ const { performancesEndpoint, apiKey } = getConfig();
 export async function getPerformancesForProduction(productionKey) {
     try {
         const response = await request
-            .get(`${performancesEndpoint}/${productionKey}`)
+            .get(`${performancesEndpoint}/${productionKey}/`)
             .set("X-Api-Key", apiKey);
         return response.text;
     } catch (error) {
@@ -19,7 +19,7 @@ export async function createPerformance(
     visitors,
 ) {
     try {
-        const response = await request.post(`${performancesEndpoint}`)
+        const response = await request.post(`${performancesEndpoint}/`)
             .set("X-Api-Key", apiKey)
             .send({
                 productionKey,
@@ -34,7 +34,7 @@ export async function createPerformance(
 
 export async function updatePerformance(productionKey, timeID, visitors) {
     try {
-        const response = await request.put(`${performancesEndpoint}/${productionKey}/${timeID}`)
+        const response = await request.put(`${performancesEndpoint}/${productionKey}/${timeID}/`)
             .set("X-Api-Key", apiKey)
             .send({
                 visitors,

@@ -10,14 +10,14 @@ export default () => {
     // server runs in AUTH_MODE=log.
     const apiKey = process.env.SANITY_STUDIO_API_KEY || "";
     return isDev() ? {
-        sendConfirmationMailEndpoint: "http://localhost:8888/.netlify/functions/performances/sendConfirmationMail",
-        sendFeedbackMailEndpoint: "http://localhost:8888/.netlify/functions/performances/sendFeedbackMail",
-        performancesEndpoint: "http://localhost:8888/.netlify/functions/performances",
+        sendConfirmationMailEndpoint: "http://localhost:3000/api/performances/sendConfirmationMail/",
+        sendFeedbackMailEndpoint: "http://localhost:3000/api/performances/sendFeedbackMail/",
+        performancesEndpoint: "http://localhost:3000/api/performances",
         apiKey,
     } : {
-            sendConfirmationMailEndpoint: "https://www.labarraca.be/.netlify/functions/performances/sendConfirmationMail",
-            sendFeedbackMailEndpoint: "https://www.labarraca.be/.netlify/functions/performances/sendFeedbackMail",
-            performancesEndpoint: "https://www.labarraca.be/.netlify/functions/performances",
+            sendConfirmationMailEndpoint: "https://www.labarraca.be/api/performances/sendConfirmationMail/",
+            sendFeedbackMailEndpoint: "https://www.labarraca.be/api/performances/sendFeedbackMail/",
+            performancesEndpoint: "https://www.labarraca.be/api/performances",
             apiKey,
         };
 };
