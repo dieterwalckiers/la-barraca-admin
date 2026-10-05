@@ -38,6 +38,11 @@ interface Visitor {
   telephone?: string;
   quantity?: number;
   studentQuantity?: number;
+  // Reservaties aan UiTPAS-kansentarief. Dit veld moet ongewijzigd mee door de
+  // volledige lees -> bewerk -> PUT cyclus: de server vervangt bij een PUT alle
+  // reservaties van deze voorstelling door wat de studio terugstuurt, dus een
+  // veld dat hier verloren gaat wordt op de server op 0 gezet.
+  uitpasQuantity?: number;
   remarks?: string;
   tableData?: { id: number };
 }
@@ -64,7 +69,7 @@ async function handleSendConfirmationMail(
   timeID: string,
   sendConfirmation?: boolean
 ) {
-  const { name, email, quantity, studentQuantity } = info;
+  const { name, email, quantity, studentQuantity, uitpasQuantity } = info;
   if (sendConfirmation === undefined && !confirm(`Verstuur bevestigingsmail naar ${email} met deze nieuwe info?`)) {
     return;
   }
@@ -77,7 +82,10 @@ async function handleSendConfirmationMail(
       name,
       email,
       quantity,
-      studentQuantity,
+      // De mailtemplate heeft maar één plaats voor "aan reductietarief", dus de
+      // optelling van student- en UiTPAS-tickets gebeurt hier. De server doet
+      // hetzelfde bij een automatische bevestiging (bookSeats).
+      studentQuantity: (studentQuantity || 0) + (uitpasQuantity || 0),
     });
 }
 
@@ -89,6 +97,7 @@ const emptyVisitor: Visitor = {
   telephone: "",
   quantity: 0,
   studentQuantity: 0,
+  uitpasQuantity: 0,
   remarks: "",
 };
 
@@ -185,7 +194,7 @@ const Performance = (props: PerformanceProps) => {
                 <tr>
                   <td>${v.email}</td>
                   <td>${v.name}</td>
-                  <td>${v.quantity ? `${v.quantity} standaard` : ""}${v.studentQuantity ? `<br/>${v.studentQuantity} student` : ""}</td>
+                  <td>${v.quantity ? `${v.quantity} standaard` : ""}${v.studentQuantity ? `<br/>${v.studentQuantity} student` : ""}${v.uitpasQuantity ? `<br/>${v.uitpasQuantity} UiTPAS` : ""}</td>
                   <td>${v.telephone || ""}</td>
                   <td>${v.remarks || ""}</td>
                 </tr>
@@ -202,7 +211,7 @@ const Performance = (props: PerformanceProps) => {
   }, [production, timeString, visitors]);
 
   const totalReservationCount = useMemo(() => {
-    return visitors.reduce((acc, v) => acc + (v.quantity || 0) + (v.studentQuantity || 0), 0);
+    return visitors.reduce((acc, v) => acc + (v.quantity || 0) + (v.studentQuantity || 0) + (v.uitpasQuantity || 0), 0);
   }, [visitors]);
 
   return (
@@ -237,6 +246,7 @@ const Performance = (props: PerformanceProps) => {
                   <TableCell>Telefoonnummer</TableCell>
                   <TableCell>Aantal standaard</TableCell>
                   <TableCell>Aantal student</TableCell>
+                  <TableCell>Aantal UiTPAS</TableCell>
                   <TableCell>Opmerkingen</TableCell>
                   <TableCell>Acties</TableCell>
                 </TableRow>
@@ -249,6 +259,7 @@ const Performance = (props: PerformanceProps) => {
                     <TableCell>{v.telephone || ""}</TableCell>
                     <TableCell>{v.quantity || 0}</TableCell>
                     <TableCell>{v.studentQuantity || 0}</TableCell>
+                    <TableCell>{v.uitpasQuantity || 0}</TableCell>
                     <TableCell>{v.remarks || ""}</TableCell>
                     <TableCell>
                       <IconButton size="small" onClick={() => handleOpenEdit(v, index)}>
@@ -309,6 +320,18 @@ const Performance = (props: PerformanceProps) => {
               {quantityOptions.map((n) => (
                 <MenuItem key={n} value={n}>
                   {n} student
+                </MenuItem>
+              ))}
+            </Select>
+            <Select
+              value={editingVisitor?.uitpasQuantity || 0}
+              onChange={(e) => handleFieldChange("uitpasQuantity", e.target.value as number)}
+              fullWidth
+              displayEmpty
+            >
+              {quantityOptions.map((n) => (
+                <MenuItem key={n} value={n}>
+                  {n} UiTPAS
                 </MenuItem>
               ))}
             </Select>
