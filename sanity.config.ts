@@ -15,7 +15,9 @@ export default defineConfig({
   name: 'la-barraca-admin',
   title: 'La Barraca Admin',
   projectId,
-  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
+  // Built studios (`sanity build`/`deploy`) always use production, whatever .env says;
+  // only `sanity dev` honours SANITY_STUDIO_DATASET.
+  dataset: process.env.NODE_ENV === 'production' ? 'production' : process.env.SANITY_STUDIO_DATASET || 'development',
 
   plugins: [
     structureTool({
