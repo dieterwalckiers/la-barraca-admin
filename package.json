@@ -10,6 +10,7 @@
     "dev": "SANITY_STUDIO_DATASET=development sanity dev",
     "start": "sanity dev",
     "build": "sanity build",
+    "predeploy": "node -e \"if (!/^\\\\S+$/.test(process.env.SANITY_STUDIO_API_KEY || '')) { console.error('SANITY_STUDIO_API_KEY is missing or invalid: pass the real API_SHARED_SECRET value inline.'); process.exit(1) }\"",
     "deploy": "sanity deploy",
     "graphql:deploy": "sanity graphql deploy",
     "graphql:deploy:dev": "SANITY_STUDIO_DATASET=development sanity graphql deploy"
